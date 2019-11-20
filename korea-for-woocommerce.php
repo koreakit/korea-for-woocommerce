@@ -1,0 +1,44 @@
+<?php
+/**
+ * Plugin Name: Korea for WooCommerce
+ * Plugin URI: https://wordpress.org/plugins/korea-for-woocommerce/
+ * Description: WooCommerce Toolkit for Korean use.
+ * Version: 1.0.0
+ * Author: GREYS
+ * Author URI: https://greys.co/
+ * Requires at least: 4.9.0
+ * Tested up to: 5.3.0
+ * WC requires at least: 3.0.0
+ * WC tested up to: 3.7.1
+ *
+ * Text Domain: korea-for-woocommerce
+ * Domain Path: /i18n/
+ *
+ * @package korea-for-woocommerce
+ * @author  GREYS
+ */
+
+defined( 'ABSPATH' ) || exit;
+
+// Define Constants
+define('WC_KOREA_VERSION', '1.0.0');
+define('WC_KOREA_INSTANCE', str_replace(['https://', 'http://'], '', trim(network_site_url(), '')));
+define('WC_KOREA_MAIN_FILE', __FILE__);
+define('WC_KOREA_ABSPATH', dirname( __FILE__ ));
+define('WC_KOREA_PLUGIN_URL', untrailingslashit(plugins_url(basename(plugin_dir_path(__FILE__)), basename(__FILE__ ))));
+define('WC_KOREA_PLUGIN_PATH', untrailingslashit(plugin_dir_path(__FILE__)));
+
+// Include the main WC_Korea class.
+if ( ! class_exists('WC_Korea') ) {
+	include_once dirname( __FILE__ ) . '/includes/class-wc-korea.php';
+}
+
+/**
+* Hook to run when your plugin is activated
+*/
+register_activation_hook( __FILE__, array( 'WC_Korea', 'install' ) );
+
+/**
+* Initialize the plugin.
+*/
+add_action( 'plugins_loaded', array( 'WC_Korea', 'get_instance' ) );
