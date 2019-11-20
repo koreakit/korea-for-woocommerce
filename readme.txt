@@ -17,7 +17,7 @@ This plugin enhance the shopping experience for your Korean customers by extendi
 2. Add the postcode finder feature for Korean adresses.
 3. Add Naver Analytics feature.
 4. Add your products on Naver Shopping and/or Daum Shopping.
-5. Add delivery companies to \"WooCommerce Shipment Tracking\"
+5. Add korean delivery companies to "WooCommerce Shipment Tracking"
 6. Answer your customers questions with the chat buttons of Kakao Channel or Naver TalkTalk.
 
 == Installation ==
