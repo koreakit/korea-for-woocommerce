@@ -13,7 +13,7 @@ class WC_Korea_Postcode {
 	public function __construct() {
 		$this->settings = get_option('woocommerce_korea_settings');
 
-		if ( ! isset($this->settings['postcode']) || 'yes' !== $this->settings['postcode'] ) {
+		if ( ! isset($this->settings['postcode_yn']) || 'yes' !== $this->settings['postcode_yn'] ) {
 			return;
 		}
 
