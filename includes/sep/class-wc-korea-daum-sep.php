@@ -17,18 +17,18 @@ class WC_Korea_Daum_SEP {
 			return;
 		}
 
-		add_action('template_redirect', array($this, 'template_redirect'));
+		add_action('template_include', array($this, 'template_include'));
 	}
 
-	public function template_redirect() {
+	public function template_include( $original_template ) {
 		$wc_sep = get_query_var('wc-sep');
 
 		if ( ! $wc_sep ) {
-			return;
+			return $original_template;
 		}
 
 		if ( 'daum' !== $wc_sep ) {
-			return;
+			return $original_template;
 		}
 
 		$products = new WP_Query([
@@ -89,8 +89,7 @@ class WC_Korea_Daum_SEP {
 
 		wp_reset_postdata();
 		
-		echo ob_get_clean();
-		exit;
+		return ob_get_clean();
 	}
 
 }

@@ -5,11 +5,11 @@ Tested up to: 5.3.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-This plugin enhance the shopping experience for your Korean customers by extending the WooCommerce plugin.
+This plugin enhance the shopping experience for your Korean customers. Korean Payments, Postcode Finder, Naver Analytics, Naver Shopping EP (Engine Page) and more !
 
 == Description ==
 
-This plugin enhance the shopping experience for your Korean customers by extending the WooCommerce plugin.
+This plugin enhance the shopping experience for your Korean customers. Korean Payments, Postcode Finder, Naver Analytics, Naver/Daum Shopping EP (Engine Page) and more !
 
 = Key Features =
 
