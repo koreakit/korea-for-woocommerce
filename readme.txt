@@ -1,24 +1,36 @@
 === Korea for WooCommerce ===
-Tags: woocommerce, korea, korean payment gateway, korean pg
+Tags: woocommerce, korea, korean payment, woocommerce korean payment, inicis, kakaopay, kcp, lguplus, naverpay, nicepay, payco, tosspay, 우커머스 결제, 워드프레스 결제, 우커머스 이니시스, 워드프레스 이니시스, 우커머스 카카오페이, 워드프레스 카카오페이, 워드프레스 네이버페이, 워드프레스 네이버페이, 우커머스 나이스페이, 워드프레스 나이스페이, 우커머스 토스페이, 워드프레스 토스페이, 우커머스 페이코, 워드프레스 페이코
 Requires at least: 4.9.0
 Tested up to: 5.3.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-This plugin enhance the shopping experience for your Korean customers with WooCommerce. Korean Payments, Postcode Finder, Naver Analytics, Naver Shopping EP & more !
+This plugin enhance the shopping experience for your Korean customers with WooCommerce. Korean Payments, Postcode Finder, Naver Analytics, Naver Shopping EP & more.
 
 == Description ==
 
-This plugin enhance the shopping experience for your Korean customers with WooCommerce. Korean Payments, Postcode Finder, Naver Analytics, Naver Shopping EP & more
+This plugin enhance the shopping experience for your Korean customers with WooCommerce. Korean Payments, Postcode Finder, Naver Analytics, Naver Shopping EP & more.
 
 = Key Features =
 
-1. Change the order of the address fields for Korea.
-2. Add the postcode finder feature for Korean adresses.
-3. Add Naver Analytics feature.
-4. Add your products on Naver Shopping and/or Daum Shopping.
-5. Add korean delivery companies to "WooCommerce Shipment Tracking"
-6. Answer your customers questions with the chat buttons of Kakao Channel or Naver TalkTalk.
+* Change the order of the address fields for Korea.
+* Add the postcode finder feature for Korean adresses.
+* Add Naver Analytics feature.
+* Add your products on Naver Shopping and/or Daum Shopping.
+* Add korean delivery companies to "WooCommerce Shipment Tracking"
+* Answer your customers questions with the chat buttons of Kakao Channel or Naver TalkTalk.
+
+= Addons =
+
+* Korea for WooCommerce Pro (coming soon)
+* KG INICIS for WooCommerce
+* KakaoPay for WooCommerce
+* NHN KCP for WooCommerce
+* LGU+ for WooCommerce
+* NaverPay for WooCommerce (free)
+* NICEPAY for WooCommerce
+* PAYCO for WooCommerce
+* TossPay for WooCommerce
 
 == Installation ==
 
