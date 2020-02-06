@@ -33,9 +33,14 @@ class WC_Korea_Integration extends WC_Integration {
 	 * @return void
 	 */
 	public function init_form_fields() {
-		if ( file_exists( WC_KOREA_PLUGIN_PATH . '/includes/admin/settings/'. sanitize_title($this->category) .'.php' ) ) {
-			$this->form_fields = require( WC_KOREA_PLUGIN_PATH . '/includes/admin/settings/'. sanitize_title($this->category) .'.php' );
+		$filename = sanitize_title($this->category) .'.php';
+
+		if ( ! file_exists( WC_KOREA_PLUGIN_PATH . '/includes/admin/settings/'. $filename ) ) {
+			$this->form_fields = [];
+			return;
 		}
+
+		$this->form_fields = require( WC_KOREA_PLUGIN_PATH . '/includes/admin/settings/'. $filename );
 	}
 
 	/**

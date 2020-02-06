@@ -23,19 +23,12 @@ class WC_Korea_Naver_TalkTalk {
 
 		// Load JS Library
 		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_scripts' ) );
-		
-		// Hook Product Page
-		if ( ! empty($this->settings['navertalktalk_productpage']) ) {
-			add_action('woocommerce_'. $this->settings['navertalktalk_productpage'], array($this, 'display_button'));
-		}
-
-		// Hook Thank You Page
-		if ( ! empty($this->settings['navertalktalk_thankyoupage']) ) {
-			add_action('woocommerce_'. $this->settings['navertalktalk_thankyoupage'], array($this, 'display_button'));
-		}
 
 		// Shortcodes
-		add_shortcode('navertalktalk', array($this, 'shortcode_button'));
+		add_shortcode( 'navertalktalk', array($this, 'shortcode_button') );
+
+		// Add Naver TalkTalk snippet
+		add_action( 'wp_footer', array($this, 'add_navertalktalk_snippet') );
 	}
 
 	/**
@@ -45,14 +38,22 @@ class WC_Korea_Naver_TalkTalk {
 		wp_enqueue_script( 'wc-korea-naver-talktalk', 'https://partner.talk.naver.com/banners/script', [], WC_KOREA_VERSION );
 	}
 
-	public function display_button() {
+	public function add_navertalktalk_snippet() {
 		global $post;
 
 		$id  = wp_is_mobile() ? $this->mobile_product_key : $this->pc_product_key;
 		$ref = urlencode(get_permalink($post->ID));
 		
 		ob_start(); ?>
-		<div class="talk_banner_div" data-id="<?php echo esc_attr($this->settings['navertalktalk_id']); ?>" data-ref="<?php echo urlencode(get_permalink($post->ID)); ?>"></div>
+		<style type="text/css">
+			#navertalktalk-button {
+				position: fixed;
+				z-index : 9999;
+				bottom  : 20px;
+				right   : 30px;
+			}
+		</style>
+		<div id="navertalktalk-button" class="talk_banner_div" data-id="<?php echo esc_attr($this->settings['navertalktalk_id']); ?>" data-ref="<?php echo urlencode(get_permalink($post->ID)); ?>"></div>
 		<?php echo ob_get_clean();
 	}
 
@@ -61,7 +62,15 @@ class WC_Korea_Naver_TalkTalk {
 		$ref = urlencode(get_permalink($post->ID));
 		
 		ob_start(); ?>
-		<div class="talk_banner_div" data-id="<?php echo esc_attr($id); ?>" data-ref="<?php echo urlencode(get_permalink($post->ID)); ?>"></div>
+		<style type="text/css">
+			#navertalktalk-button {
+				position: fixed;
+				z-index : 9999;
+				bottom  : 20px;
+				right   : 30px;
+			}
+		</style>
+		<div id="navertalktalk-button" class="talk_banner_div" data-id="<?php echo esc_attr($id); ?>" data-ref="<?php echo urlencode(get_permalink($post->ID)); ?>"></div>
 		<?php echo ob_get_clean();
 	}
 

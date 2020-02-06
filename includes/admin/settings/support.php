@@ -54,32 +54,6 @@ return apply_filters( 'wc_korea_support_settings', [
 			'mono'    => __('Mono','korea-for-woocommerce')
 		]
 	],
-	'kakaochannel_productpage' => [
-		'title'         => __( 'Product page display', 'korea-for-woocommerce' ),
-		'label'         => __( 'Show the button in product page', 'korea-for-woocommerce' ),
-		'type'          => 'select',
-		'default'       => '',
-		'class'         => 'show_if_kakaochannel',
-		'options'       => [
-			''                              => __('Not displayed', 'korea-for-woocommerce'),
-			'product_meta_start'            => __('Before Product Meta', 'korea-for-woocommerce'),
-			'product_meta_end'              => __('After Product Meta', 'korea-for-woocommerce'),
-			'before_single_product_summary' => __('Before Product Summary', 'korea-for-woocommerce'),
-			'after_single_product_summary'  => __('After Product Summary', 'korea-for-woocommerce')
-		],
-
-	],
-	'kakaochannel_thankyoupage' => [
-		'title'         => __( 'Thank You page display', 'korea-for-woocommerce' ),
-		'type'          => 'select',
-		'class'         => 'show_if_kakaochannel',
-		'default'       => '',
-		'options'       => [
-			''                => __('Not displayed', 'korea-for-woocommerce'),
-			'before_thankyou' => __('Before Thank You', 'korea-for-woocommerce'),
-			'thankyou'        => __('After Thank You', 'korea-for-woocommerce')
-		]
-	],
 	'navertalktalk' => [
 		'title'         => __('Naver TalkTalk', 'korea-for-woocommerce'),
 		'description'   => __( 'Once enabled, you can copy and paste the following shortcode <code>[navertalktalk]</code> directly into the page, post or widget where you\'d like the button to show up.', 'korea-for-woocommerce' ),
@@ -99,31 +73,5 @@ return apply_filters( 'wc_korea_support_settings', [
 		'title'         => __( 'TalkTalk ID', 'korea-for-woocommerce' ),
 		'type'          => 'text',
 		'class'         => 'show_if_navertalktalk',
-	],
-	'navertalktalk_productpage' => [
-		'title'         => __( 'Product page display', 'korea-for-woocommerce' ),
-		'label'         => __( 'Show the button in product page', 'korea-for-woocommerce' ),
-		'type'          => 'select',
-		'default'       => '',
-		'class'         => 'show_if_navertalktalk',
-		'options'       => [
-			''                              => __('Not displayed', 'korea-for-woocommerce'),
-			'product_meta_start'            => __('Before Product Meta', 'korea-for-woocommerce'),
-			'product_meta_end'              => __('After Product Meta', 'korea-for-woocommerce'),
-			'before_single_product_summary' => __('Before Product Summary', 'korea-for-woocommerce'),
-			'after_single_product_summary'  => __('After Product Summary', 'korea-for-woocommerce')
-		],
-
-	],
-	'navertalktalk_thankyoupage' => [
-		'title'         => __( 'Thank You page display', 'korea-for-woocommerce' ),
-		'type'          => 'select',
-		'class'         => 'show_if_navertalktalk',
-		'default'       => '',
-		'options'       => [
-			''                => __('Not displayed', 'korea-for-woocommerce'),
-			'before_thankyou' => __('Before Thank You', 'korea-for-woocommerce'),
-			'thankyou'        => __('After Thank You', 'korea-for-woocommerce')
-		]
-	],
+	]
 ]);
