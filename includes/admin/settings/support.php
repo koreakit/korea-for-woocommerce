@@ -17,7 +17,7 @@ return apply_filters( 'wc_korea_support_settings', [
 		'default'       => 'no'
 	],
 	'kakaochannel_appkey' => [
-		'title'         => __( 'App Key', 'korea-for-woocommerce' ),
+		'title'         => __( 'JavaScript Key', 'korea-for-woocommerce' ),
 		'type'          => 'text',
 		'class'         => 'show_if_kakaochannel',
 	],

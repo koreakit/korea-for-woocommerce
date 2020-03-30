@@ -13,7 +13,7 @@ class WC_Korea_Kakao_Channel {
 	public function __construct() {
 		$this->settings = get_option('woocommerce_korea_settings');
 
-		if ( 'yes' !== $this->settings['kakaochannel_yn'] ) {
+		if ( ! isset($this->settings['kakaochannel_yn']) || 'yes' !== $this->settings['kakaochannel_yn'] ) {
 			return;
 		}
 

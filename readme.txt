@@ -32,6 +32,8 @@ This plugin enhance the shopping experience for your Korean customers with WooCo
 * PAYCO for WooCommerce
 * TossPay for WooCommerce
 
+If you need a custom WordPress theme/plugin or you like me to consult on a project with you, feel free to drop me an email at contact[at]greys.co :)
+
 == Installation ==
 
 = Minimum Requirements =

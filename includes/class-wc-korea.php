@@ -55,19 +55,19 @@ if ( ! class_exists( 'WC_Korea' ) ) {
 		 * *Singleton* via the `new` operator from outside of this class.
 		 */
 		private function __construct() {
-			if ( ! $this->requirements() ) {
-				add_action( 'admin_init', array($this, 'disable_plugin') );
-			} else {
-				$this->load_plugin_textdomain();
-				$this->includes();
-				$this->init();
+			if ( ! $this->are_requirements_met() ) {
+				return;
 			}
+
+			$this->load_plugin_textdomain();
+			$this->includes();
+			$this->init();
 		}
 
 		/**
-		 * Requirements
+		 * Verify if the requirements are met
 		 */
-		public function requirements() {
+		public function are_requirements_met() {
 			if ( ! class_exists( 'WooCommerce' ) ) {
 				add_action( 'admin_notices', function() {
 					echo '<div class="error"><p><strong>' . __( 'Korea for WooCommerce requires WooCommerce to be installed and active. You can download <a href="https://woocommerce.com/" target="_blank">WooCommerce</a> here.', 'korea-for-woocommerce' ) . '</strong></p></div>';
@@ -76,19 +76,6 @@ if ( ! class_exists( 'WC_Korea' ) ) {
 			}
 
 			return TRUE;
-		}
-
-		/**
-		 * Disable Plugin
-		 */
-		public function disable_plugin() {
-			if ( current_user_can('activate_plugins') && is_plugin_active( plugin_basename( WC_KOREA_MAIN_FILE ) ) ) {
-				deactivate_plugins( plugin_basename( WC_KOREA_MAIN_FILE ) );
-				
-				if ( isset( $_GET['activate'] ) ) {
-					unset( $_GET['activate'] );
-				}
-			}
 		}
 
 		/**

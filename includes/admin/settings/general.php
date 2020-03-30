@@ -11,6 +11,18 @@ return apply_filters( 'wc_korea_general_settings', [
 		'type'          => 'checkbox',
 		'default'       => 'no',
 	],
+	'postcode_displaymode' => [
+		'title'             => __( 'Display mode', 'korea-for-woocommerce' ),
+		'description'       => __( 'Choose the display mode', 'korea-for-woocommerce' ),
+		'type'              => 'select',
+		'class'             => 'show_if_postcode',
+		'default'           => 'overlay',
+		'options'           => [
+			'overlay' => __('Overlay','korea-for-woocommerce'),
+			'embed'   => __('Embed','korea-for-woocommerce')
+		],
+		'custom_attributes' => [ 'required' => 'required' ]
+	],
 	'postcode_bgcolor' => [
 		'title'             => __( 'Background Color', 'korea-for-woocommerce' ),
 		'description'       => sprintf(
@@ -20,7 +32,6 @@ return apply_filters( 'wc_korea_general_settings', [
 		'type'              => 'color',
 		'class'             => 'show_if_postcode',
 		'default'           => '#ececec',
-		'value'             => 'test',
 		'custom_attributes' => [
 			'required' => 'required'
 		]

@@ -13,13 +13,12 @@ class WC_Korea_Naver_TalkTalk {
 	public function __construct() {
 		$this->settings = get_option('woocommerce_korea_settings');
 
-		$this->enabled           = 'yes' === $this->settings['navertalktalk_yn'];
-		$this->pc_productkey     = $this->settings['navertalktalk_pc_productkey'];
-		$this->mobile_productkey = $this->settings['navertalktalk_mobile_productkey'];
-
-		if ( ! $this->enabled ) {
+		if ( ! isset($this->settings['navertalktalk_yn']) || 'yes' !== $this->settings['navertalktalk_yn'] ) {
 			return;
 		}
+
+		$this->pc_productkey     = isset($this->settings['navertalktalk_pc_productkey']) && !empty($this->settings['navertalktalk_pc_productkey']) ?: '';
+		$this->mobile_productkey = isset($this->settings['navertalktalk_mobile_productkey']) && !empty($this->settings['navertalktalk_mobile_productkey']) ?: '';
 
 		// Load JS Library
 		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_scripts' ) );
