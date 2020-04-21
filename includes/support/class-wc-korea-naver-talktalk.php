@@ -75,4 +75,4 @@ class WC_Korea_Naver_TalkTalk {
 
 }
 
-new WC_Korea_Naver_TalkTalk();
+return new WC_Korea_Naver_TalkTalk();

@@ -10,6 +10,12 @@ defined( 'ABSPATH' ) || exit;
 
 class WC_Korea_Addons_Licenses extends WC_Korea_Addons {
 
+	public function __construct() {
+		parent::__construct();
+
+		add_action( 'admin_init', array( $this, 'register_settings' ) );
+	}
+
 	/**
 	 * Outputs settings for all license sections.
 	 *
@@ -20,6 +26,23 @@ class WC_Korea_Addons_Licenses extends WC_Korea_Addons {
 			return;
 		}
 
+		// Licenses
+		$licenses = apply_filters( 'wc_korea_plugin_license_settings', [] );
+
+		/**
+		 * Licenses page view.
+		 *
+		 * @uses $licenses
+		 */
+		include_once WC_KOREA_ABSPATH . '/includes/admin/views/html-admin-page-korea-licenses.php';
+	}
+
+	/**
+	 * Registers settings using the WP settings API.
+	 *
+	 * @since 1.0.3
+	 */
+	public function register_settings() {
 		// Licenses
 		$licenses = apply_filters( 'wc_korea_plugin_license_settings', [] );
 
@@ -64,15 +87,7 @@ class WC_Korea_Addons_Licenses extends WC_Korea_Addons {
 
 			register_setting( 'wc_korea_plugin_license_settings', $license['id'], array( $this, 'settings_sanitize' ) );
 		}
-
-		/**
-		 * Licenses page view.
-		 *
-		 * @uses $licenses
-		 */
-		include_once WC_KOREA_ABSPATH . '/includes/admin/views/html-admin-page-korea-licenses.php';
 	}
-
 
 	/**
 	 * Registers the license field callback for Software Licensing.

@@ -94,4 +94,4 @@ class WC_Korea_Daum_SEP {
 
 }
 
-new WC_Korea_Daum_SEP();
+return new WC_Korea_Daum_SEP();

@@ -55,4 +55,4 @@ class WC_Korea_Shipment_Tracking {
 
 }
 
-new WC_Korea_Shipment_Tracking();
+return new WC_Korea_Shipment_Tracking();

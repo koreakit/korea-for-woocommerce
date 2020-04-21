@@ -80,7 +80,7 @@ class WC_Korea_Updater {
 		$this->version     = $_api_data['version'];
 		$this->wp_override = isset( $_api_data['wp_override'] ) ? (bool) $_api_data['wp_override'] : false;
 		$this->beta        = ! empty( $this->api_data['beta'] ) ? true : false;
-		$this->cache_key   = 'wc_korea_' . md5( serialize( $this->slug . $this->api_data['license'] . $this->beta ) );
+		$this->cache_key   = 'woocommerce_korea_' . md5( serialize( $this->slug . $this->api_data['license'] . $this->beta ) );
 
 		$wc_korea_plugin_data[ $this->slug ] = $this->api_data;
 
@@ -95,14 +95,13 @@ class WC_Korea_Updater {
 	 * @since 1.0.0
 	 */
 	public function init() {
-
 		add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'check_update' ) );
 
 		add_filter( 'plugins_api', array( $this, 'plugins_api_filter' ), 10, 3 );
 
 		remove_action( "after_plugin_row_{$this->name}", 'wp_plugin_update_row', 10 );
-
 		add_action( "after_plugin_row_{$this->name}", array( $this, 'show_update_notification' ), 10, 2 );
+		
 		add_action( 'admin_init', array( $this, 'show_changelog' ) );
 	}
 
@@ -150,6 +149,18 @@ class WC_Korea_Updater {
 		if ( false !== $version_info && is_object( $version_info ) && isset( $version_info->new_version ) ) {
 
 			if ( version_compare( $this->version, $version_info->new_version, '<' ) ) {
+				if ( isset( $version_info->banners ) && ! is_array( $version_info->banners ) ) {
+					$version_info->banners = $this->convert_object_to_array( $version_info->banners );
+				}
+
+				if ( isset( $version_info->sections ) && ! is_array( $version_info->sections ) ) {
+					$version_info->sections = $this->convert_object_to_array( $version_info->sections );
+				}
+
+				if ( isset( $version_info->icons ) && ! is_array( $version_info->icons ) ) {
+					$version_info->icons = $this->convert_object_to_array( $version_info->icons );
+				}
+
 				$_transient_data->response[ $this->name ] = $version_info;
 			}
 
@@ -297,10 +308,8 @@ class WC_Korea_Updater {
 			]
 		];
 
-		$cache_key = 'wc_korea_api_request_' . md5( serialize( $this->slug . $this->api_data['license'] . $this->beta ) );
-
 		// get the transient where we store the api request for this plugin for 24 hours
-		$api_request_transient = $this->get_cached_version_info( $cache_key );
+		$api_request_transient = $this->get_cached_version_info( $this->cache_key );
 
 		// if we have no transient-saved value, run the API, set a fresh transient with the API value, and return that value too right now.
 		if ( empty( $api_request_transient ) ) {
@@ -308,7 +317,7 @@ class WC_Korea_Updater {
 			$api_response = $this->api_request( 'plugin_information', $to_send );
 
 			// expires in 3 hours
-			$this->set_version_info_cache( $api_response, $cache_key );
+			$this->set_version_info_cache( $api_response, $this->cache_key );
 
 			if ( false !== $api_response ) {
 				$_data = $api_response;
@@ -333,28 +342,6 @@ class WC_Korea_Updater {
 
 		return $_data;
 	}
-
-
-	/**
-	 * Disable SSL verification in order to prevent download update failures.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array   $args
-	 * @param string  $url
-	 * @return string[] $array
-	 */
-	public function http_request_args( $args, $url ) {
-
-		$verify_ssl = $this->verify_ssl();
-
-		if ( strpos( $url, 'https://' ) !== false && strpos( $url, 'edd_action=package_download' ) ) {
-			$args['sslverify'] = $verify_ssl;
-		}
-
-		return $args;
-	}
-
 
 	/**
 	 * Calls the API and, if successful, returns the object delivered by the API.
@@ -400,17 +387,17 @@ class WC_Korea_Updater {
 		}
 
 		if ( $request && isset( $request->sections ) ) {
-			$request->sections = maybe_unserialize( $request->sections );
+			$request->sections = (array) maybe_unserialize( $request->sections );
 		} else {
 			$request = false;
 		}
 
 		if ( $request && isset( $request->banners ) ) {
-			$request->banners = maybe_unserialize( $request->banners );
+			$request->banners = (array) maybe_unserialize( $request->banners );
 		}
 
 		if ( $request && isset( $request->icons ) ) {
-			$request->icons = maybe_unserialize( $request->icons );
+			$request->icons = (array) maybe_unserialize( $request->icons );
 		}
 
 		/**
@@ -421,10 +408,7 @@ class WC_Korea_Updater {
 		 * @param array the custom icons; should include $icon['svg'] or $icon['1x'] and $icon['2x']
 		 * @param object $value the version info
 		 */
-		$custom_icons = apply_filters( "wc_korea_plugin_updater_{$this->name}_icon", [
-			'1x' => $this->get_plugin_url() . '/lib/skyverge/updater/assets/img/plugin-icon-128.png',
-			'2x' => $this->get_plugin_url() . '/lib/skyverge/updater/assets/img/plugin-icon-256.png',
-		], $request );
+		$custom_icons = apply_filters( "wc_korea_plugin_updater_{$this->name}_icon", [], $request );
 
 		if ( ! empty( $custom_icons ) ) {
 			$request->icons = (array) $custom_icons;
@@ -503,7 +487,7 @@ class WC_Korea_Updater {
 
 		$data         = $wc_korea_plugin_data[ $_REQUEST['slug'] ];
 		$beta         = ! empty( $data['beta'] ) ? true : false;
-		$cache_key    = md5( 'wc_korea_plugin_' . sanitize_key( $_REQUEST['plugin'] ) . '_' . $beta . '_version_info' );
+		$cache_key    = $this->cache_key . '_version_info';
 		$version_info = $this->get_cached_version_info( $cache_key );
 
 		if ( false === $version_info ) {
@@ -574,7 +558,6 @@ class WC_Korea_Updater {
 		return $new_data;
 	}
 
-
 	/**
 	 * Gets cached plugin version information.
 	 *
@@ -599,7 +582,6 @@ class WC_Korea_Updater {
 		return json_decode( $cache['value'] );
 	}
 
-
 	/**
 	 * Sets up a cache for plugin version info.
 	 *
@@ -622,10 +604,7 @@ class WC_Korea_Updater {
 		 * @param array the custom icons; should include $icon['svg'] or $icon['1x'] and $icon['2x']
 		 * @param object $value the version info
 		 */
-		$custom_icons = apply_filters( "wc_korea_plugin_updater_{$this->name}_icon", [
-			'1x' => $this->get_plugin_url() . '/lib/skyverge/updater/assets/img/plugin-icon-128.png',
-			'2x' => $this->get_plugin_url() . '/lib/skyverge/updater/assets/img/plugin-icon-256.png',
-		], $value );
+		$custom_icons = apply_filters( "wc_korea_plugin_updater_{$this->name}_icon", [], $value );
 
 		if ( ! empty( $custom_icons ) ) {
 			$value->icons = (array) $custom_icons;
@@ -639,7 +618,6 @@ class WC_Korea_Updater {
 		update_option( $cache_key, $data, 'no' );
 	}
 
-
 	/**
 	 * Returns if the SSL of the store should be verified.
 	 *
@@ -651,7 +629,6 @@ class WC_Korea_Updater {
 		return (bool) apply_filters( 'wc_korea_sl_api_request_verify_ssl', true, $this );
 	}
 
-
 	/**
 	 * Helper to get the plugin URL.
 	 *
@@ -662,6 +639,5 @@ class WC_Korea_Updater {
 	public function get_plugin_url() {
 		return untrailingslashit( plugins_url( '/', $this->plugin_file ) );
 	}
-
 
 }

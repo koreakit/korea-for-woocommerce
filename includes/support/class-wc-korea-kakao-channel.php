@@ -123,4 +123,4 @@ class WC_Korea_Kakao_Channel {
 
 }
 
-new WC_Korea_Kakao_Channel();
+return new WC_Korea_Kakao_Channel();

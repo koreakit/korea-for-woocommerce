@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<ul class="products">
 				<?php foreach ( $addons as $slug => $addon ) { ?>
 					<li class="product">
-						<a href="<?php echo esc_attr( $addon['permalink'] ); ?>" style="min-height:inherit;">
+						<a href="<?php echo esc_attr( $addon['permalink'] ); ?>">
 							<h2><?php echo wp_kses_post( $addon['title'] ); ?></h2>
 							<p><?php echo wp_kses_post( $addon['description'] ); ?></p>
 						</a>

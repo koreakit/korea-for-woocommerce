@@ -83,4 +83,4 @@ class WC_Korea_Postcode {
 
 }
 
-new WC_Korea_Postcode();
+return new WC_Korea_Postcode();

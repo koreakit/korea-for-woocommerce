@@ -35,4 +35,4 @@ class WC_Korea_Order_Statuses {
 	}
 }
 
-new WC_Korea_Order_Statuses();
+return new WC_Korea_Order_Statuses();

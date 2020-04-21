@@ -84,40 +84,39 @@ if ( ! class_exists( 'WC_Korea' ) ) {
 		 */
 		public function includes() {
 			if ( is_admin() ) {
-				require_once WC_KOREA_ABSPATH . '/includes/admin/class-wc-korea-admin-ajax.php';
-				require_once WC_KOREA_ABSPATH . '/includes/admin/class-wc-korea-admin.php';
+				require_once dirname( __FILE__ ) . '/admin/class-wc-korea-admin-ajax.php';
+				require_once dirname( __FILE__ ) . '/admin/class-wc-korea-admin.php';
 
 				// Addons
-				require_once WC_KOREA_ABSPATH . '/includes/admin/class-wc-korea-addons.php';
-				require_once WC_KOREA_ABSPATH . '/includes/admin/addons/class-wc-korea-addons-licenses.php';
-				require_once WC_KOREA_ABSPATH . '/includes/admin/addons/class-wc-korea-addons-premium.php';
+				require_once dirname( __FILE__ ) . '/admin/class-wc-korea-addons.php';
+				require_once dirname( __FILE__ ) . '/admin/addons/class-wc-korea-addons-licenses.php';
+				require_once dirname( __FILE__ ) . '/admin/addons/class-wc-korea-addons-premium.php';
 			}
 
 			// Compatibility with 3rd party plugins
-			require_once WC_KOREA_ABSPATH . '/includes/compat/class-wc-korea-shipment-tracking-compat.php';
-			require_once WC_KOREA_ABSPATH . '/includes/compat/class-wc-korea-wpml-compat.php';
+			require_once dirname( __FILE__ ) . '/compat/class-wc-korea-shipment-tracking-compat.php';
+			require_once dirname( __FILE__ ) . '/compat/class-wc-korea-wpml-compat.php';
 
 			// Integrations
-			require_once WC_KOREA_ABSPATH . '/includes/class-wc-korea-integration.php';
-			require_once WC_KOREA_ABSPATH . '/includes/analytics/class-wc-korea-naver-analytics.php';
-			require_once WC_KOREA_ABSPATH . '/includes/support/class-wc-korea-kakao-channel.php';
-			require_once WC_KOREA_ABSPATH . '/includes/support/class-wc-korea-naver-talktalk.php';
-			require_once WC_KOREA_ABSPATH . '/includes/sep/class-wc-korea-daum-sep.php';
-			require_once WC_KOREA_ABSPATH . '/includes/sep/class-wc-korea-naver-sep.php';
-			require_once WC_KOREA_ABSPATH . '/includes/class-wc-korea-helper.php';
-			require_once WC_KOREA_ABSPATH . '/includes/class-wc-korea-order-statuses.php';
-			require_once WC_KOREA_ABSPATH . '/includes/class-wc-korea-postcode.php';
+			require_once dirname( __FILE__ ) . '/class-wc-korea-integration.php';
+			require_once dirname( __FILE__ ) . '/analytics/class-wc-korea-naver-analytics.php';
+			require_once dirname( __FILE__ ) . '/support/class-wc-korea-kakao-channel.php';
+			require_once dirname( __FILE__ ) . '/support/class-wc-korea-naver-talktalk.php';
+			require_once dirname( __FILE__ ) . '/sep/class-wc-korea-daum-sep.php';
+			require_once dirname( __FILE__ ) . '/sep/class-wc-korea-naver-sep.php';
+			require_once dirname( __FILE__ ) . '/class-wc-korea-helper.php';
+			require_once dirname( __FILE__ ) . '/class-wc-korea-order-statuses.php';
+			require_once dirname( __FILE__ ) . '/class-wc-korea-postcode.php';
 
 			// Payment Gateways (Addons)
-			require_once WC_KOREA_ABSPATH . '/includes/abstracts/abstract-wc-korea-payment-gateway.php';
+			require_once dirname( __FILE__ ) . '/abstracts/abstract-wc-korea-payment-gateway.php';
 
 			// License for Korea for WooCommerce Addons
-			require_once WC_KOREA_ABSPATH . '/includes/updater/class-wc-korea-license.php';
+			require_once dirname( __FILE__ ) . '/updater/class-wc-korea-license.php';
 		}
 
 		/**
 		 * Init the plugin after plugins_loaded so environment variables are set.
-		 *
 		 */
 		public function init() {
 			add_filter('woocommerce_integrations', array($this, 'wc_integrations'));
@@ -137,7 +136,6 @@ if ( ! class_exists( 'WC_Korea' ) ) {
 
 		/**
 		 * Updates the plugin version in db
-		 * 
 		 */
 		public function update_plugin_version() {
 			delete_option( 'woocommerce_korea_version' );
@@ -146,7 +144,6 @@ if ( ! class_exists( 'WC_Korea' ) ) {
 
 		/**
 		 * Adds plugin action links.
-		 * 
 		 */
 		public function plugin_action_links( $links ) {
 			$plugin_links = [

@@ -104,4 +104,4 @@ class WC_Korea_Naver_SEP {
 
 }
 
-new WC_Korea_Naver_SEP();
+return new WC_Korea_Naver_SEP();

@@ -26,4 +26,4 @@ class WC_Korea_WPML {
 
 }
 
-new WC_Korea_WPML();
+return new WC_Korea_WPML();

@@ -89,7 +89,6 @@ class WC_Korea_License {
 		$this->add_hooks();
 	}
 
-
 	/**
 	 * Includes required files.
 	 *
@@ -100,7 +99,6 @@ class WC_Korea_License {
 			require_once( WC_KOREA_ABSPATH . '/includes/updater/class-wc-korea-updater.php');
 		}
 	}
-
 
 	/**
 	 * Setup plugin hooks.
@@ -136,7 +134,6 @@ class WC_Korea_License {
 		add_action( 'in_plugin_update_message-' . plugin_basename( $this->file ), array( $this, 'plugin_row_license_missing' ), 10, 2 );
 	}
 
-
 	/**
 	 * Load the auto updater.
 	 *
@@ -153,7 +150,6 @@ class WC_Korea_License {
 		// Setup the updater
 		$plugin_updater = new WC_Korea_Updater( $this->file, $data );
 	}
-
 
 	/**
 	 * Registers new cron schedule.
@@ -174,7 +170,6 @@ class WC_Korea_License {
 		return $schedules;
 	}
 
-
 	/**
 	 * Schedule weekly events.
 	 *
@@ -185,7 +180,6 @@ class WC_Korea_License {
 			wp_schedule_event( current_time( 'timestamp', true ), 'weekly', 'wc_korea_weekly_scheduled_events' );
 		}
 	}
-
 
 	/**
 	 * Get license settings page URL.
@@ -208,7 +202,6 @@ class WC_Korea_License {
 		]);
 	}
 
-
 	/**
 	 * Adds updater page stylesheet.
 	 *
@@ -219,7 +212,6 @@ class WC_Korea_License {
 			wp_enqueue_style( 'wc-korea-license-settings', WC_KOREA_PLUGIN_URL . '/assets/css/admin.css', [], $this->version );
 		}
 	}
-
 
 	/**
 	 * Activate the license key
@@ -286,7 +278,6 @@ class WC_Korea_License {
 		update_option( "{$this->prefix}_license_active", $license_data );
 	}
 
-
 	/**
 	 * Deactivate the license key
 	 *
@@ -333,7 +324,6 @@ class WC_Korea_License {
 		}
 	}
 
-
 	/**
 	 * Check for a valid license on this plugin.
 	 *
@@ -347,7 +337,6 @@ class WC_Korea_License {
 
 		return is_object( $details ) && 'valid' === $details->license;
 	}
-
 
 	/**
 	 * Check if license key is valid once per week
@@ -391,7 +380,6 @@ class WC_Korea_License {
 
 		update_option( "{$this->prefix}_license_active", $license_data );
 	}
-
 
 	/**
 	 * Add admin notices to WooCommerce pages for errors.
@@ -438,7 +426,6 @@ class WC_Korea_License {
 		}
 	}
 
-
 	/**
 	 * Displays message inline on plugin row that the license key is missing
 	 *
@@ -457,16 +444,14 @@ class WC_Korea_License {
 		}
 	}
 
-
 	/**
 	 * Get license settings page URL.
 	 *
 	 * @since 1.0.0
 	 */
 	public function get_license_settings_url() {
-		return admin_url( 'admin.php?page=wc-addons&section=wc-korea' );
+		return admin_url( 'admin.php?page=wc-addons&section=wc-korea&tab=licenses' );
 	}
-
 
 	/**
 	 * Gets the license settings instance.
@@ -474,6 +459,5 @@ class WC_Korea_License {
 	public function get_license_settings_instance() {
 		return $this->settings;
 	}
-
 
 }

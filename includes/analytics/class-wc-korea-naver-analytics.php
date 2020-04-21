@@ -39,4 +39,4 @@ class WC_Korea_Naver_Analytics {
 
 }
 
-new WC_Korea_Naver_Analytics();
+return new WC_Korea_Naver_Analytics();
