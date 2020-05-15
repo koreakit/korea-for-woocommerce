@@ -3,13 +3,13 @@
  * Plugin Name: Korea for WooCommerce
  * Plugin URI: https://wordpress.org/plugins/korea-for-woocommerce/
  * Description: WooCommerce Toolkit for Korean use.
- * Version: 1.0.3
+ * Version: 1.0.4
  * Author: GREYS
  * Author URI: https://greys.co/
  * Requires at least: 4.9.0
- * Tested up to: 5.3.2
- * WC requires at least: 3.0.0
- * WC tested up to: 4.0.1
+ * Tested up to: 5.4.1
+ * WC requires at least: 3.4.0
+ * WC tested up to: 4.1.0
  *
  * Text Domain: korea-for-woocommerce
  * Domain Path: /i18n/
@@ -21,7 +21,7 @@
 defined( 'ABSPATH' ) || exit;
 
 // Define Constants
-define('WC_KOREA_VERSION', '1.0.3');
+define('WC_KOREA_VERSION', '1.0.4');
 define('WC_KOREA_INSTANCE', str_replace(['https://', 'http://'], '', trim(network_site_url(), '')));
 define('WC_KOREA_MAIN_FILE', __FILE__);
 define('WC_KOREA_ABSPATH', dirname( __FILE__ ));

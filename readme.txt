@@ -23,7 +23,7 @@ This plugin enhance the shopping experience for your Korean customers with WooCo
 = Addons =
 
 * Korea for WooCommerce Pro (coming soon)
-* NaverPay for WooCommerce (free) 
+* NaverPay for WooCommerce
 * KG INICIS for WooCommerce
 * KakaoPay for WooCommerce
 * NHN KCP for WooCommerce

@@ -10,6 +10,75 @@ defined( 'ABSPATH' ) || exit;
 abstract class WC_Korea_Payment_Gateway extends WC_Payment_Gateway {
 
 	/**
+	 * ID of the main settings.
+	 *
+	 * @var string
+	 */
+	public $main_id = '';
+
+	/**
+     * Main form option fields.
+     *
+     * @var array
+     */
+    public $main_form_fields = array();
+
+    /**
+     * Get the form fields after they are initialized.
+     *
+     * @return array of options
+     */
+    public function get_main_form_fields() {
+        return apply_filters( 'woocommerce_main_settings_api_form_fields_' . $this->main_id, array_map( array( $this, 'set_defaults' ), $this->main_form_fields ) );
+    }
+
+	/**
+	 * Get main option from DB.
+	 *
+	 * Gets an option from the settings API, using defaults if necessary to prevent undefined notices.
+	 *
+	 * @param  string $key Option key.
+	 * @param  mixed  $empty_value Value when empty.
+	 * @return string The value specified for the option or a default value for the option.
+	 */
+	public function get_main_option( $key, $empty_value = null ) {
+		if ( empty( $this->main_settings ) ) {
+			$this->init_main_settings();
+		}
+
+		// Get option default if unset.
+		if ( ! isset( $this->main_settings[ $key ] ) ) {
+			$main_form_fields            = $this->get_main_form_fields();
+			$this->main_settings[ $key ] = isset( $form_fields[ $key ] ) ? $this->get_field_default( $form_fields[ $key ] ) : '';
+		}
+
+		if ( ! is_null( $empty_value ) && '' === $this->main_settings[ $key ] ) {
+			$this->main_settings[ $key ] = $empty_value;
+		}
+
+		return $this->main_settings[ $key ];
+	}
+
+	/**
+	 * Initialise Main Settings.
+	 *
+	 * Store all settings in a single database entry
+	 * and make sure the $settings array is either the default
+	 * or the settings stored in the database.
+	 *
+	 * @uses get_option(), add_option()
+	 */
+	public function init_main_settings() {
+		$this->main_settings = get_option( 'woocommerce_'. $this->main_id .'_settings', null );
+
+		// If there are no settings defined, use defaults.
+		if ( ! is_array( $this->main_settings ) ) {
+			$main_form_fields      = $this->get_main_form_fields();
+			$this->main_settings   = array_merge( array_fill_keys( array_keys( $main_form_fields ), '' ), wp_list_pluck( $main_form_fields, 'default' ) );
+		}
+	}
+
+	/**
 	 * Check if the gateway is available for use.
 	 *
 	 * @return bool
@@ -60,7 +129,7 @@ abstract class WC_Korea_Payment_Gateway extends WC_Payment_Gateway {
 			<td class="forminp">
 				<fieldset>
 					<legend class="screen-reader-text"><span><?php echo wp_kses_post( $data['title'] ); ?></span></legend>
-					<select id="<?php echo esc_attr( $field_key ); ?>" class="wc-enhanced-select" <?php if ( $data['multiple'] == true ) { echo 'multiple="multiple"'; } ?> name="<?php echo esc_attr( $field_key ); ?>" data-placeholder="<?php echo esc_attr( $placeholder ); ?>" <?php disabled( $data['disabled'], true ); // WPCS: XSS ok. ?>>
+					<select id="<?php echo esc_attr( $field_key ); ?>" class="wc-enhanced-select" <?php if ( $data['multiple'] == true ) { echo 'multiple="multiple"'; } ?> name="<?php echo esc_attr( $field_key ); ?>" data-placeholder="<?php echo esc_attr( $data['placeholder'] ); ?>" <?php disabled( $data['disabled'], true ); // WPCS: XSS ok. ?>>
 						<?php foreach ( (array) $data['options'] as $option_key => $option_value ) : ?>
 							<option value="<?php echo esc_attr( $option_key ); ?>" <?php if ( in_array( $option_key, explode(':', $this->get_option( $key ))) ) { echo 'selected="selected"'; } ?>><?php echo esc_attr( $option_value ); ?></option>
 						<?php endforeach; ?>
