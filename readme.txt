@@ -20,9 +20,9 @@ This plugin enhance the shopping experience for your Korean customers with WooCo
 * Add korean delivery companies to "WooCommerce Shipment Tracking"
 * Answer your customers questions with the chat buttons of Kakao Channel or Naver TalkTalk.
 
-= Addons =
+= Addons (coming soon) =
 
-* Korea for WooCommerce Pro (coming soon)
+* Korea for WooCommerce Pro
 * NaverPay for WooCommerce
 * KG INICIS for WooCommerce
 * KakaoPay for WooCommerce
