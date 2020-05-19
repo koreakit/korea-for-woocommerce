@@ -24,7 +24,7 @@ class WC_Korea_Addons_Premium extends WC_Korea_Addons {
 			'korea-for-woocommerce-pro' => [
 				'title'       => __('Korea for WooCommerce Pro','korea-for-woocommerce'),
 				'description' => __('Enchance your shop for Korean use with more options.','korea-for-woocommerce'),
-				'permalink'   => __('https://greys.co/product/korea-for-woocommerce-pro/','korea-for-woocommerce'),
+				'permalink'   => __('https://greys.co/plugin/korea-for-woocommerce-pro/','korea-for-woocommerce'),
 				'price'       => __('$129.00','korea-for-woocommerce')
 			],
 			'woocommerce-gateway-inicis' => [
@@ -33,16 +33,7 @@ class WC_Korea_Addons_Premium extends WC_Korea_Addons {
 					__('Take payments via %1$s payment methods.','korea-for-woocommerce'),
 					__('KG INICIS','korea-for-woocommerce')
 				),
-				'permalink'   => __('https://greys.co/product/woocommerce-gateway-inicis/','korea-for-woocommerce'),
-				'price'       => __('$129.00','korea-for-woocommerce')
-			],
-			'woocommerce-gateway-kakaopay' => [
-				'title'       => __('KakaoPay Gateway','korea-for-woocommerce'),
-				'description' => sprintf(
-					__('Take payments via %1$s payment methods.','korea-for-woocommerce'),
-					__('KakaoPay','korea-for-woocommerce')
-				),
-				'permalink'   => __('https://greys.co/product/woocommerce-gateway-kakaopay/','korea-for-woocommerce'),
+				'permalink'   => __('https://greys.co/plugin/woocommerce-gateway-inicis/','korea-for-woocommerce'),
 				'price'       => __('$129.00','korea-for-woocommerce')
 			],
 			'woocommerce-gateway-kcp' => [
@@ -51,7 +42,7 @@ class WC_Korea_Addons_Premium extends WC_Korea_Addons {
 					__('Take payments via %1$s payment methods.','korea-for-woocommerce'),
 					__('NHN KCP','korea-for-woocommerce')
 				),
-				'permalink'   => __('https://greys.co/product/woocommerce-gateway-kcp/','korea-for-woocommerce'),
+				'permalink'   => __('https://greys.co/plugin/woocommerce-gateway-kcp/','korea-for-woocommerce'),
 				'price'       => __('$129.00','korea-for-woocommerce')
 			],
 			'woocommerce-gateway-lguplus' => [
@@ -60,16 +51,16 @@ class WC_Korea_Addons_Premium extends WC_Korea_Addons {
 					__('Take payments via %1$s payment methods.','korea-for-woocommerce'),
 					__('LG U+','korea-for-woocommerce')
 				),
-				'permalink'   => __('https://greys.co/product/woocommerce-gateway-lguplus/','korea-for-woocommerce'),
+				'permalink'   => __('https://greys.co/plugin/woocommerce-gateway-lguplus/','korea-for-woocommerce'),
 				'price'       => __('$129.00','korea-for-woocommerce')
 			],
-			'woocommerce-gateway-naverpay' => [
-				'title'       => __('NaverPay Gateway','korea-for-woocommerce'),
+			'woocommerce-gateway-easypay' => [
+				'title'       => __('EasyPay Gateway','korea-for-woocommerce'),
 				'description' => sprintf(
 					__('Take payments via %1$s payment methods.','korea-for-woocommerce'),
-					__('NaverPay','korea-for-woocommerce')
+					__('EasyPay','korea-for-woocommerce')
 				),
-				'permalink'   => __('https://greys.co/product/woocommerce-gateway-naverpay/','korea-for-woocommerce'),
+				'permalink'   => __('https://greys.co/plugin/woocommerce-gateway-easypay/','korea-for-woocommerce'),
 				'price'       => __('$129.00','korea-for-woocommerce')
 			],
 			'woocommerce-gateway-nicepay' => [
@@ -78,8 +69,26 @@ class WC_Korea_Addons_Premium extends WC_Korea_Addons {
 					__('Take payments via %1$s payment methods.','korea-for-woocommerce'),
 					__('NICEPAY','korea-for-woocommerce')
 				),
-				'permalink'   => __('https://greys.co/product/woocommerce-gateway-nicepay/','korea-for-woocommerce'),
+				'permalink'   => __('https://greys.co/plugin/woocommerce-gateway-nicepay/','korea-for-woocommerce'),
 				'price'       => __('$129.00','korea-for-woocommerce')
+			],
+			'woocommerce-gateway-kakaopay' => [
+				'title'       => __('KakaoPay Gateway','korea-for-woocommerce'),
+				'description' => sprintf(
+					__('Take payments via %1$s payment methods.','korea-for-woocommerce'),
+					__('KakaoPay','korea-for-woocommerce')
+				),
+				'permalink'   => __('https://greys.co/plugin/woocommerce-gateway-kakaopay/','korea-for-woocommerce'),
+				'price'       => __('$129.00','korea-for-woocommerce')
+			],
+			'woocommerce-gateway-naverpay' => [
+				'title'       => __('NaverPay Gateway','korea-for-woocommerce'),
+				'description' => sprintf(
+					__('Take payments via %1$s payment methods.','korea-for-woocommerce'),
+					__('NaverPay','korea-for-woocommerce')
+				),
+				'permalink'   => __('https://greys.co/plugin/woocommerce-gateway-naverpay/','korea-for-woocommerce'),
+				'price'       => __('$59.00','korea-for-woocommerce')
 			],
 			'woocommerce-gateway-payco' => [
 				'title'       => __('Payco Gateway','korea-for-woocommerce'),
@@ -87,7 +96,7 @@ class WC_Korea_Addons_Premium extends WC_Korea_Addons {
 					__('Take payments via %1$s payment methods.','korea-for-woocommerce'),
 					__('Payco','korea-for-woocommerce')
 				),
-				'permalink'   => __('https://greys.co/product/woocommerce-gateway-payco/','korea-for-woocommerce'),
+				'permalink'   => __('https://greys.co/plugin/woocommerce-gateway-payco/','korea-for-woocommerce'),
 				'price'       => __('$129.00','korea-for-woocommerce')
 			],
 			'woocommerce-gateway-tosspay' => [
@@ -96,9 +105,21 @@ class WC_Korea_Addons_Premium extends WC_Korea_Addons {
 					__('Take payments via %1$s payment methods.','korea-for-woocommerce'),
 					__('TossPay','korea-for-woocommerce')
 				),
-				'permalink'   => __('https://greys.co/product/woocommerce-gateway-tosspay/','korea-for-woocommerce'),
+				'permalink'   => __('https://greys.co/plugin/woocommerce-gateway-tosspay/','korea-for-woocommerce'),
 				'price'       => __('$129.00','korea-for-woocommerce')
 			],
+			'woocommerce-kakaotalk-notifications' => [
+				'title'       => __('KakaoTalk Notifications','korea-for-woocommerce'),
+				'description' => __('Send KakaoTalk order notifications to admins and customers for your WooCommerce store.','korea-for-woocommerce'),
+				'permalink'   => __('https://greys.co/plugin/woocommerce-kakaotalk-notifications/','korea-for-woocommerce'),
+				'price'       => __('$59.00','korea-for-woocommerce')
+			],
+			'woocommerce-kras' => [
+				'title'       => __('Korean Authentication Services','korea-for-woocommerce'),
+				'description' => __('Korean Authentification Services (i-PIN, mobile phone) for WooCommerce','korea-for-woocommerce'),
+				'permalink'   => __('https://greys.co/plugin/woocommerce-kras/','korea-for-woocommerce'),
+				'price'       => __('$249.00','korea-for-woocommerce')
+			]
 		]);
 
 		/**
