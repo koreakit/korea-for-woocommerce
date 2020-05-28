@@ -22,7 +22,7 @@ matrix:
     # Run PHP_CodeSniffer
     - name: Coding standards
       php: 7.4
-      env: WP_VERSION=latest WC_VERSION=latest
+      env: WP_VERSION=latest WC_VERSION=4.1.1
  
     # Canary for our oldest-supported version
     - name: Legacy
