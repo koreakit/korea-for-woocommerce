@@ -69,18 +69,20 @@ if ( ! class_exists( 'WC_Korea' ) ) {
 		 */
 		public function are_requirements_met() {
 			if ( ! class_exists( 'WooCommerce' ) ) {
-				add_action( 'admin_notices', function() {
-					echo '<div class="error"><p><strong>' . __( 'Korea for WooCommerce requires WooCommerce to be installed and active. You can download <a href="https://woocommerce.com/" target="_blank">WooCommerce</a> here.', 'korea-for-woocommerce' ) . '</strong></p></div>';
-				});
-				return FALSE;
+				add_action(
+					'admin_notices',
+					function() {
+						echo '<div class="error"><p><strong>' . __( 'Korea for WooCommerce requires WooCommerce to be installed and active. You can download <a href="https://woocommerce.com/" target="_blank">WooCommerce</a> here.', 'korea-for-woocommerce' ) . '</strong></p></div>';
+					}
+				);
+				return false;
 			}
 
-			return TRUE;
+			return true;
 		}
 
 		/**
 		 * Init the plugin after plugins_loaded so environment variables are set.
-		 *
 		 */
 		public function includes() {
 			if ( is_admin() ) {
@@ -119,9 +121,9 @@ if ( ! class_exists( 'WC_Korea' ) ) {
 		 * Init the plugin after plugins_loaded so environment variables are set.
 		 */
 		public function init() {
-			add_filter('woocommerce_integrations', array($this, 'wc_integrations'));
-			add_filter('plugin_action_links_' . plugin_basename(WC_KOREA_MAIN_FILE), array($this, 'plugin_action_links'));
-			add_filter('query_vars', array($this, 'wc_sep_query_var'));
+			add_filter( 'woocommerce_integrations', array( $this, 'wc_integrations' ) );
+			add_filter( 'plugin_action_links_' . plugin_basename( WC_KOREA_MAIN_FILE ), array( $this, 'plugin_action_links' ) );
+			add_filter( 'query_vars', array( $this, 'wc_sep_query_var' ) );
 		}
 
 		public function wc_integrations( $integrations ) {
@@ -146,11 +148,11 @@ if ( ! class_exists( 'WC_Korea' ) ) {
 		 * Adds plugin action links.
 		 */
 		public function plugin_action_links( $links ) {
-			$plugin_links = [
+			$plugin_links = array(
 				'<a href="admin.php?page=wc-settings&tab=integration&section=korea">' . esc_html__( 'Settings', 'korea-for-woocommerce' ) . '</a>',
 				'<a href="admin.php?page=wc-addons&section=wc-korea">' . esc_html__( 'Addons', 'korea-for-woocommerce' ) . '</a>',
 				'<a href="https://greys.co/contact/">' . esc_html__( 'Support', 'korea-for-woocommerce' ) . '</a>',
-			];
+			);
 
 			return array_merge( $plugin_links, $links );
 		}
@@ -166,5 +168,5 @@ if ( ! class_exists( 'WC_Korea' ) ) {
 		}
 
 	}
-	
+
 }

@@ -10,11 +10,10 @@
  * happen. When this occurs the version of the template file will be bumped and
  * the readme will list any important changes.
  *
- * @see 	    https://docs.woocommerce.com/document/template-structure/
+ * @see         https://docs.woocommerce.com/document/template-structure/
  * @author      WooThemes
  * @package     WooCommerce/Templates
  * @version     3.0.0
- * 
  */
 ?>
 
@@ -29,22 +28,30 @@
 		<table class="td" cellspacing="0" cellpadding="6" style="width: 100%; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;" border="1">
 			<tbody>
 				<tr>
-					<?php foreach ( $account_fields as $field_key => $field ) {
-						if ( ! empty( $field['value'] ) ) { ?>
+					<?php
+					foreach ( $account_fields as $field_key => $field ) {
+						if ( ! empty( $field['value'] ) ) {
+							?>
 							<th class="td" style="text-align:center;">
 								<?php wp_kses_post( wptexturize( $field['label'] ) ); ?>
 							</th>
-						<?php }
-					} ?>
+							<?php
+						}
+					}
+					?>
 				</tr>
 				<tr>
-					<?php foreach ( $account_fields as $field_key => $field ) {
-						if ( ! empty( $field['value'] ) ) { ?>
+					<?php
+					foreach ( $account_fields as $field_key => $field ) {
+						if ( ! empty( $field['value'] ) ) {
+							?>
 							<td class="td" style="text-align:center;">
 								<?php wp_kses_post( wptexturize( $field['value'] ) ); ?>
 							</td>
-						<?php }
-					} ?>
+							<?php
+						}
+					}
+					?>
 				</tr>
 			</tbody>
 		</table>

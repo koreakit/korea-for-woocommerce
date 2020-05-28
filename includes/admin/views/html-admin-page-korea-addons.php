@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<h2><?php esc_html_e( 'Korea for WooCommerce', 'korea-for-woocommerce' ); ?></h2>
 		<?php $this->output_categories(); ?>
 		<?php if ( empty( $addons ) ) { ?>
-			<div class="notice-info notice inline"><p><?php echo wp_kses_post( __('Our addons can be found here: <a href="https://greys.co/products/woocommerce-korea-addons/">Korea for WooCommerce Addons</a>', 'korea-for-woocommerce') ); ?></p></div>
+			<div class="notice-info notice inline"><p><?php echo wp_kses_post( __( 'Our addons can be found here: <a href="https://greys.co/products/woocommerce-korea-addons/">Korea for WooCommerce Addons</a>', 'korea-for-woocommerce' ) ); ?></p></div>
 		<?php } else { ?>
 			<ul class="products">
 				<?php foreach ( $addons as $slug => $addon ) { ?>

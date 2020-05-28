@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php $this->output_categories(); ?>
 			<?php if ( empty( $licenses ) ) { ?>
 				<div class="notice-info notice inline">
-					<p><?php echo wp_kses_post( __( 'There are no active addons that require license keys. <a href="https://greys.co/products/woocommerce-korea-addons/">View our addons</a>', 'korea-for-woocommerce' )  ); ?></p>
+					<p><?php echo wp_kses_post( __( 'There are no active addons that require license keys. <a href="https://greys.co/products/woocommerce-korea-addons/">View our addons</a>', 'korea-for-woocommerce' ) ); ?></p>
 				</div>
 			<?php } else { ?>
 				<table class="form-table">

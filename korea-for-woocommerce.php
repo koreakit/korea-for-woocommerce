@@ -21,15 +21,15 @@
 defined( 'ABSPATH' ) || exit;
 
 // Define Constants
-define('WC_KOREA_VERSION', '1.0.5');
-define('WC_KOREA_INSTANCE', str_replace(['https://', 'http://'], '', trim(network_site_url(), '')));
-define('WC_KOREA_MAIN_FILE', __FILE__);
-define('WC_KOREA_ABSPATH', dirname( __FILE__ ));
-define('WC_KOREA_PLUGIN_URL', untrailingslashit(plugins_url(basename(plugin_dir_path(__FILE__)), basename(__FILE__ ))));
-define('WC_KOREA_PLUGIN_PATH', untrailingslashit(plugin_dir_path(__FILE__)));
+define( 'WC_KOREA_VERSION', '1.0.5' );
+define( 'WC_KOREA_INSTANCE', str_replace( array( 'https://', 'http://' ), '', trim( network_site_url(), '' ) ) );
+define( 'WC_KOREA_MAIN_FILE', __FILE__ );
+define( 'WC_KOREA_ABSPATH', dirname( __FILE__ ) );
+define( 'WC_KOREA_PLUGIN_URL', untrailingslashit( plugins_url( basename( plugin_dir_path( __FILE__ ) ), basename( __FILE__ ) ) ) );
+define( 'WC_KOREA_PLUGIN_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
 
 // Include the main WC_Korea class.
-if ( ! class_exists('WC_Korea') ) {
+if ( ! class_exists( 'WC_Korea' ) ) {
 	include_once dirname( __FILE__ ) . '/includes/class-wc-korea.php';
 }
 

@@ -71,8 +71,8 @@ class WC_Korea_License {
 			$this->id = absint( $_id );
 		}
 
-		if ( ! function_exists('get_plugin_data') ) {
-			require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+		if ( ! function_exists( 'get_plugin_data' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
 		}
 
 		$this->api_url    = 'https://greys.co/';
@@ -96,7 +96,7 @@ class WC_Korea_License {
 	 */
 	public function includes() {
 		if ( ! class_exists( 'WC_Korea_Updater' ) ) {
-			require_once( WC_KOREA_ABSPATH . '/includes/updater/class-wc-korea-updater.php');
+			require_once WC_KOREA_ABSPATH . '/includes/updater/class-wc-korea-updater.php';
 		}
 	}
 
@@ -140,12 +140,12 @@ class WC_Korea_License {
 	 * @since 1.0.0
 	 */
 	public function auto_updater() {
-		$data = [
+		$data = array(
 			'version' => $this->version,
 			'license' => $this->license,
 			'item_id' => $this->id,
 			'author'  => $this->author,
-		];
+		);
 
 		// Setup the updater
 		$plugin_updater = new WC_Korea_Updater( $this->file, $data );
@@ -159,13 +159,13 @@ class WC_Korea_License {
 	 * @param string[] $schedules existing schedules
 	 * @return string[] update schedules
 	 */
-	public function add_cron_schedule( $schedules = [] ) {
+	public function add_cron_schedule( $schedules = array() ) {
 
 		// adds a weekly schedule to available cron schedules
-		$schedules['weekly'] = [
+		$schedules['weekly'] = array(
 			'interval' => 604800,
 			'display'  => __( 'Once per week', 'korea-for-woocommerce' ),
-		];
+		);
 
 		return $schedules;
 	}
@@ -177,7 +177,7 @@ class WC_Korea_License {
 	 */
 	public function schedule_events() {
 		if ( ! wp_next_scheduled( 'wc_korea_weekly_scheduled_events' ) ) {
-			wp_schedule_event( current_time( 'timestamp', true ), 'weekly', 'wc_korea_weekly_scheduled_events' );
+			wp_schedule_event( time(), 'weekly', 'wc_korea_weekly_scheduled_events' );
 		}
 	}
 
@@ -190,16 +190,19 @@ class WC_Korea_License {
 	 * @return array
 	 */
 	public function add_settings( $settings ) {
-		return array_merge($settings, [
-			[
-				'id'      => "{$this->prefix}_license_key",
-				'name'    => sprintf( __( '%1$s', 'korea-for-woocommerce' ), $this->data['Name'] ),
-				'desc'    => '',
-				'type'    => 'license_key',
-				'options' => array( 'is_valid_license_option' => "{$this->prefix}_license_active" ),
-				'size'    => 'regular',
-			]
-		]);
+		return array_merge(
+			$settings,
+			array(
+				array(
+					'id'      => "{$this->prefix}_license_key",
+					'name'    => sprintf( __( '%1$s', 'korea-for-woocommerce' ), $this->data['Name'] ),
+					'desc'    => '',
+					'type'    => 'license_key',
+					'options' => array( 'is_valid_license_option' => "{$this->prefix}_license_active" ),
+					'size'    => 'regular',
+				),
+			)
+		);
 	}
 
 	/**
@@ -209,7 +212,7 @@ class WC_Korea_License {
 	 */
 	public function add_styles() {
 		if ( isset( $_GET['section'] ) && 'wc-korea' === $_GET['section'] ) {
-			wp_enqueue_style( 'wc-korea-license-settings', WC_KOREA_PLUGIN_URL . '/assets/css/admin.css', [], $this->version );
+			wp_enqueue_style( 'wc-korea-license-settings', WC_KOREA_PLUGIN_URL . '/assets/css/admin.css', array(), $this->version );
 		}
 	}
 
@@ -220,11 +223,11 @@ class WC_Korea_License {
 	 */
 	public function activate_license() {
 
-		if ( ! isset( $_REQUEST["{$this->prefix}_license_key-nonce"] ) || ! wp_verify_nonce( $_REQUEST["{$this->prefix}_license_key-nonce"], "{$this->prefix}_license_key-nonce" ) || ! current_user_can( 'manage_woocommerce' ) ) {
+		if ( ! isset( $_REQUEST[ "{$this->prefix}_license_key-nonce" ] ) || ! wp_verify_nonce( $_REQUEST[ "{$this->prefix}_license_key-nonce" ], "{$this->prefix}_license_key-nonce" ) || ! current_user_can( 'manage_woocommerce' ) ) {
 			return;
 		}
 
-		if ( empty( $_POST["{$this->prefix}_license_key"] ) ) {
+		if ( empty( $_POST[ "{$this->prefix}_license_key" ] ) ) {
 			delete_option( "{$this->prefix}_license_active" );
 			return;
 		}
@@ -242,26 +245,26 @@ class WC_Korea_License {
 			return;
 		}
 
-		$license = sanitize_text_field( $_POST["{$this->prefix}_license_key"] );
+		$license = sanitize_text_field( $_POST[ "{$this->prefix}_license_key" ] );
 
 		if ( empty( $license ) ) {
 			return;
 		}
 
 		// data to send to the API
-		$api_params = [
+		$api_params = array(
 			'edd_action' => 'activate_license',
 			'license'    => $license,
 			'item_id'    => $this->id,
 			'url'        => home_url(),
-		];
+		);
 
 		$response = wp_remote_post(
 			$this->api_url,
-			[
+			array(
 				'timeout' => 15,
 				'body'    => $api_params,
-			]
+			)
 		);
 
 		// make sure there are no errors
@@ -285,31 +288,31 @@ class WC_Korea_License {
 	 */
 	public function deactivate_license() {
 
-		if ( ! isset( $_POST["{$this->prefix}_license_key"] ) || ! current_user_can( 'manage_woocommerce' ) ) {
+		if ( ! isset( $_POST[ "{$this->prefix}_license_key" ] ) || ! current_user_can( 'manage_woocommerce' ) ) {
 			return;
 		}
 
-		if ( ! wp_verify_nonce( $_REQUEST["{$this->prefix}_license_key-nonce"], "{$this->prefix}_license_key-nonce" ) ) {
+		if ( ! wp_verify_nonce( $_REQUEST[ "{$this->prefix}_license_key-nonce" ], "{$this->prefix}_license_key-nonce" ) ) {
 			wp_die( __( 'Nonce verification failed', 'korea-for-woocommerce' ), __( 'Error', 'korea-for-woocommerce' ), array( 'response' => 403 ) );
 		}
 
 		// run on deactivate button press
-		if ( isset( $_POST["{$this->prefix}_license_key_deactivate"] ) ) {
+		if ( isset( $_POST[ "{$this->prefix}_license_key_deactivate" ] ) ) {
 
 			// data to send to the API
-			$api_params = [
+			$api_params = array(
 				'edd_action' => 'deactivate_license',
 				'license'    => $this->license,
 				'item_id'    => $this->id,
 				'url'        => home_url(),
-			];
+			);
 
 			$response = wp_remote_post(
 				$this->api_url,
-				[
+				array(
 					'timeout' => 15,
 					'body'    => $api_params,
-				]
+				)
 			);
 
 			// Make sure there are no errors
@@ -347,7 +350,7 @@ class WC_Korea_License {
 	 */
 	public function weekly_license_check() {
 
-		if ( ! empty( $_POST["{$this->prefix}_license_key"] ) ) {
+		if ( ! empty( $_POST[ "{$this->prefix}_license_key" ] ) ) {
 			return false; // don't fire when saving settings
 		}
 
@@ -356,19 +359,19 @@ class WC_Korea_License {
 		}
 
 		// data to send in our API request
-		$api_params = [
+		$api_params = array(
 			'edd_action' => 'check_license',
 			'license'    => $this->license,
 			'item_id'    => $this->id,
 			'url'        => home_url(),
-		];
+		);
 
 		$response = wp_remote_post(
 			$this->api_url,
-			[
+			array(
 				'timeout' => 15,
 				'body'    => $api_params,
-			]
+			)
 		);
 
 		// make sure the response came back okay
@@ -399,7 +402,7 @@ class WC_Korea_License {
 			return;
 		}
 
-		$messages = [];
+		$messages = array();
 		$license  = get_option( "{$this->prefix}_license_active" );
 
 		if ( in_array( $current_screen->id, $screens, true ) && is_object( $license ) && 'valid' !== $license->license && ! $showed_invalid_message ) {
@@ -420,7 +423,7 @@ class WC_Korea_License {
 
 		if ( ! empty( $messages ) ) {
 
-			foreach( $messages as $message ) {
+			foreach ( $messages as $message ) {
 				echo '<div class="error"><p>' . $message . '</p></div>';
 			}
 		}
@@ -433,7 +436,7 @@ class WC_Korea_License {
 	 */
 	public function plugin_row_license_missing( $plugin_data, $version_info ) {
 
-		static $showed_missing_key_message = [];
+		static $showed_missing_key_message = array();
 
 		$license = get_option( "{$this->prefix}_license_active" );
 

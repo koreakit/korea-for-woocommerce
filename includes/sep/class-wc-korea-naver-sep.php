@@ -11,18 +11,18 @@ defined( 'ABSPATH' ) || exit;
 class WC_Korea_Naver_SEP {
 
 	public function __construct() {
-		$this->settings = get_option('woocommerce_korea_settings');
+		$this->settings = get_option( 'woocommerce_korea_settings' );
 
-		if ( ! isset($this->settings['naver_shopping_ep']) || 'yes' !== $this->settings['naver_shopping_ep'] ) {
+		if ( ! isset( $this->settings['naver_shopping_ep'] ) || 'yes' !== $this->settings['naver_shopping_ep'] ) {
 			return;
 		}
 
-		add_action('template_include', array($this, 'template_include'));
+		add_action( 'template_include', array( $this, 'template_include' ) );
 	}
 
 	public function template_include( $original_template ) {
-		$wc_sep = get_query_var('wc-sep');
-		
+		$wc_sep = get_query_var( 'wc-sep' );
+
 		if ( ! $wc_sep ) {
 			return $original_template;
 		}
@@ -31,11 +31,13 @@ class WC_Korea_Naver_SEP {
 			return $original_template;
 		}
 
-		$products = new WP_Query([
-			'post_type'      => 'product',
-			'post_status'    => ['publish'],
-			'posts_per_page' => -1,
-		]);
+		$products = new WP_Query(
+			array(
+				'post_type'      => 'product',
+				'post_status'    => array( 'publish' ),
+				'posts_per_page' => -1,
+			)
+		);
 
 		if ( ! $products->have_posts() ) {
 			return;
@@ -43,23 +45,23 @@ class WC_Korea_Naver_SEP {
 
 		ob_start();
 
-		echo "id";
+		echo 'id';
 		echo "\t";
-		echo "title";
+		echo 'title';
 		echo "\t";
-		echo "price_pc";
+		echo 'price_pc';
 		echo "\t";
-		echo "link";
+		echo 'link';
 		echo "\t";
-		echo "image_link";
+		echo 'image_link';
 		echo "\t";
-		echo "category_name1";
+		echo 'category_name1';
 		echo "\t";
-		echo "shipping";
+		echo 'shipping';
 		echo "\t";
-		echo "class";
+		echo 'class';
 		echo "\t";
-		echo "update_time";
+		echo 'update_time';
 
 		while ( $products->have_posts() ) {
 			$products->the_post();
@@ -82,7 +84,7 @@ class WC_Korea_Naver_SEP {
 			echo "\t";
 			echo get_the_title();
 			echo "\t";
-			echo get_post_meta( get_the_ID(), '_regular_price', true);
+			echo get_post_meta( get_the_ID(), '_regular_price', true );
 			echo "\t";
 			echo get_the_permalink();
 			echo "\t";
@@ -90,11 +92,11 @@ class WC_Korea_Naver_SEP {
 			echo "\t";
 			echo $category;
 			echo "\t";
-			echo "0";
+			echo '0';
 			echo "\t";
-			echo "u";
+			echo 'u';
 			echo "\t";
-			echo get_the_modified_date('Y-m-d') .' '. get_the_modified_date('H:i:s');
+			echo get_the_modified_date( 'Y-m-d' ) . ' ' . get_the_modified_date( 'H:i:s' );
 		}
 
 		wp_reset_postdata();

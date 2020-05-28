@@ -22,7 +22,7 @@ class WC_Korea_Updater {
 	/**
 	 * @var string[] $api_data the updater data
 	 */
-	private $api_data = [];
+	private $api_data = array();
 
 	/**
 	 * @var string $plugin_file the plugin file
@@ -57,7 +57,7 @@ class WC_Korea_Updater {
 	/**
 	 * @var array $api_url_available checks if the URL is available
 	 */
-	private $api_url_available = [];
+	private $api_url_available = array();
 
 
 	/**
@@ -65,9 +65,9 @@ class WC_Korea_Updater {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $_plugin_file path to the plugin file
+	 * @param string   $_plugin_file path to the plugin file
 	 * @param string[] $_api_data optional data to send with API calls
-	 * @param string $_api_url the URL pointing to the custom API endpoint
+	 * @param string   $_api_url the URL pointing to the custom API endpoint
 	 */
 	public function __construct( $_plugin_file, $_api_data, $_api_url = 'https://greys.co/' ) {
 		global $wc_korea_plugin_data;
@@ -101,7 +101,7 @@ class WC_Korea_Updater {
 
 		remove_action( "after_plugin_row_{$this->name}", 'wp_plugin_update_row', 10 );
 		add_action( "after_plugin_row_{$this->name}", array( $this, 'show_update_notification' ), 10, 2 );
-		
+
 		add_action( 'admin_init', array( $this, 'show_changelog' ) );
 	}
 
@@ -123,7 +123,7 @@ class WC_Korea_Updater {
 		global $pagenow;
 
 		if ( ! is_object( $_transient_data ) ) {
-			$_transient_data = new \stdClass;
+			$_transient_data = new \stdClass();
 		}
 
 		if ( 'plugins.php' === $pagenow && is_multisite() ) {
@@ -138,10 +138,13 @@ class WC_Korea_Updater {
 
 		if ( false === $version_info ) {
 
-			$version_info = $this->api_request( 'plugin_latest_version', [
-				'slug' => $this->slug,
-				'beta' => $this->beta
-			]);
+			$version_info = $this->api_request(
+				'plugin_latest_version',
+				array(
+					'slug' => $this->slug,
+					'beta' => $this->beta,
+				)
+			);
 
 			$this->set_version_info_cache( $version_info );
 		}
@@ -200,10 +203,13 @@ class WC_Korea_Updater {
 
 			if ( false === $version_info ) {
 
-				$version_info = $this->api_request( 'plugin_latest_version', [
-					'slug' => $this->slug,
-					'beta' => $this->beta
-				]);
+				$version_info = $this->api_request(
+					'plugin_latest_version',
+					array(
+						'slug' => $this->slug,
+						'beta' => $this->beta,
+					)
+				);
 
 				// since we disabled our filter for the transient, we aren't running our object conversion on banners, sections, or icons. Do this now:
 				if ( isset( $version_info->banners ) && ! is_array( $version_info->banners ) ) {
@@ -271,7 +277,7 @@ class WC_Korea_Updater {
 					'<a target="_blank" class="thickbox" href="' . esc_url( $changelog_link ) . '">',
 					esc_html( $version_info->new_version ),
 					'</a>',
-					'<a href="' . esc_url( wp_nonce_url( self_admin_url( 'update.php?action=upgrade-plugin&plugin=' ) . $this->name, 'upgrade-plugin_' . $this->name ) ) .'">',
+					'<a href="' . esc_url( wp_nonce_url( self_admin_url( 'update.php?action=upgrade-plugin&plugin=' ) . $this->name, 'upgrade-plugin_' . $this->name ) ) . '">',
 					'</a>'
 				);
 			}
@@ -288,9 +294,9 @@ class WC_Korea_Updater {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param mixed   $_data
-	 * @param string  $_action
-	 * @param object  $_args
+	 * @param mixed  $_data
+	 * @param string $_action
+	 * @param object $_args
 	 * @return object $_data
 	 */
 	public function plugins_api_filter( $_data, $_action = '', $_args = null ) {
@@ -299,14 +305,14 @@ class WC_Korea_Updater {
 			return $_data;
 		}
 
-		$to_send = [
+		$to_send = array(
 			'slug'   => $this->slug,
 			'is_ssl' => is_ssl(),
-			'fields' => [
-				'banners' => [],
-				'reviews' => false
-			]
-		];
+			'fields' => array(
+				'banners' => array(),
+				'reviews' => false,
+			),
+		);
 
 		// get the transient where we store the api request for this plugin for 24 hours
 		$api_request_transient = $this->get_cached_version_info( $this->cache_key );
@@ -322,7 +328,6 @@ class WC_Korea_Updater {
 			if ( false !== $api_response ) {
 				$_data = $api_response;
 			}
-
 		} else {
 			$_data = $api_request_transient;
 		}
@@ -349,7 +354,7 @@ class WC_Korea_Updater {
 	 * @since 1.0.0
 	 *
 	 * @param string $_action The requested action.
-	 * @param array $_data Parameters for the API action.
+	 * @param array  $_data Parameters for the API action.
 	 * @return false|object
 	 */
 	private function api_request( $_action, $_data ) {
@@ -364,7 +369,7 @@ class WC_Korea_Updater {
 			return false; // don't allow a plugin to ping itself
 		}
 
-		$api_params = [
+		$api_params = array(
 			'edd_action' => 'get_version',
 			'license'    => ! empty( $data['license'] ) ? $data['license'] : '',
 			'item_name'  => isset( $data['item_name'] ) ? $data['item_name'] : false,
@@ -374,13 +379,16 @@ class WC_Korea_Updater {
 			'author'     => $data['author'],
 			'url'        => home_url(),
 			'beta'       => ! empty( $data['beta'] ),
-		];
+		);
 
-		$request = wp_remote_post( $this->api_url, [
-			'timeout'   => 25,
-			'sslverify' => $this->verify_ssl(),
-			'body'      => $api_params,
-		] );
+		$request = wp_remote_post(
+			$this->api_url,
+			array(
+				'timeout'   => 25,
+				'sslverify' => $this->verify_ssl(),
+				'body'      => $api_params,
+			)
+		);
 
 		if ( ! is_wp_error( $request ) ) {
 			$request = json_decode( wp_remote_retrieve_body( $request ) );
@@ -408,7 +416,7 @@ class WC_Korea_Updater {
 		 * @param array the custom icons; should include $icon['svg'] or $icon['1x'] and $icon['2x']
 		 * @param object $value the version info
 		 */
-		$custom_icons = apply_filters( "wc_korea_plugin_updater_{$this->name}_icon", [], $request );
+		$custom_icons = apply_filters( "wc_korea_plugin_updater_{$this->name}_icon", array(), $request );
 
 		if ( ! empty( $custom_icons ) ) {
 			$request->icons = (array) $custom_icons;
@@ -441,9 +449,9 @@ class WC_Korea_Updater {
 
 			$test_url_parts = parse_url( $this->api_url );
 
-			$scheme = ! empty( $test_url_parts['scheme'] ) ? $test_url_parts['scheme']     : 'http';
-			$host   = ! empty( $test_url_parts['host'] )   ? $test_url_parts['host']       : '';
-			$port   = ! empty( $test_url_parts['port'] )   ? ':' . $test_url_parts['port'] : '';
+			$scheme = ! empty( $test_url_parts['scheme'] ) ? $test_url_parts['scheme'] : 'http';
+			$host   = ! empty( $test_url_parts['host'] ) ? $test_url_parts['host'] : '';
+			$port   = ! empty( $test_url_parts['port'] ) ? ':' . $test_url_parts['port'] : '';
 
 			if ( empty( $host ) ) {
 
@@ -452,10 +460,13 @@ class WC_Korea_Updater {
 			} else {
 
 				$test_url = "{$scheme}://{$host}{$port}";
-				$response = wp_remote_get( $test_url, [
-					'timeout'   => 25,
-					'sslverify' => $this->verify_ssl(),
-				] );
+				$response = wp_remote_get(
+					$test_url,
+					array(
+						'timeout'   => 25,
+						'sslverify' => $this->verify_ssl(),
+					)
+				);
 
 				$this->api_url_available[ $store_hash ] = ! is_wp_error( $response );
 			}
@@ -482,7 +493,7 @@ class WC_Korea_Updater {
 		}
 
 		if ( ! current_user_can( 'update_plugins' ) ) {
-			wp_die( __( 'You do not have permission to install plugin updates', 'korea-for-woocommerce' ), __( 'Error', 'korea-for-woocommerce' ), [ 'response' => 403 ] );
+			wp_die( __( 'You do not have permission to install plugin updates', 'korea-for-woocommerce' ), __( 'Error', 'korea-for-woocommerce' ), array( 'response' => 403 ) );
 		}
 
 		$data         = $wc_korea_plugin_data[ $_REQUEST['slug'] ];
@@ -492,21 +503,24 @@ class WC_Korea_Updater {
 
 		if ( false === $version_info ) {
 
-			$api_params = [
+			$api_params = array(
 				'edd_action' => 'get_version',
 				'item_name'  => isset( $data['item_name'] ) ? $data['item_name'] : false,
 				'item_id'    => isset( $data['item_id'] ) ? $data['item_id'] : false,
 				'slug'       => $_REQUEST['slug'],
 				'author'     => $data['author'],
 				'url'        => home_url(),
-				'beta'       => ! empty( $data['beta'] )
-			];
+				'beta'       => ! empty( $data['beta'] ),
+			);
 
-			$request = wp_remote_post( $this->api_url, [
-				'timeout'   => 25,
-				'sslverify' => $this->verify_ssl(),
-				'body'      => $api_params,
-			] );
+			$request = wp_remote_post(
+				$this->api_url,
+				array(
+					'timeout'   => 25,
+					'sslverify' => $this->verify_ssl(),
+					'body'      => $api_params,
+				)
+			);
 
 			if ( ! is_wp_error( $request ) ) {
 				$version_info = json_decode( wp_remote_retrieve_body( $request ) );
@@ -520,7 +534,7 @@ class WC_Korea_Updater {
 
 			if ( ! empty( $version_info ) ) {
 
-				foreach( $version_info->sections as $key => $section ) {
+				foreach ( $version_info->sections as $key => $section ) {
 					$version_info->$key = (array) $section;
 				}
 			}
@@ -549,7 +563,7 @@ class WC_Korea_Updater {
 	 */
 	private function convert_object_to_array( $data ) {
 
-		$new_data = [];
+		$new_data = array();
 
 		foreach ( $data as $key => $value ) {
 			$new_data[ $key ] = $value;
@@ -578,7 +592,6 @@ class WC_Korea_Updater {
 			return false; // Cache is expired
 		}
 
-
 		return json_decode( $cache['value'] );
 	}
 
@@ -604,16 +617,16 @@ class WC_Korea_Updater {
 		 * @param array the custom icons; should include $icon['svg'] or $icon['1x'] and $icon['2x']
 		 * @param object $value the version info
 		 */
-		$custom_icons = apply_filters( "wc_korea_plugin_updater_{$this->name}_icon", [], $value );
+		$custom_icons = apply_filters( "wc_korea_plugin_updater_{$this->name}_icon", array(), $value );
 
 		if ( ! empty( $custom_icons ) ) {
 			$value->icons = (array) $custom_icons;
 		}
 
-		$data = [
+		$data = array(
 			'timeout' => strtotime( '+3 hours', current_time( 'timestamp' ) ),
-			'value'   => json_encode( $value )
-		];
+			'value'   => json_encode( $value ),
+		);
 
 		update_option( $cache_key, $data, 'no' );
 	}
