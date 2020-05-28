@@ -1,16 +1,41 @@
 language: php
 
-sudo: false
-
-php:
-  - 7.0
-  - 7.1
-
 services:
   - mysql
 
+php:
+  - 7.3
+  - 7.2
+  - 7.1
+  - 7.0
+ 
+# Test against the latest version of WordPress and one version back.
 env:
-  - WP_VERSION=latest WP_MULTISITE=0  WC_VERSION=3.4.5
+  - WP_VERSION=latest
+  - WP_VERSION=5.2
+
+# Customize the build matrix.
+matrix:
+  fast_finish: true
+  include:
+    # Run PHP_CodeSniffer
+    - name: Coding standards
+      php: 7.3
+      env: WP_VERSION=latest
+ 
+    # Canary for our oldest-supported version
+    - name: Legacy
+      php: 5.6
+      env: WP_VERSION=4.9
+ 
+    # Nightly versions of PHP and WordPress.
+    - name: Bleeding edge
+      php: nightly
+      env: WP_VERSION=trunk
+ 
+  # Jobs that are permitted to fail without breaking the build
+  allow_failures:
+    - name: Bleeding edge
 
 before_script:
   - |
@@ -18,10 +43,8 @@ before_script:
       echo "downloading phpunit 6 and rename to phpunit.phar"
       wget https://phar.phpunit.de/phpunit-6.phar
       mv phpunit-6.phar phpunit.phar
-    fi
-  - |
-    if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.1" ]]; then
-      echo "downloading phpunit 7 and rename to phpunit.phar"
+    else
+    	echo "downloading phpunit 7 and rename to phpunit.phar"
       wget https://phar.phpunit.de/phpunit-7.phar
       mv phpunit-7.phar phpunit.phar
     fi
@@ -31,17 +54,12 @@ before_script:
 
 script:
   - |
-    if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.0" ]] ||
-    [[ ${TRAVIS_PHP_VERSION:0:3} == "7.1" ]]; then
-      php phpunit.phar -c phpunit.xml
-    else
-      phpunit
-    fi
+    php phpunit.phar -c phpunit.xml
 
 #save node_modules to speed up build
 cache:
-      directories:
-              - node_modules
+  directories:
+    - node_modules
 
 after_script:
   - bash tests/bin/travis.sh after
