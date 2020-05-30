@@ -124,7 +124,7 @@ abstract class WC_Korea_Payment_Gateway extends WC_Payment_Gateway {
 		?>
 		<tr valign="top" class="<?php echo esc_attr( $data['class'] ); ?>">
 			<th scope="row" class="titledesc">
-				<label for="<?php echo esc_attr( $field_key ); ?>"><?php echo wp_kses_post( $data['title'] ); ?> <?php echo $this->get_tooltip_html( $data ); // WPCS: XSS ok. ?></label>
+				<label for="<?php echo esc_attr( $field_key ); ?>"><?php echo wp_kses_post( $data['title'] ); ?> <?php echo $this->get_tooltip_html( $data ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></label>
 			</th>
 			<td class="forminp">
 				<fieldset>
@@ -134,7 +134,7 @@ abstract class WC_Korea_Payment_Gateway extends WC_Payment_Gateway {
 											if ( $data['multiple'] == true ) {
 												echo 'multiple="multiple"'; }
 											?>
-					 name="<?php echo esc_attr( $field_key ); ?>" data-placeholder="<?php echo esc_attr( $data['placeholder'] ); ?>" <?php disabled( $data['disabled'], true ); // WPCS: XSS ok. ?>>
+					 name="<?php echo esc_attr( $field_key ); ?>" data-placeholder="<?php echo esc_attr( $data['placeholder'] ); ?>" <?php disabled( $data['disabled'], true ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 						<?php foreach ( (array) $data['options'] as $option_key => $option_value ) : ?>
 							<option value="<?php echo esc_attr( $option_key ); ?>" 
 													  <?php
@@ -144,7 +144,7 @@ abstract class WC_Korea_Payment_Gateway extends WC_Payment_Gateway {
 							><?php echo esc_attr( $option_value ); ?></option>
 						<?php endforeach; ?>
 					</select>
-					<?php echo $this->get_description_html( $data ); // WPCS: XSS ok. ?>
+					<?php echo $this->get_description_html( $data ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 				</fieldset>
 			</td>
 		</tr>
@@ -181,7 +181,7 @@ abstract class WC_Korea_Payment_Gateway extends WC_Payment_Gateway {
 		?>
 		<tr valign="top" class="<?php echo esc_attr( $data['class'] ); ?>">
 			<th scope="row" class="titledesc">
-				<label for="<?php echo esc_attr( $field_key ); ?>"><?php echo wp_kses_post( $data['title'] ); ?> <?php echo $this->get_tooltip_html( $data ); // WPCS: XSS ok. ?></label>
+				<label for="<?php echo esc_attr( $field_key ); ?>"><?php echo wp_kses_post( $data['title'] ); ?> <?php echo $this->get_tooltip_html( $data ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></label>
 			</th>
 			<td class="forminp">
 				<fieldset>
@@ -218,7 +218,7 @@ abstract class WC_Korea_Payment_Gateway extends WC_Payment_Gateway {
 												<?php ++$i; } ?>
 					</ul>
 				</fieldset>
-				<?php echo $this->get_description_html( $data ); // WPCS: XSS ok. ?>
+				<?php echo $this->get_description_html( $data ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 			</td>
 		</tr>
 		<?php
