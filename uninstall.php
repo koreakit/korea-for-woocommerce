@@ -1,12 +1,16 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
+/**
+ * Korea for WooCommerce Uninstall
+ *
+ * Uninstalling Korea for WooCommerce deletes options.
+ *
+ * @package WC_Korea
+ */
 
-// if uninstall not called from WordPress exit
-if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
-	exit;
-}
+defined( 'ABSPATH' ) || exit;
+
+// if uninstall not called from WordPress exit.
+defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
 
 /*
  * Only remove ALL product and page data if WC_KOREA_REMOVE_ALL_DATA constant is set to true in user's
