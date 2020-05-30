@@ -1,6 +1,6 @@
 # [Korea for WooCommerce](https://wordpress.org/plugins/korea-for-woocommerce/) #
 
-![Plugin Version](https://img.shields.io/wordpress/plugin/v/korea-for-woocommerce.svg?maxAge=2592000) ![Total Downloads](https://img.shields.io/wordpress/plugin/dt/korea-for-woocommerce.svg?maxAge=2592000) ![Plugin Rating](https://img.shields.io/wordpress/plugin/r/korea-for-woocommerce.svg?maxAge=2592000) ![WordPress Compatibility](https://img.shields.io/wordpress/v/korea-for-woocommerce.svg?maxAge=2592000) [![Build Status](https://img.shields.io/travis/jgreys/korea-for-woocommerce/master.svg?maxAge=2592000)](https://travis-ci.org/jgreys/korea-for-woocommerce) [![License](https://img.shields.io/badge/license-GPL--3.0%2B-red.svg)](https://github.com/jgreys/korea-for-woocommerce/blob/master/license.txt)
+![Plugin Version](https://img.shields.io/wordpress/plugin/v/korea-for-woocommerce.svg?maxAge=2592000) ![Total Downloads](https://img.shields.io/wordpress/plugin/dt/korea-for-woocommerce.svg?maxAge=2592000) ![Plugin Rating](https://img.shields.io/wordpress/plugin/r/korea-for-woocommerce.svg?maxAge=2592000) ![WordPress Compatibility](https://img.shields.io/wordpress/v/korea-for-woocommerce.svg?maxAge=2592000) [![Build Status](https://img.shields.io/travis/jgreys/korea-for-woocommerce/master.svg?maxAge=2592000)](https://travis-ci.org/jgreys/korea-for-woocommerce) [![License](https://img.shields.io/badge/license-GPL--3.0%2B-red.svg)](https://github.com/jgreys/korea-for-woocommerce/blob/master/LICENSE)
 
 ### Welcome to the GitHub Repository
 
