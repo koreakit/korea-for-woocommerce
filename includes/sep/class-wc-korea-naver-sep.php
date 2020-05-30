@@ -74,7 +74,7 @@ class WC_Korea_Naver_SEP {
 
 			$categories = get_the_terms( get_the_ID(), 'product_cat' );
 			foreach ( $categories as $category ) {
-				if ( $category->parent == 0 ) {
+				if ( 0 === $category->parent ) {
 					$category = $category->name;
 				}
 			}
