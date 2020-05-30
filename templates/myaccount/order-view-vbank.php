@@ -15,8 +15,8 @@
  * @package     WooCommerce/Templates
  * @version     3.0.0
  */
-?>
 
+?>
 <section class="woocommerce-vbank-details">
 	<?php if ( ! empty( $account_name ) ) { ?>
 		<h3 class="wc-vbank-details-account-name">
