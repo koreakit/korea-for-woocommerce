@@ -3,6 +3,8 @@
 Thumbs.db
 vendor
 
+composer.lock
+
 # Volumes mounted by Docker containers
 docker/data
 docker/wordpress
