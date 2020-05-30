@@ -4,6 +4,7 @@ services:
   - mysql
 
 php:
+  - 7.4
   - 7.3
   - 7.2
   - 7.1
@@ -11,8 +12,8 @@ php:
  
 # Test against the latest version of WordPress and one version back.
 env:
-  - WP_VERSION=latest
-  - WP_VERSION=5.2
+  - WP_VERSION=latest WP_MULTISITE=0 WC_VERSION=4.1.1
+  - WP_VERSION=5.3 WP_MULTISITE=0 WC_VERSION=4.0.0
 
 # Customize the build matrix.
 matrix:
@@ -20,18 +21,18 @@ matrix:
   include:
     # Run PHP_CodeSniffer
     - name: Coding standards
-      php: 7.3
-      env: WP_VERSION=latest
+      php: 7.4
+      env: WP_VERSION=latest WC_VERSION=latest
  
     # Canary for our oldest-supported version
     - name: Legacy
-      php: 5.6
-      env: WP_VERSION=4.9
+      php: 7.0
+      env: WP_VERSION=5.0 WC_VERSION=3.9.0
  
-    # Nightly versions of PHP and WordPress.
+    # Nightly versions of PHP and WordPress/WooCommerce.
     - name: Bleeding edge
       php: nightly
-      env: WP_VERSION=trunk
+      env: WP_VERSION=trunk WC_VERSION=master
  
   # Jobs that are permitted to fail without breaking the build
   allow_failures:
@@ -44,7 +45,7 @@ before_script:
       wget https://phar.phpunit.de/phpunit-6.phar
       mv phpunit-6.phar phpunit.phar
     else
-    	echo "downloading phpunit 7 and rename to phpunit.phar"
+      echo "downloading phpunit 7 and rename to phpunit.phar"
       wget https://phar.phpunit.de/phpunit-7.phar
       mv phpunit-7.phar phpunit.phar
     fi
