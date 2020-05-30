@@ -34,7 +34,7 @@ class WC_Korea_Naver_TalkTalk {
 	 * Load payment scripts.
 	 */
 	public function frontend_scripts() {
-		wp_enqueue_script( 'wc-korea-naver-talktalk', 'https://partner.talk.naver.com/banners/script', array(), WC_KOREA_VERSION );
+		wp_enqueue_script( 'wc-korea-naver-talktalk', 'https://partner.talk.naver.com/banners/script', array(), WC_KOREA_VERSION, true );
 	}
 
 	public function add_navertalktalk_snippet() {
