@@ -11,7 +11,7 @@ defined( 'ABSPATH' ) || exit;
 class WC_Korea_WPML {
 
 	public function __construct() {
-		add_action('admin_footer', array($this, 'admin_footer'), 50);
+		add_action( 'admin_footer', array( $this, 'admin_footer' ), 50 );
 	}
 
 	public function admin_footer() {
@@ -21,7 +21,7 @@ class WC_Korea_WPML {
 			return;
 		}
 
-		wp_dequeue_script('wpml-select-2');
+		wp_dequeue_script( 'wpml-select-2' );
 	}
 
 }

@@ -9,13 +9,13 @@
 defined( 'ABSPATH' ) || exit;
 
 class WC_Korea_Integration extends WC_Integration {
-	
+
 	public function __construct() {
 		$this->id                 = 'korea';
 		$this->method_title       = __( 'Korea for WooCommerce', 'korea-for-woocommerce' );
 		$this->method_description = '';
-		$this->category           = ! empty( $_GET['cat'] ) ? sanitize_title($_GET['cat']) : 'general';
-		
+		$this->category           = ! empty( $_GET['cat'] ) ? sanitize_title( $_GET['cat'] ) : 'general';
+
 		// Load the settings.
 		$this->init_form_fields();
 		$this->init_settings();
@@ -24,7 +24,7 @@ class WC_Korea_Integration extends WC_Integration {
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 
 		// Actions.
-		add_action( 'woocommerce_update_options_integration_' .  $this->id, array( $this, 'process_admin_options' ) );
+		add_action( 'woocommerce_update_options_integration_' . $this->id, array( $this, 'process_admin_options' ) );
 	}
 
 	/**
@@ -33,14 +33,14 @@ class WC_Korea_Integration extends WC_Integration {
 	 * @return void
 	 */
 	public function init_form_fields() {
-		$filename = sanitize_title($this->category) .'.php';
+		$filename = sanitize_title( $this->category ) . '.php';
 
-		if ( ! file_exists( WC_KOREA_PLUGIN_PATH . '/includes/admin/settings/'. $filename ) ) {
-			$this->form_fields = [];
+		if ( ! file_exists( WC_KOREA_PLUGIN_PATH . '/includes/admin/settings/' . $filename ) ) {
+			$this->form_fields = array();
 			return;
 		}
 
-		$this->form_fields = require( WC_KOREA_PLUGIN_PATH . '/includes/admin/settings/'. $filename );
+		$this->form_fields = require WC_KOREA_PLUGIN_PATH . '/includes/admin/settings/' . $filename;
 	}
 
 	/**
@@ -56,29 +56,29 @@ class WC_Korea_Integration extends WC_Integration {
 			return;
 		}
 
-		wp_enqueue_script( 'wc-korea-admin', plugins_url('assets/js/admin/settings.js', WC_KOREA_MAIN_FILE), [], WC_KOREA_VERSION, true );
+		wp_enqueue_script( 'wc-korea-admin', plugins_url( 'assets/js/admin/settings.js', WC_KOREA_MAIN_FILE ), array(), WC_KOREA_VERSION, true );
 	}
 
 	/**
-	 *	Get categories
+	 *  Get categories
 	 *
-	 *	@return array
+	 *  @return array
 	 */
 	public function get_categories() {
-		return [
+		return array(
 			'general'  => __( 'General', 'korea-for-woocommerce' ),
 			'sep'      => __( 'Search Engine Page', 'korea-for-woocommerce' ),
 			'support'  => __( 'Support', 'korea-for-woocommerce' ),
-			'advanced' => __( 'Avanced', 'korea-for-woocommerce' )
-		];
+			'advanced' => __( 'Avanced', 'korea-for-woocommerce' ),
+		);
 	}
 
 	/**
-	 *	Output categories
+	 *  Output categories
 	 */
 	public function output_categories() {
 		$categories = $this->get_categories();
-		
+
 		if ( empty( $categories ) || 1 === sizeof( $categories ) ) {
 			return;
 		}
@@ -86,12 +86,16 @@ class WC_Korea_Integration extends WC_Integration {
 		echo '<ul class="subsubsub">';
 		$array_keys = array_keys( $categories );
 		foreach ( $categories as $id => $label ) {
-			$args = ['page' => 'wc-settings', 'tab' => 'integration', 'section' => $this->id];
+			$args = array(
+				'page'    => 'wc-settings',
+				'tab'     => 'integration',
+				'section' => $this->id,
+			);
 			if ( $id !== 'general' ) {
 				$args['cat'] = sanitize_title( $id );
 			}
 
-			echo '<li><a href="' . add_query_arg($args, admin_url('/admin.php')) . '" class="' . ( $this->category == $id ? 'current' : '' ) . '">' . $label . '</a> ' . ( end( $array_keys ) == $id ? '' : '|' ) . ' </li>';
+			echo '<li><a href="' . add_query_arg( $args, admin_url( '/admin.php' ) ) . '" class="' . ( $this->category == $id ? 'current' : '' ) . '">' . $label . '</a> ' . ( end( $array_keys ) == $id ? '' : '|' ) . ' </li>';
 		}
 		echo '</ul><br class="clear" />';
 	}

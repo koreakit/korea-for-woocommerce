@@ -9,33 +9,33 @@
 defined( 'ABSPATH' ) || exit;
 
 class WC_Korea_Helper {
-	
+
 	/**
 	 * Get test account
 	 *
 	 * @return array
 	 */
 	public static function get_testaccount( $id ) {
-		if ( empty($id) ) {
-			return NULL;
+		if ( empty( $id ) ) {
+			return null;
 		}
 
-		$data        = [];
-		$settings    = get_option( 'woocommerce_'. $id .'_settings' );
+		$data     = array();
+		$settings = get_option( 'woocommerce_' . $id . '_settings' );
 
-		if ( ! isset($settings['testaccount']) ) {
-			return NULL;
+		if ( ! isset( $settings['testaccount'] ) ) {
+			return null;
 		}
 
 		$testaccount = get_user_by( 'id', $settings['testaccount'] );
 
 		if ( ! $testaccount ) {
-			return NULL;
+			return null;
 		}
 
 		$data[ $testaccount->ID ] = $testaccount->user_email;
 
 		return $data;
 	}
-	
+
 }

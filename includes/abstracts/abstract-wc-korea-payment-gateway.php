@@ -17,20 +17,20 @@ abstract class WC_Korea_Payment_Gateway extends WC_Payment_Gateway {
 	public $main_id = '';
 
 	/**
-     * Main form option fields.
-     *
-     * @var array
-     */
-    public $main_form_fields = array();
+	 * Main form option fields.
+	 *
+	 * @var array
+	 */
+	public $main_form_fields = array();
 
-    /**
-     * Get the form fields after they are initialized.
-     *
-     * @return array of options
-     */
-    public function get_main_form_fields() {
-        return apply_filters( 'woocommerce_main_settings_api_form_fields_' . $this->main_id, array_map( array( $this, 'set_defaults' ), $this->main_form_fields ) );
-    }
+	/**
+	 * Get the form fields after they are initialized.
+	 *
+	 * @return array of options
+	 */
+	public function get_main_form_fields() {
+		return apply_filters( 'woocommerce_main_settings_api_form_fields_' . $this->main_id, array_map( array( $this, 'set_defaults' ), $this->main_form_fields ) );
+	}
 
 	/**
 	 * Get main option from DB.
@@ -69,12 +69,12 @@ abstract class WC_Korea_Payment_Gateway extends WC_Payment_Gateway {
 	 * @uses get_option(), add_option()
 	 */
 	public function init_main_settings() {
-		$this->main_settings = get_option( 'woocommerce_'. $this->main_id .'_settings', null );
+		$this->main_settings = get_option( 'woocommerce_' . $this->main_id . '_settings', null );
 
 		// If there are no settings defined, use defaults.
 		if ( ! is_array( $this->main_settings ) ) {
-			$main_form_fields      = $this->get_main_form_fields();
-			$this->main_settings   = array_merge( array_fill_keys( array_keys( $main_form_fields ), '' ), wp_list_pluck( $main_form_fields, 'default' ) );
+			$main_form_fields    = $this->get_main_form_fields();
+			$this->main_settings = array_merge( array_fill_keys( array_keys( $main_form_fields ), '' ), wp_list_pluck( $main_form_fields, 'default' ) );
 		}
 	}
 
@@ -84,12 +84,12 @@ abstract class WC_Korea_Payment_Gateway extends WC_Payment_Gateway {
 	 * @return bool
 	 */
 	public function is_available() {
-		if ( ! in_array(get_woocommerce_currency(), ['KRW']) ) {
-			return FALSE;
+		if ( ! in_array( get_woocommerce_currency(), array( 'KRW' ) ) ) {
+			return false;
 		}
 
-		if ( $this->testmode && get_current_user_id() != $this->testaccount && !current_user_can('manage_woocommerce') ) {
-			return FALSE;
+		if ( $this->testmode && get_current_user_id() != $this->testaccount && ! current_user_can( 'manage_woocommerce' ) ) {
+			return false;
 		}
 
 		return parent::is_available();
@@ -103,23 +103,23 @@ abstract class WC_Korea_Payment_Gateway extends WC_Payment_Gateway {
 	 * @return string
 	 */
 	public function generate_select2_html( $key, $data ) {
-		$defaults = [
-			'title'             => '',
-			'disabled'          => false,
-			'class'             => '',
-			'css'               => '',
-			'placeholder'       => '',
-			'type'              => 'text',
-			'desc_tip'          => false,
-			'description'       => '',
-			'multiple'			=> false,
-			'options'           => []
-		];
+		$defaults = array(
+			'title'       => '',
+			'disabled'    => false,
+			'class'       => '',
+			'css'         => '',
+			'placeholder' => '',
+			'type'        => 'text',
+			'desc_tip'    => false,
+			'description' => '',
+			'multiple'    => false,
+			'options'     => array(),
+		);
 
 		$data       = wp_parse_args( $data, $defaults );
 		$field_key  = $this->get_field_key( $key );
 		$field_key .= $data['multiple'] == true ? '[]' : '';
-		
+
 		ob_start();
 		?>
 		<tr valign="top" class="<?php echo esc_attr( $data['class'] ); ?>">
@@ -129,9 +129,19 @@ abstract class WC_Korea_Payment_Gateway extends WC_Payment_Gateway {
 			<td class="forminp">
 				<fieldset>
 					<legend class="screen-reader-text"><span><?php echo wp_kses_post( $data['title'] ); ?></span></legend>
-					<select id="<?php echo esc_attr( $field_key ); ?>" class="wc-enhanced-select" <?php if ( $data['multiple'] == true ) { echo 'multiple="multiple"'; } ?> name="<?php echo esc_attr( $field_key ); ?>" data-placeholder="<?php echo esc_attr( $data['placeholder'] ); ?>" <?php disabled( $data['disabled'], true ); // WPCS: XSS ok. ?>>
+					<select id="<?php echo esc_attr( $field_key ); ?>" class="wc-enhanced-select" 
+										   <?php
+											if ( $data['multiple'] == true ) {
+												echo 'multiple="multiple"'; }
+											?>
+					 name="<?php echo esc_attr( $field_key ); ?>" data-placeholder="<?php echo esc_attr( $data['placeholder'] ); ?>" <?php disabled( $data['disabled'], true ); // WPCS: XSS ok. ?>>
 						<?php foreach ( (array) $data['options'] as $option_key => $option_value ) : ?>
-							<option value="<?php echo esc_attr( $option_key ); ?>" <?php if ( in_array( $option_key, explode(':', $this->get_option( $key ))) ) { echo 'selected="selected"'; } ?>><?php echo esc_attr( $option_value ); ?></option>
+							<option value="<?php echo esc_attr( $option_key ); ?>" 
+													  <?php
+														if ( in_array( $option_key, explode( ':', $this->get_option( $key ) ) ) ) {
+															echo 'selected="selected"'; }
+														?>
+							><?php echo esc_attr( $option_value ); ?></option>
 						<?php endforeach; ?>
 					</select>
 					<?php echo $this->get_description_html( $data ); // WPCS: XSS ok. ?>
@@ -152,20 +162,20 @@ abstract class WC_Korea_Payment_Gateway extends WC_Payment_Gateway {
 	 */
 	public function generate_nointerest_html( $key, $data ) {
 		$field_key = $this->get_field_key( $key );
-		$defaults  = [
-			'title'             => '',
-			'disabled'          => false,
-			'class'             => '',
-			'css'               => '',
-			'placeholder'       => '',
-			'type'              => 'text',
-			'desc_tip'          => false,
-			'description'       => '',
-			'options'           => [],
-		];
+		$defaults  = array(
+			'title'       => '',
+			'disabled'    => false,
+			'class'       => '',
+			'css'         => '',
+			'placeholder' => '',
+			'type'        => 'text',
+			'desc_tip'    => false,
+			'description' => '',
+			'options'     => array(),
+		);
 
 		$data  = wp_parse_args( $data, $defaults );
-		$cards = explode(',', esc_attr( $this->get_option( $key ) ) );
+		$cards = explode( ',', esc_attr( $this->get_option( $key ) ) );
 
 		ob_start();
 		?>
@@ -176,17 +186,26 @@ abstract class WC_Korea_Payment_Gateway extends WC_Payment_Gateway {
 			<td class="forminp">
 				<fieldset>
 					<ul id="<?php echo esc_attr( $field_key ); ?>">
-						<?php $i = 1; foreach ( $cards as $card ) { list($cardcode, $quotabase) = explode('-', $card); ?>
+						<?php
+						$i = 1;
+						foreach ( $cards as $card ) {
+							list($cardcode, $quotabase) = explode( '-', $card );
+							?>
 							<li>
 								<select class="wc-inicis-nointerest-card" name="<?php echo esc_attr( $field_key ); ?>[card][]">
-									<?php foreach ( (array) $data['cards'] as $option_key => $option_value ) : ?>
+															<?php foreach ( (array) $data['cards'] as $option_key => $option_value ) : ?>
 										<option value="<?php echo esc_attr( $option_key ); ?>" <?php selected( (string) $option_key, esc_attr( $cardcode ) ); ?>><?php echo esc_attr( $option_value ); ?></option>
 									<?php endforeach; ?>
 								</select>
 
-								<select class="wc-inicis-nointerest-quotabase wc-enhanced-select" name="<?php echo esc_attr( $field_key ); ?>[quotabase][<?php echo esc_attr($i); ?>][]" multiple="multiple">
-									<?php foreach ( (array) $data['quotabase'] as $option_key => $option_value ) : ?>
-										<option value="<?php echo esc_attr( $option_key ); ?>" <?php if ( in_array($option_key, (array) explode(':', $quotabase)) ) { echo 'selected="selected"'; } ?>><?php echo esc_attr( $option_value ); ?></option>
+								<select class="wc-inicis-nointerest-quotabase wc-enhanced-select" name="<?php echo esc_attr( $field_key ); ?>[quotabase][<?php echo esc_attr( $i ); ?>][]" multiple="multiple">
+															<?php foreach ( (array) $data['quotabase'] as $option_key => $option_value ) : ?>
+										<option value="<?php echo esc_attr( $option_key ); ?>" 
+																  <?php
+																	if ( in_array( $option_key, (array) explode( ':', $quotabase ) ) ) {
+																		echo 'selected="selected"'; }
+																	?>
+										><?php echo esc_attr( $option_value ); ?></option>
 									<?php endforeach; ?>
 								</select>
 								
@@ -196,7 +215,7 @@ abstract class WC_Korea_Payment_Gateway extends WC_Payment_Gateway {
 									<a class="button-secondary button-nointerest-card-remove" href="javascript:;" style="color:red; font-weight:bold;">-</a>
 								<?php } ?>
 							</li>
-						<?php ++$i; } ?>
+												<?php ++$i; } ?>
 					</ul>
 				</fieldset>
 				<?php echo $this->get_description_html( $data ); // WPCS: XSS ok. ?>

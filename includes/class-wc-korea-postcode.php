@@ -11,15 +11,15 @@ defined( 'ABSPATH' ) || exit;
 class WC_Korea_Postcode {
 
 	public function __construct() {
-		$this->settings = get_option('woocommerce_korea_settings');
+		$this->settings = get_option( 'woocommerce_korea_settings' );
 
-		if ( ! isset($this->settings['postcode_yn']) || ! wc_string_to_bool($this->settings['postcode_yn']) ) {
+		if ( ! isset( $this->settings['postcode_yn'] ) || ! wc_string_to_bool( $this->settings['postcode_yn'] ) ) {
 			return;
 		}
 
-		add_action('wp_footer', array($this, 'wp_footer'));
-		add_action('wp_enqueue_scripts', array($this, 'wp_enqueue_scripts'));
-		add_filter('woocommerce_get_country_locale' , array($this, 'wc_get_country_locale'));
+		add_action( 'wp_footer', array( $this, 'wp_footer' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
+		add_filter( 'woocommerce_get_country_locale', array( $this, 'wc_get_country_locale' ) );
 	}
 
 	public function wp_footer() {
@@ -55,29 +55,33 @@ class WC_Korea_Postcode {
 			return;
 		}
 
-		wp_enqueue_script('wc-korea-daum-postcode', 'https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js', [], '');
-		wp_enqueue_script('wc-korea-postcode', WC_KOREA_PLUGIN_URL . '/assets/js/wc-korea-postcode.js', [], WC_KOREA_VERSION);
-		wp_localize_script('wc-korea-postcode', '_postcode', [
-			'theme' => [
-				'displaymode'        => $this->settings['postcode_displaymode'] ?? 'overlay',
-				'bgcolor'            => $this->settings['postcode_bgcolor'] ?? '#ececec',
-				'searchbgcolor'      => $this->settings['postcode_searchbgcolor'] ?? '#ffffff',
-				'contentbgcolor'     => $this->settings['postcode_contentbgcolor'] ?? '#ffffff',
-				'pagebgcolor'        => $this->settings['postcode_pagebgcolor'] ?? '#fafafa',
-				'textcolor'          => $this->settings['postcode_textcolor'] ?? '#333333',
-				'querytxtcolor'      => $this->settings['postcode_querytxtcolor'] ?? '#222222',
-				'postalcodetxtcolor' => $this->settings['postcode_postalcodetxtcolor'] ?? '#fa4256',
-				'emphtxtcolor'       => $this->settings['postcode_emphtxtcolor'] ?? '#008bd3',
-				'outlinecolor'       => $this->settings['postcode_outlinecolor'] ?? '#e0e0e0'
-			]
-		]);
+		wp_enqueue_script( 'wc-korea-daum-postcode', 'https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js', array(), '' );
+		wp_enqueue_script( 'wc-korea-postcode', WC_KOREA_PLUGIN_URL . '/assets/js/wc-korea-postcode.js', array(), WC_KOREA_VERSION );
+		wp_localize_script(
+			'wc-korea-postcode',
+			'_postcode',
+			array(
+				'theme' => array(
+					'displaymode'        => $this->settings['postcode_displaymode'] ?? 'overlay',
+					'bgcolor'            => $this->settings['postcode_bgcolor'] ?? '#ececec',
+					'searchbgcolor'      => $this->settings['postcode_searchbgcolor'] ?? '#ffffff',
+					'contentbgcolor'     => $this->settings['postcode_contentbgcolor'] ?? '#ffffff',
+					'pagebgcolor'        => $this->settings['postcode_pagebgcolor'] ?? '#fafafa',
+					'textcolor'          => $this->settings['postcode_textcolor'] ?? '#333333',
+					'querytxtcolor'      => $this->settings['postcode_querytxtcolor'] ?? '#222222',
+					'postalcodetxtcolor' => $this->settings['postcode_postalcodetxtcolor'] ?? '#fa4256',
+					'emphtxtcolor'       => $this->settings['postcode_emphtxtcolor'] ?? '#008bd3',
+					'outlinecolor'       => $this->settings['postcode_outlinecolor'] ?? '#e0e0e0',
+				),
+			)
+		);
 	}
 
 	public function wc_get_country_locale( $locale ) {
 		$locale['KR']['postcode']['priority'] = 40;
 		$locale['KR']['postcode']['required'] = true;
 		$locale['KR']['country']['priority']  = 30;
-		
+
 		return $locale;
 	}
 
