@@ -1,4 +1,4 @@
-<p align="center"><a href="https://wordpress.org/plugins/korea-for-woocommerce/"><img src="https://ps.w.org/korea-for-woocommerce/assets/banner-772x250.png" alt="Korea for WooCommerce"></a></p>
+<p align="center"><a href="https://wordpress.org/plugins/korea-for-woocommerce/"><img src="https://ps.w.org/korea-for-woocommerce/assets/banner-1544x500.png" alt="Korea for WooCommerce"></a></p>
 
 <p align="center">
 	<a href="https://packagist.org/packages/jgreys/korea-for-woocommerce"><img src="https://poser.pugx.org/jgreys/korea-for-woocommerce/license" alt="license"></a> 
