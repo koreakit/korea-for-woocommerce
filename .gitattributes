@@ -19,3 +19,4 @@ docker export-ignore
 default.env export-ignore
 docker-compose.yml export-ignore
 docs/DOCKER.md export-ignore
+.wordpress-org export-ignore
