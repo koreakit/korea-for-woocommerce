@@ -1,0 +1,9 @@
+/node_modules/
+.DS_Store
+Thumbs.db
+vendor
+
+# Volumes mounted by Docker containers
+docker/data
+docker/wordpress
+docker/logs
