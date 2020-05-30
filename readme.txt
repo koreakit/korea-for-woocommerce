@@ -36,7 +36,37 @@ This plugin enhance the shopping experience for your Korean customers with WooCo
 * KakaoTalk Notifications for WooCommerce
 * Korean Authentication Services for WooCommerce
 
-If you need a custom WordPress theme/plugin or you like me to consult on a project with you, feel free to drop me an email at [contact@greys.co](mailto:contact@greys.co).
+See the [payment gateways category](https://greys.co/products/category/gateways/?utm_source=extensions&utm_medium=description_tab&utm_content=gateways&utm_campaign=readme) in the addons catalogue for a complete list of supported merchant processors.
+
+= Contribute to Korea for WooCommerce =
+
+Development for this plugin happens in a public GitHub repository to better facilitate contributions from an active community of users, developers and designers. If you have a suggestion, bug report, patch, or pull request, please feel free to [contribute here](https://github.com/jgreys/korea-for-woocommerce).
+
+= Looking for something else? =
+
+If Korea for WooCommerce doesn’t quite fit your needs or you like me to consult on a project with you, feel free to drop me an email at [contact@greys.co](mailto:contact@greys.co).
+
+== Screenshots ==
+
+1. Settings
+2. Korea Postcode finder
+3. Kakao Channel
+4. Korean delivery companies
+5. Addons
+
+== Frequently Asked Questions ==
+
+= Where can I activate korean payment ? =
+
+Korean payment gateways are premium addons and not yet available for the public. It will be available very soon. However, if you need this solution as soon as possible, you can get an early access by dropping me an email. [contact@greys.co](mailto:contact@greys.co)
+
+= Where can I find documentation ? =
+
+For help setting up and configuring, please refer to [our documentation](https://greys.co).
+
+= Where can I get support or talk to other users ? =
+
+If you get stuck, you can ask for help in the Plugin Forum.
 
 == Installation ==
 
@@ -57,16 +87,24 @@ In the search field type “Korea for WooCommerce” and click Search Plugins. O
 
 The manual installation method involves downloading our plugin and uploading it to your webserver via your favourite FTP application.
 
-== Frequently Asked Questions ==
+== Changelog ==
+= 1.0.5 - 2020-05-19 =
+* New - New addons added
 
-= Where can I activate korean payment ? =
+= 1.0.4 - 2020-05-15 =
+* Tweak - Main settings improved for Korean Payment Gateways 
 
-Korean payment gateways are premium addons and not yet available for the public. It will be available very soon. However, if you need this solution as soon as possible, you can get an early access by dropping me an email. [contact@greys.co](mailto:contact@greys.co)
+= 1.0.3 - 2020-04-20 =
+* Fix - Columns height of the addons page.
+* Fix - When an update of an addon was available, fatal error was thrown.
+* Fix - When saving licenses changes, fatal error was thrown.
 
-= Where can I find documentation ? =
+= 1.0.2 - 2020-03-30 =
+* Add - Display mode option to the postcode finder. (default: overlay)
+* Fix - Strict standards warning.
 
-For help setting up and configuring, please refer to [our documentation](https://greys.co).
+= 1.0.1 - 2020-02-06 =
+* Fix - Strict standards warning.
 
-= Where can I get support or talk to other users ? =
-
-If you get stuck, you can ask for help in the Plugin Forum.
+= 1.0 - 2019-11-20 =
+* First Release
