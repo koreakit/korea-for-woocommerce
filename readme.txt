@@ -45,7 +45,7 @@ Development for this plugin happens in a public GitHub repository to better faci
 
 = Looking for something else? =
 
-If Korea for WooCommerce doesn’t quite fit your needs or you like me to consult on a project with you, feel free to drop me an email at [contact@greys.co](mailto:contact@greys.co).
+If Korea for WooCommerce doesn’t quite fit your needs or you like me to consult on a project with you, feel free to drop me an email [here](mailto:contact@greys.co).
 
 == Screenshots ==
 
