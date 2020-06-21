@@ -3,7 +3,7 @@ jQuery(function($) {
 
 	var wc_korea_postcode = {
 		$body: $( document.body ),
-		$country: $('select#billing_country, select#shipping_country'),
+		$country: $('#billing_country, #shipping_country'),
 		$postcode: $('input#billing_postcode, input#shipping_postcode'),
 		$postcodeForm: $('#postcode_form'),
 		$postcodeClose: $('#postcode_close'),
