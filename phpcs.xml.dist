@@ -15,10 +15,16 @@
 
 	<!-- Rules -->
 	<rule ref="WooCommerce-Core" >
+		<exclude name="Core.Commenting.CommentTags.AuthorTag" />
 		<exclude name="Generic.Commenting.Todo.TaskFound"/>
 
-		<!-- This rule is currently generating some false positives, it would be worth retrying after PHPCS upgrades -->
-		<exclude name="Squiz.Commenting.FunctionCommentThrowTag.WrongNumber"/>
+		<exclude name="Squiz.Commenting.FunctionComment.MissingParamComment" />
+		<exclude name="Squiz.Commenting.FunctionCommentThrowTag.WrongNumber" />
+		<exclude name="Squiz.Commenting.InlineComment.InvalidEndChar" />
+	</rule>
+
+	<rule ref="WordPress.Files.FileName.InvalidClassFileName">
+		<exclude-pattern>includes/**/abstract-*.php</exclude-pattern>
 	</rule>
 
 	<rule ref="WordPress.WP.I18n">
