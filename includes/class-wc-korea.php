@@ -8,7 +8,6 @@
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( 'WC_Korea' ) ) {
 
 	class WC_Korea {
 
@@ -107,7 +106,6 @@ if ( ! class_exists( 'WC_Korea' ) ) {
 			require_once dirname( __FILE__ ) . '/sep/class-wc-korea-daum-sep.php';
 			require_once dirname( __FILE__ ) . '/sep/class-wc-korea-naver-sep.php';
 			require_once dirname( __FILE__ ) . '/class-wc-korea-helper.php';
-			require_once dirname( __FILE__ ) . '/class-wc-korea-order-statuses.php';
 			require_once dirname( __FILE__ ) . '/class-wc-korea-postcode.php';
 
 			// Payment Gateways (Addons)
