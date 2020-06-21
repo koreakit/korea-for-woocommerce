@@ -7,7 +7,7 @@ set -e
 # https://hub.docker.com/_/wordpress#running-as-an-arbitrary-user
 cli()
 {
-	docker run -it --rm --user xfs --volumes-from woocommerce_korea_wordpress --network container:woocommerce_korea_wordpress wordpress:cli "$@" > /dev/null
+	docker run -it --rm --user xfs --volumes-from wc_korea --network container:wc_korea wordpress:cli "$@" > /dev/null
 }
 
 echo
