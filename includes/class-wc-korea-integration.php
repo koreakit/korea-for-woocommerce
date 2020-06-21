@@ -8,19 +8,27 @@
 
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * WC_Korea_Integration class.
+ *
+ * @extends WC_Integration
+ */
 class WC_Korea_Integration extends WC_Integration {
 
+	/**
+	 * Class constructor
+	 */
 	public function __construct() {
 		$this->id                 = 'korea';
 		$this->method_title       = __( 'Korea for WooCommerce', 'korea-for-woocommerce' );
 		$this->method_description = '';
-		$this->category           = ! empty( $_GET['cat'] ) ? sanitize_title( $_GET['cat'] ) : 'general';
+		$this->category           = ! empty( $_GET['cat'] ) ? sanitize_key( wp_unslash( $_GET['cat'] ) ) : 'general'; // @codingStandardsIgnoreLine WordPress.Security.NonceVerification.Recommended
 
 		// Load the settings.
 		$this->init_form_fields();
 		$this->init_settings();
 
-		// JS Library
+		// JS Library.
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 
 		// Actions.
@@ -51,8 +59,9 @@ class WC_Korea_Integration extends WC_Integration {
 			return;
 		}
 
-		if ( isset( $_GET['section'] ) && 'korea' !== $_GET['section']
-			&& isset( $_GET['tab'] ) && 'integration' !== $_GET['tab'] ) {
+		$section = isset( $_GET['section'] ) && ! empty( $_GET['section'] ) ? sanitize_key( wp_unslash( $_GET['section'] ) ) : null; // @codingStandardsIgnoreLine WordPress.Security.NonceVerification.Recommended
+		$tab = isset( $_GET['tab'] ) && ! empty( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : null; // @codingStandardsIgnoreLine WordPress.Security.NonceVerification.Recommended
+		if ( 'korea' !== $section && 'integration' !== $tab ) {
 			return;
 		}
 
@@ -79,7 +88,7 @@ class WC_Korea_Integration extends WC_Integration {
 	public function output_categories() {
 		$categories = $this->get_categories();
 
-		if ( empty( $categories ) || 1 === sizeof( $categories ) ) {
+		if ( empty( $categories ) || 1 === count( $categories ) ) {
 			return;
 		}
 
@@ -91,11 +100,19 @@ class WC_Korea_Integration extends WC_Integration {
 				'tab'     => 'integration',
 				'section' => $this->id,
 			);
-			if ( $id !== 'general' ) {
+
+			if ( 'general' !== $id ) {
 				$args['cat'] = sanitize_title( $id );
 			}
 
-			echo '<li><a href="' . add_query_arg( $args, admin_url( '/admin.php' ) ) . '" class="' . ( $this->category == $id ? 'current' : '' ) . '">' . $label . '</a> ' . ( end( $array_keys ) == $id ? '' : '|' ) . ' </li>';
+			?>
+			<li>
+				<a href="<?php echo esc_url( add_query_arg( $args, admin_url( 'admin.php' ) ) ); ?>" class="<?php echo esc_attr( $this->category === $id ? 'current' : '' ); ?>">
+					<?php echo wp_kses_post( wptexturize( $label ) ); ?>
+				</a>
+				<?php echo ( end( $array_keys ) === $id ? '' : '|' ); ?>
+			</li>
+			<?php
 		}
 		echo '</ul><br class="clear" />';
 	}
@@ -108,7 +125,7 @@ class WC_Korea_Integration extends WC_Integration {
 		$this->output_categories();
 		echo wp_kses_post( wpautop( $this->get_method_description() ) );
 		echo '<div><input type="hidden" name="section" value="' . esc_attr( $this->id ) . '" /></div>';
-		echo '<table class="form-table">' . $this->generate_settings_html( $this->get_form_fields(), false ) . '</table>';
+		echo '<table class="form-table">' . $this->generate_settings_html( $this->get_form_fields(), false ) . '</table>'; // @codingStandardsIgnoreLine WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 }

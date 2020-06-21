@@ -8,8 +8,14 @@
 
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * WC_Korea_Naver_SEP class.
+ */
 class WC_Korea_Naver_SEP {
 
+	/**
+	 * Class constructor
+	 */
 	public function __construct() {
 		$this->settings = get_option( 'woocommerce_korea_settings' );
 
@@ -20,6 +26,12 @@ class WC_Korea_Naver_SEP {
 		add_action( 'template_include', array( $this, 'template_include' ) );
 	}
 
+	/**
+	 * Naver SEP output
+	 *
+	 * @param  string $original_template Original template.
+	 * @return string
+	 */
 	public function template_include( $original_template ) {
 		$wc_sep = get_query_var( 'wc-sep' );
 
@@ -43,25 +55,22 @@ class WC_Korea_Naver_SEP {
 			return;
 		}
 
+		$headers = array(
+			'id',
+			'title',
+			'price_pc',
+			'link',
+			'mobile_link',
+			'image_link',
+			'category_name1',
+			'shipping',
+			'class',
+			'update_time',
+		);
+
 		ob_start();
 
-		echo 'id';
-		echo "\t";
-		echo 'title';
-		echo "\t";
-		echo 'price_pc';
-		echo "\t";
-		echo 'link';
-		echo "\t";
-		echo 'image_link';
-		echo "\t";
-		echo 'category_name1';
-		echo "\t";
-		echo 'shipping';
-		echo "\t";
-		echo 'class';
-		echo "\t";
-		echo 'update_time';
+		echo implode( chr( 9 ), $headers ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		while ( $products->have_posts() ) {
 			$products->the_post();
@@ -79,24 +88,18 @@ class WC_Korea_Naver_SEP {
 				}
 			}
 
-			echo "\n";
-			echo get_the_ID();
-			echo "\t";
-			echo get_the_title();
-			echo "\t";
-			echo get_post_meta( get_the_ID(), '_regular_price', true );
-			echo "\t";
-			echo get_the_permalink();
-			echo "\t";
-			echo get_the_post_thumbnail_url( get_the_ID() );
-			echo "\t";
-			echo $category;
-			echo "\t";
-			echo '0';
-			echo "\t";
-			echo 'u';
-			echo "\t";
-			echo get_the_modified_date( 'Y-m-d' ) . ' ' . get_the_modified_date( 'H:i:s' );
+			$values   = array();
+			$values[] = intval( get_the_ID() );
+			$values[] = esc_html( get_the_title() );
+			$values[] = esc_html( get_post_meta( get_the_ID(), '_regular_price', true ) );
+			$values[] = esc_url( get_the_permalink() );
+			$values[] = esc_url( get_the_post_thumbnail_url( get_the_ID() ) );
+			$values[] = esc_html( $category );
+			$values[] = '0';
+			$values[] = 'u';
+			$values[] = esc_html( get_the_modified_date( 'Y-m-d' ) . ' ' . get_the_modified_date( 'H:i:s' ) );
+
+			echo PHP_OEL . implode( chr( 9 ), $values ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 
 		wp_reset_postdata();

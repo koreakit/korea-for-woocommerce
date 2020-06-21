@@ -5,7 +5,8 @@
  * @package WC_Korea
  * @author  @jgreys
  */
-defined( 'ABSPATH' ) or exit;
+
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Provides a general license settings page for plugins to add license key inputs.
@@ -15,56 +16,86 @@ defined( 'ABSPATH' ) or exit;
 class WC_Korea_License {
 
 	/**
-	 * @var string $api_url plugin update URL
+	 * Plugin update URL
+	 *
+	 * @var string $api_url
 	 */
 	protected $api_url;
 
 	/**
-	 * @var string $file plugin file
+	 * Plugin file
+	 *
+	 * @var string $file
 	 */
 	protected $file;
 
 	/**
-	 * @var string $plugin_url plugin url
+	 * Plugin url
+	 *
+	 * @var string $plugin_url
 	 */
 	protected $plugin_url;
 
 	/**
-	 * @var int $id plugin post ID on our site
+	 * Plugin post ID on our site
+	 *
+	 * @var int $id
 	 */
 	protected $id;
 
 	/**
-	 * @var string $version plugin version
+	 * Plugin version
+	 *
+	 * @var string $version
 	 */
 	protected $version;
 
 	/**
-	 * @var string $author plugin author
+	 * Plugin author
+	 *
+	 * @var string $author
 	 */
 	protected $author;
 
 	/**
-	 * @var string $prefix plugin prefix
+	 * Plugin prefix
+	 *
+	 * @var string $prefix
 	 */
 	private $prefix;
 
 	/**
-	 * @var string $license license key
+	 * License key
+	 *
+	 * @var string $license
 	 */
 	private $license;
 
 	/**
-	 * @var string $updater_url the URL for plugin updates
+	 * The URL for plugin updates
+	 *
+	 * @var string $updater_url
 	 */
 	protected $updater_url = 'https://greys.co/';
 
 	/**
-	 * @var $settings the settings instance
+	 * The settings instance
+	 *
+	 * @var $settings
 	 */
 	protected $settings;
 
-
+	/**
+	 * Class constructor
+	 *
+	 * @param string $_id
+	 * @param string $_prefix
+	 * @param string $_file
+	 * @param string $_path
+	 * @param string $_plugin_url
+	 * @param string $_version
+	 * @param string $_author
+	 */
 	public function __construct( $_id, $_prefix, $_file, $_path, $_plugin_url, $_version, $_author = 'GREYS' ) {
 
 		if ( is_numeric( $_id ) ) {
@@ -91,8 +122,6 @@ class WC_Korea_License {
 
 	/**
 	 * Includes required files.
-	 *
-	 * @since 1.0.0
 	 */
 	public function includes() {
 		if ( ! class_exists( 'WC_Korea_Updater' ) ) {
@@ -102,8 +131,6 @@ class WC_Korea_License {
 
 	/**
 	 * Setup plugin hooks.
-	 *
-	 * @since 1.0.0
 	 */
 	private function add_hooks() {
 		// load plugin updater
@@ -136,8 +163,6 @@ class WC_Korea_License {
 
 	/**
 	 * Load the auto updater.
-	 *
-	 * @since 1.0.0
 	 */
 	public function auto_updater() {
 		$data = array(
@@ -154,9 +179,7 @@ class WC_Korea_License {
 	/**
 	 * Registers new cron schedule.
 	 *
-	 * @since 1.0.0
-	 *
-	 * @param string[] $schedules existing schedules
+	 * @param string[] $schedules existing schedules.
 	 * @return string[] update schedules
 	 */
 	public function add_cron_schedule( $schedules = array() ) {
@@ -172,8 +195,6 @@ class WC_Korea_License {
 
 	/**
 	 * Schedule weekly events.
-	 *
-	 * @since 1.0.0
 	 */
 	public function schedule_events() {
 		if ( ! wp_next_scheduled( 'wc_korea_weekly_scheduled_events' ) ) {
@@ -184,9 +205,7 @@ class WC_Korea_License {
 	/**
 	 * Get license settings page URL.
 	 *
-	 * @since 1.0.0
-	 *
-	 * @param array
+	 * @param array $settings Original settings.
 	 * @return array
 	 */
 	public function add_settings( $settings ) {
@@ -195,7 +214,7 @@ class WC_Korea_License {
 			array(
 				array(
 					'id'      => "{$this->prefix}_license_key",
-					'name'    => sprintf( __( '%1$s', 'korea-for-woocommerce' ), $this->data['Name'] ),
+					'name'    => $this->data['Name'],
 					'desc'    => '',
 					'type'    => 'license_key',
 					'options' => array( 'is_valid_license_option' => "{$this->prefix}_license_active" ),
@@ -207,27 +226,29 @@ class WC_Korea_License {
 
 	/**
 	 * Adds updater page stylesheet.
-	 *
-	 * @since 1.0.0
 	 */
 	public function add_styles() {
-		if ( isset( $_GET['section'] ) && 'wc-korea' === $_GET['section'] ) {
+		$section = isset( $_GET['section'] ) && ! empty( $_GET['section'] ) ? sanitize_key( wp_unslash( $_GET['section'] ) ) : null; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( 'wc-korea' === $section ) {
 			wp_enqueue_style( 'wc-korea-license-settings', WC_KOREA_PLUGIN_URL . '/assets/css/admin.css', array(), $this->version );
 		}
 	}
 
 	/**
 	 * Activate the license key
-	 *
-	 * @since 1.0.0
 	 */
 	public function activate_license() {
-
-		if ( ! isset( $_REQUEST[ "{$this->prefix}_license_key-nonce" ] ) || ! wp_verify_nonce( $_REQUEST[ "{$this->prefix}_license_key-nonce" ], "{$this->prefix}_license_key-nonce" ) || ! current_user_can( 'manage_woocommerce' ) ) {
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
 			return;
 		}
 
-		if ( empty( $_POST[ "{$this->prefix}_license_key" ] ) ) {
+		$nonce_value = wc_get_var( $_REQUEST["{$this->prefix}_license_key-nonce"], wc_get_var( $_REQUEST['_wpnonce'], '' ) ); // @codingStandardsIgnoreLine
+		if ( ! wp_verify_nonce( $nonce_value, "{$this->prefix}_license_key-nonce" ) ) {
+			wp_die( esc_html__( 'Nonce verification failed', 'korea-for-woocommerce' ), esc_html__( 'Error', 'korea-for-woocommerce' ), array( 'response' => 403 ) );
+		}
+
+		$license = isset( $_POST[ "{$this->prefix}_license_key" ] ) && ! empty( $_POST[ "{$this->prefix}_license_key" ] ) ? sanitize_text_field( wp_unslash( $_POST[ "{$this->prefix}_license_key" ] ) ) : null;
+		if ( empty( $license ) ) {
 			delete_option( "{$this->prefix}_license_active" );
 			return;
 		}
@@ -240,14 +261,7 @@ class WC_Korea_License {
 		}
 
 		$details = get_option( "{$this->prefix}_license_active" );
-
 		if ( is_object( $details ) && 'valid' === $details->license ) {
-			return;
-		}
-
-		$license = sanitize_text_field( $_POST[ "{$this->prefix}_license_key" ] );
-
-		if ( empty( $license ) ) {
 			return;
 		}
 
@@ -283,22 +297,20 @@ class WC_Korea_License {
 
 	/**
 	 * Deactivate the license key
-	 *
-	 * @since 1.0.0
 	 */
 	public function deactivate_license() {
-
-		if ( ! isset( $_POST[ "{$this->prefix}_license_key" ] ) || ! current_user_can( 'manage_woocommerce' ) ) {
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
 			return;
 		}
 
-		if ( ! wp_verify_nonce( $_REQUEST[ "{$this->prefix}_license_key-nonce" ], "{$this->prefix}_license_key-nonce" ) ) {
-			wp_die( __( 'Nonce verification failed', 'korea-for-woocommerce' ), __( 'Error', 'korea-for-woocommerce' ), array( 'response' => 403 ) );
+		$nonce_value = wc_get_var( $_REQUEST["{$this->prefix}_license_key-nonce"], wc_get_var( $_REQUEST['_wpnonce'], '' ) ); // @codingStandardsIgnoreLine
+		if ( ! wp_verify_nonce( $nonce_value, "{$this->prefix}_license_key-nonce" ) ) {
+			wp_die( esc_html__( 'Nonce verification failed', 'korea-for-woocommerce' ), esc_html__( 'Error', 'korea-for-woocommerce' ), array( 'response' => 403 ) );
 		}
 
 		// run on deactivate button press
-		if ( isset( $_POST[ "{$this->prefix}_license_key_deactivate" ] ) ) {
-
+		$is_deactivating = isset( $_POST[ "{$this->prefix}_license_key_deactivate" ] ) ? true : false;
+		if ( $is_deactivating ) {
 			// data to send to the API
 			$api_params = array(
 				'edd_action' => 'deactivate_license',
@@ -335,7 +347,6 @@ class WC_Korea_License {
 	 * @return bool true if valid
 	 */
 	public function is_license_valid() {
-
 		$details = get_option( "{$this->prefix}_license_active" );
 
 		return is_object( $details ) && 'valid' === $details->license;
@@ -344,13 +355,11 @@ class WC_Korea_License {
 	/**
 	 * Check if license key is valid once per week
 	 *
-	 * @since 1.0.0
-	 *
 	 * @return bool
 	 */
 	public function weekly_license_check() {
-
-		if ( ! empty( $_POST[ "{$this->prefix}_license_key" ] ) ) {
+		$license = isset( $_POST[ "{$this->prefix}_license_key" ] ) && ! empty( $_POST[ "{$this->prefix}_license_key" ] ) ? sanitize_text_field( wp_unslash( $_POST[ "{$this->prefix}_license_key" ] ) ) : null; // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		if ( ! $license ) {
 			return false; // don't fire when saving settings
 		}
 
@@ -386,15 +395,13 @@ class WC_Korea_License {
 
 	/**
 	 * Add admin notices to WooCommerce pages for errors.
-	 *
-	 * @since 1.0.0
 	 */
 	public function notices() {
 		global $current_screen;
 
 		static $showed_invalid_message = false;
 
-		$prefix  = sanitize_title( __( 'WooCommerce', 'woocommerce' ) );
+		$prefix  = sanitize_title( __( 'WooCommerce', 'woocommerce' ) ); // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 		$screens = array( "{$prefix}_page_wc-addons", "{$prefix}_page_wc-settings", 'plugins' );
 		$key     = trim( get_option( "{$this->prefix}_license_key", '' ) );
 
@@ -408,7 +415,8 @@ class WC_Korea_License {
 		if ( in_array( $current_screen->id, $screens, true ) && is_object( $license ) && 'valid' !== $license->license && ! $showed_invalid_message ) {
 
 			// only show this notice on settings / Extensions screens
-			if ( ! isset( $_GET['section'] ) || 'wc-korea' !== $_GET['section'] ) {
+			$section = isset( $_GET['section'] ) && ! empty( $_GET['section'] ) ? sanitize_key( wp_unslash( $_GET['section'] ) ) : null; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			if ( 'wc-korea' !== $section ) {
 
 				$messages[] = sprintf(
 					/* translators: Placeholder: %1$s - <a>, %2$s - </a> */
@@ -424,7 +432,7 @@ class WC_Korea_License {
 		if ( ! empty( $messages ) ) {
 
 			foreach ( $messages as $message ) {
-				echo '<div class="error"><p>' . $message . '</p></div>';
+				echo '<div class="error"><p>' . esc_html( $message ) . '</p></div>';
 			}
 		}
 	}
@@ -432,25 +440,22 @@ class WC_Korea_License {
 	/**
 	 * Displays message inline on plugin row that the license key is missing
 	 *
-	 * @since 1.0.0
+	 * @param array $plugin_data Plugin information.
+	 * @param array $response
 	 */
-	public function plugin_row_license_missing( $plugin_data, $version_info ) {
-
-		static $showed_missing_key_message = array();
-
-		$license = get_option( "{$this->prefix}_license_active" );
+	public function plugin_row_license_missing( $plugin_data, $response ) {
+		$showed_missing_key_message = array();
+		$license                    = get_option( "{$this->prefix}_license_active" );
 
 		if ( ( ! is_object( $license ) || 'valid' !== $license->license ) && empty( $showed_missing_key_message[ $this->prefix ] ) ) {
 
-			echo '&nbsp;<strong><a href="' . esc_url( $this->get_license_settings_url() ) . '">' . __( 'Enter valid license key for automatic updates.', 'korea-for-woocommerce' ) . '</a></strong>';
+			echo '&nbsp;<strong><a href="' . esc_url( $this->get_license_settings_url() ) . '">' . esc_html__( 'Enter valid license key for automatic updates.', 'korea-for-woocommerce' ) . '</a></strong>';
 			$showed_missing_key_message[ $this->prefix ] = true;
 		}
 	}
 
 	/**
 	 * Get license settings page URL.
-	 *
-	 * @since 1.0.0
 	 */
 	public function get_license_settings_url() {
 		return admin_url( 'admin.php?page=wc-addons&section=wc-korea&tab=licenses' );

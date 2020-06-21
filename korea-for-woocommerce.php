@@ -22,6 +22,7 @@ defined( 'ABSPATH' ) || exit;
 
 // Define Constants
 define( 'WC_KOREA_VERSION', '1.0.5' );
+// Define Constants.
 define( 'WC_KOREA_MAIN_FILE', __FILE__ );
 define( 'WC_KOREA_ABSPATH', dirname( __FILE__ ) );
 define( 'WC_KOREA_PLUGIN_URL', untrailingslashit( plugins_url( basename( plugin_dir_path( __FILE__ ) ), basename( __FILE__ ) ) ) );

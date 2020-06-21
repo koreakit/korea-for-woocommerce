@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php } else { ?>
 				<table class="form-table">
 					<p style="margin-top:0;">
-						<?php _e( 'Enter your plugin license keys here to receive automatic updates.', 'korea-for-woocommerce' ); ?>
+						<?php esc_html_e( 'Enter your plugin license keys here to receive automatic updates.', 'korea-for-woocommerce' ); ?>
 					</p>
 
 					<?php

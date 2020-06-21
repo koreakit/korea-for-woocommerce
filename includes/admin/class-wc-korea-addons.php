@@ -8,10 +8,16 @@
 
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * WC_Korea_Addons class.
+ */
 class WC_Korea_Addons {
 
+	/**
+	 * Class constructor
+	 */
 	public function __construct() {
-		$this->tab = ! empty( $_GET['tab'] ) ? sanitize_title( $_GET['tab'] ) : 'addons';
+		$this->tab = isset( $_GET['tab'] ) && ! empty( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : 'addons'; // @codingStandardsIgnoreLine WordPress.Security.NonceVerification.Recommended
 
 		add_action( 'current_screen', array( $this, 'init_tab' ) );
 	}
@@ -19,14 +25,14 @@ class WC_Korea_Addons {
 	/**
 	 * Checks the current screen to output our tab and settings content.
 	 *
-	 * @since 1.0.0
-	 *
-	 * @param \WP_Screen $screen the current screen
+	 * @param \WP_Screen $screen the current screen.
 	 */
 	public function init_tab( $screen ) {
 		if ( 'woocommerce_page_wc-addons' !== $screen->id ) {
 			return;
 		}
+
+		$section = isset( $_GET['section'] ) && ! empty( $_GET['section'] ) ? sanitize_key( wp_unslash( $_GET['section'] ) ) : null; // @codingStandardsIgnoreLine WordPress.Security.NonceVerification.Recommended
 
 		if ( ! wp_script_is( 'wc-korea-addons', 'enqueued' ) ) {
 			wp_enqueue_script( 'wc-korea-addons', plugins_url( 'assets/js/admin/addons.js', WC_KOREA_MAIN_FILE ), array(), WC_KOREA_VERSION, true );
@@ -42,12 +48,12 @@ class WC_Korea_Addons {
 						),
 						admin_url( 'admin.php' )
 					),
-					'is_active' => 'wc-korea' === $_GET['section'] ? true : false,
+					'is_active' => 'wc-korea' === $section ? true : false,
 				)
 			);
 		}
 
-		if ( 'wc-korea' !== $_GET['section'] ) {
+		if ( 'wc-korea' !== $section ) {
 			return;
 		}
 
@@ -79,7 +85,7 @@ class WC_Korea_Addons {
 	public function output_categories() {
 		$categories = $this->get_categories();
 
-		if ( empty( $categories ) || 1 === sizeof( $categories ) ) {
+		if ( empty( $categories ) || 1 === count( $categories ) ) {
 			return;
 		}
 
@@ -90,11 +96,11 @@ class WC_Korea_Addons {
 				'page'    => 'wc-addons',
 				'section' => 'wc-korea',
 			);
-			if ( $id !== 'premium' ) {
+			if ( 'premium' !== $id ) {
 				$args['tab'] = sanitize_title( $id );
 			}
 
-			echo '<li><a href="' . add_query_arg( $args, admin_url( 'admin.php' ) ) . '" class="' . ( $this->tab == $id ? 'current' : '' ) . '">' . $label . '</a></li>';
+			echo '<li><a href="' . esc_url( add_query_arg( $args, admin_url( 'admin.php' ) ) ) . '" class="' . esc_attr( $this->tab === $id ? 'current' : '' ) . '">' . esc_html( $label ) . '</a></li>';
 		}
 		echo '</ul>';
 		echo '<div class="clear"></div>';

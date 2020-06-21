@@ -15,24 +15,25 @@
  * @package     WooCommerce/Templates
  * @version     3.0.0
  */
+
 ?>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	</head>
 	<script type="text/javascript">
-		<?php if ( $message ) { ?>
-			alert( '<?php echo $message; ?>' );
+		<?php if ( isset( $message ) && ! empty( $message ) ) { ?>
+			alert( '<?php echo esc_js( $message ); ?>' );
 		<?php } ?>
 
 		<?php if ( wp_is_mobile() ) { ?>
-			location.href = '<?php echo $redirect_url; ?>';
+			location.href = '<?php echo esc_url( $redirect_url ); ?>';
 		<?php } else { ?>
 			if ( window.opener && !window.opener.closed ) {
-				window.opener.location.href = '<?php echo $redirect_url; ?>';
+				window.opener.location.href = '<?php echo esc_url( $redirect_url ); ?>';
 				window.close();
 			} else {
-				location.href = '<?php echo $redirect_url; ?>';
+				location.href = '<?php echo esc_url( $redirect_url ); ?>';
 			}
 		<?php } ?>
 	</script>

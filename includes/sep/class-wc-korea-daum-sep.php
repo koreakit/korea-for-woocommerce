@@ -8,8 +8,14 @@
 
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * WC_Korea_Daum_SEP class.
+ */
 class WC_Korea_Daum_SEP {
 
+	/**
+	 * Class constructor
+	 */
 	public function __construct() {
 		$this->settings = get_option( 'woocommerce_korea_settings' );
 
@@ -20,6 +26,12 @@ class WC_Korea_Daum_SEP {
 		add_action( 'template_include', array( $this, 'template_include' ) );
 	}
 
+	/**
+	 * Daum SEP output
+	 *
+	 * @param  string $original_template Original template.
+	 * @return string
+	 */
 	public function template_include( $original_template ) {
 		$wc_sep = get_query_var( 'wc-sep' );
 
@@ -60,33 +72,38 @@ class WC_Korea_Daum_SEP {
 				$category_name = $category->name;
 			}
 
+			$lt    = '<<<';
+			$gt    = '>>>';
 			$class = 'U';
 
 			/**
-			 * @todo verifier avec les variations
+			 * Verify with variations
 			 */
-			if ( $product->get_stock_quantity() == 0 ) {
+			if ( $product->get_stock_quantity() === 0 ) {
 				$class = 'D';
 			}
 
-			echo $lt . 'begin' . $gt . PHP_EOL;
-			echo $lt . 'mapid' . $gt . get_the_ID() . PHP_EOL;
-			echo $lt . 'price' . $gt . get_post_meta( get_the_ID(), '_regular_price', true ) . PHP_EOL;
-			echo $lt . 'class' . $gt . 'U' . PHP_EOL;
-			echo $lt . 'utime' . $gt . get_the_modified_date( 'H:i:s' ) . PHP_EOL;
-			echo $lt . 'pname' . $gt . get_the_title() . PHP_EOL;
-			echo $lt . 'pgurl' . $gt . get_the_permalink() . PHP_EOL;
-			echo $lt . 'igurl' . $gt . get_the_post_thumbnail_url( get_the_ID() ) . PHP_EOL;
+			$values   = array();
+			$values[] = '<<<begin>>>';
+			$values[] = '<<<mapid>>>' . intval( get_the_ID() );
+			$values[] = '<<<price>>>' . esc_html( get_post_meta( get_the_ID(), '_regular_price', true ) );
+			$values[] = '<<<class>>>U';
+			$values[] = '<<<utime>>>' . esc_html( get_the_modified_date( 'H:i:s' ) );
+			$values[] = '<<<pname>>>' . esc_html( get_the_title() );
+			$values[] = '<<<pgurl>>>' . esc_url( get_the_permalink() );
+			$values[] = '<<<igurl>>>' . esc_url( get_the_post_thumbnail_url( get_the_ID() ) );
+			$values[] = '<<<ftend>>>';
 
 			$i = 1;
 			foreach ( $categories as $category ) {
-				echo $lt . 'cate' . $i . $gt . $category->ID . PHP_EOL;
-				echo $lt . 'caid' . $i . $gt . $category->name . PHP_EOL;
+				$values[] = '<<<cate' . $i . '>>>' . intval( $category->ID );
+				$values[] = '<<<caid' . $i . '>>>' . esc_html( $category->name );
 				++$i;
 			}
 
-			echo $lt . 'deliv' . $gt . '0' . PHP_EOL;
-			echo $lt . 'ftend' . $gt . PHP_EOL;
+			$values[] = '<<<deliv>>>0';
+
+			echo implode( PHP_OEL, $values ) . PHP_OEL; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 
 		wp_reset_postdata();

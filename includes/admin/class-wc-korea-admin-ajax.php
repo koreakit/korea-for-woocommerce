@@ -8,6 +8,9 @@
 
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * WC_Korea_Admin_Ajax class.
+ */
 class WC_Korea_Admin_Ajax {
 
 	/**
@@ -17,10 +20,18 @@ class WC_Korea_Admin_Ajax {
 		add_action( 'wp_ajax_wc_korea_testaccounts', array( $this, 'get_testaccounts' ) );
 	}
 
+
+	/**
+	 * Get test accounts
+	 *
+	 * @return string
+	 */
 	public function get_testaccounts() {
+		$q = isset( $_REQUEST['q'] ) && ! empty( $_REQUEST['q'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['q'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
 		$users = get_users(
 			array(
-				'search'   => sanitize_text_field( $_REQUEST['q'] ) . '*',
+				'search'   => $q . '*',
 				'role__in' => array( 'author', 'contributor', 'customer', 'editor', 'subscriber' ),
 			)
 		);

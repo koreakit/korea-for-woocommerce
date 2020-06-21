@@ -1,4 +1,12 @@
-<?php defined( 'ABSPATH' ) || exit;
+<?php
+/**
+ * WooCommerce Korea
+ *
+ * @package WC_Korea
+ * @author  @jgreys
+ */
+
+defined( 'ABSPATH' ) || exit;
 
 return apply_filters(
 	'wc_korea_general_settings',
@@ -28,6 +36,7 @@ return apply_filters(
 		'postcode_bgcolor'            => array(
 			'title'             => __( 'Background Color', 'korea-for-woocommerce' ),
 			'description'       => sprintf(
+				/* translators: 1) hexadecimal color */
 				__( 'Default value: <code>%s</code>', 'korea-for-woocommerce' ),
 				'#ececec'
 			),
@@ -41,6 +50,7 @@ return apply_filters(
 		'postcode_searchbgcolor'      => array(
 			'title'             => __( 'Search Background Color', 'korea-for-woocommerce' ),
 			'description'       => sprintf(
+				/* translators: 1) hexadecimal color */
 				__( 'Default value: <code>%s</code>', 'korea-for-woocommerce' ),
 				'#ffffff'
 			),
@@ -54,6 +64,7 @@ return apply_filters(
 		'postcode_contentbgcolor'     => array(
 			'title'             => __( 'Content Background Color', 'korea-for-woocommerce' ),
 			'description'       => sprintf(
+				/* translators: 1) hexadecimal color */
 				__( 'Default value: <code>%s</code>', 'korea-for-woocommerce' ),
 				'#ffffff'
 			),
@@ -67,6 +78,7 @@ return apply_filters(
 		'postcode_pagebgcolor'        => array(
 			'title'             => __( 'Page Background Color', 'korea-for-woocommerce' ),
 			'description'       => sprintf(
+				/* translators: 1) hexadecimal color */
 				__( 'Default value: <code>%s</code>', 'korea-for-woocommerce' ),
 				'#fafafa'
 			),
@@ -80,6 +92,7 @@ return apply_filters(
 		'postcode_textcolor'          => array(
 			'title'             => __( 'Text Color', 'korea-for-woocommerce' ),
 			'description'       => sprintf(
+				/* translators: 1) hexadecimal color */
 				__( 'Default value: <code>%s</code>', 'korea-for-woocommerce' ),
 				'#333333'
 			),
@@ -93,6 +106,7 @@ return apply_filters(
 		'postcode_querytxtcolor'      => array(
 			'title'             => __( 'Query Text Color', 'korea-for-woocommerce' ),
 			'description'       => sprintf(
+				/* translators: 1) hexadecimal color */
 				__( 'Default value: <code>%s</code>', 'korea-for-woocommerce' ),
 				'#222222'
 			),
@@ -106,6 +120,7 @@ return apply_filters(
 		'postcode_postalcodetxtcolor' => array(
 			'title'             => __( 'Postal Code Text Color', 'korea-for-woocommerce' ),
 			'description'       => sprintf(
+				/* translators: 1) hexadecimal color */
 				__( 'Default value: <code>%s</code>', 'korea-for-woocommerce' ),
 				'#fa4256'
 			),
@@ -119,6 +134,7 @@ return apply_filters(
 		'postcode_emphtxtcolor'       => array(
 			'title'             => __( 'Highlight Text Color', 'korea-for-woocommerce' ),
 			'description'       => sprintf(
+				/* translators: 1) hexadecimal color */
 				__( 'Default value: <code>%s</code>', 'korea-for-woocommerce' ),
 				'#008bd3'
 			),
@@ -132,6 +148,7 @@ return apply_filters(
 		'postcode_outlinecolor'       => array(
 			'title'             => __( 'Outline Color', 'korea-for-woocommerce' ),
 			'description'       => sprintf(
+				/* translators: 1) hexadecimal color */
 				__( 'Default value: <code>%s</code>', 'korea-for-woocommerce' ),
 				'#e0e0e0'
 			),

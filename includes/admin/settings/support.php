@@ -1,4 +1,12 @@
-<?php defined( 'ABSPATH' ) || exit;
+<?php
+/**
+ * WooCommerce Korea
+ *
+ * @package WC_Korea
+ * @author  @jgreys
+ */
+
+defined( 'ABSPATH' ) || exit;
 
 return apply_filters(
 	'wc_korea_support_settings',
@@ -11,6 +19,7 @@ return apply_filters(
 		'kakaochannel_yn'       => array(
 			'title'       => __( 'Enable/Disable', 'korea-for-woocommerce' ),
 			'description' => sprintf(
+				/* translators: Kakao Channel registration link */
 				__( 'You can create your Kakao Channel <a href="%s">here</a>.', 'korea-for-woocommerce' ),
 				'https://ch.kakao.com/register'
 			),
@@ -64,6 +73,7 @@ return apply_filters(
 		'navertalktalk_yn'      => array(
 			'title'       => __( 'Enable/Disable', 'korea-for-woocommerce' ),
 			'description' => sprintf(
+				/* translators: Naver TalkTalk registration link */
 				__( 'You can create your Naver TalkTalk <a href="%s">here</a>.', 'korea-for-woocommerce' ),
 				'https://partner.talk.naver.com/register'
 			),

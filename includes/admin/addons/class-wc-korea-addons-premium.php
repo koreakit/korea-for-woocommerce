@@ -8,6 +8,11 @@
 
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * WC_Korea_Addons_Premium class.
+ *
+ * @extends WC_Korea_Addons
+ */
 class WC_Korea_Addons_Premium extends WC_Korea_Addons {
 
 	/**
@@ -16,7 +21,8 @@ class WC_Korea_Addons_Premium extends WC_Korea_Addons {
 	 * @since 1.0.0
 	 */
 	public function output() {
-		if ( isset( $_GET['tab'] ) && 'addons' !== $_GET['tab'] ) {
+		$tab = isset( $_GET['tab'] ) && ! empty( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : null; // @codingStandardsIgnoreLine WordPress.Security.NonceVerification.Recommended
+		if ( 'addons' !== $tab ) {
 			return;
 		}
 
@@ -32,6 +38,7 @@ class WC_Korea_Addons_Premium extends WC_Korea_Addons {
 				'woocommerce-gateway-inicis'          => array(
 					'title'       => __( 'KG INICIS Gateway', 'korea-for-woocommerce' ),
 					'description' => sprintf(
+						/* translators: 1) plugin description, 2) plugin name */
 						__( 'Take payments via %1$s payment methods.', 'korea-for-woocommerce' ),
 						__( 'KG INICIS', 'korea-for-woocommerce' )
 					),
@@ -41,6 +48,7 @@ class WC_Korea_Addons_Premium extends WC_Korea_Addons {
 				'woocommerce-gateway-kcp'             => array(
 					'title'       => __( 'NHN KCP Gateway', 'korea-for-woocommerce' ),
 					'description' => sprintf(
+						/* translators: 1) plugin description, 2) plugin name */
 						__( 'Take payments via %1$s payment methods.', 'korea-for-woocommerce' ),
 						__( 'NHN KCP', 'korea-for-woocommerce' )
 					),
@@ -50,6 +58,7 @@ class WC_Korea_Addons_Premium extends WC_Korea_Addons {
 				'woocommerce-gateway-lguplus'         => array(
 					'title'       => __( 'LG U+ Gateway', 'korea-for-woocommerce' ),
 					'description' => sprintf(
+						/* translators: 1) plugin description, 2) plugin name */
 						__( 'Take payments via %1$s payment methods.', 'korea-for-woocommerce' ),
 						__( 'LG U+', 'korea-for-woocommerce' )
 					),
@@ -59,6 +68,7 @@ class WC_Korea_Addons_Premium extends WC_Korea_Addons {
 				'woocommerce-gateway-easypay'         => array(
 					'title'       => __( 'EasyPay Gateway', 'korea-for-woocommerce' ),
 					'description' => sprintf(
+						/* translators: 1) plugin description, 2) plugin name */
 						__( 'Take payments via %1$s payment methods.', 'korea-for-woocommerce' ),
 						__( 'EasyPay', 'korea-for-woocommerce' )
 					),
@@ -68,6 +78,7 @@ class WC_Korea_Addons_Premium extends WC_Korea_Addons {
 				'woocommerce-gateway-nicepay'         => array(
 					'title'       => __( 'NICEPAY Gateway', 'korea-for-woocommerce' ),
 					'description' => sprintf(
+						/* translators: 1) plugin description, 2) plugin name */
 						__( 'Take payments via %1$s payment methods.', 'korea-for-woocommerce' ),
 						__( 'NICEPAY', 'korea-for-woocommerce' )
 					),
@@ -77,6 +88,7 @@ class WC_Korea_Addons_Premium extends WC_Korea_Addons {
 				'woocommerce-gateway-kakaopay'        => array(
 					'title'       => __( 'KakaoPay Gateway', 'korea-for-woocommerce' ),
 					'description' => sprintf(
+						/* translators: 1) plugin description, 2) plugin name */
 						__( 'Take payments via %1$s payment methods.', 'korea-for-woocommerce' ),
 						__( 'KakaoPay', 'korea-for-woocommerce' )
 					),
@@ -86,6 +98,7 @@ class WC_Korea_Addons_Premium extends WC_Korea_Addons {
 				'woocommerce-gateway-naverpay'        => array(
 					'title'       => __( 'NaverPay Gateway', 'korea-for-woocommerce' ),
 					'description' => sprintf(
+						/* translators: 1) plugin description, 2) plugin name */
 						__( 'Take payments via %1$s payment methods.', 'korea-for-woocommerce' ),
 						__( 'NaverPay', 'korea-for-woocommerce' )
 					),
@@ -95,6 +108,7 @@ class WC_Korea_Addons_Premium extends WC_Korea_Addons {
 				'woocommerce-gateway-payco'           => array(
 					'title'       => __( 'Payco Gateway', 'korea-for-woocommerce' ),
 					'description' => sprintf(
+						/* translators: 1) plugin description, 2) plugin name */
 						__( 'Take payments via %1$s payment methods.', 'korea-for-woocommerce' ),
 						__( 'Payco', 'korea-for-woocommerce' )
 					),
@@ -104,6 +118,7 @@ class WC_Korea_Addons_Premium extends WC_Korea_Addons {
 				'woocommerce-gateway-tosspay'         => array(
 					'title'       => __( 'TossPay Gateway', 'korea-for-woocommerce' ),
 					'description' => sprintf(
+						/* translators: 1) plugin description, 2) plugin name */
 						__( 'Take payments via %1$s payment methods.', 'korea-for-woocommerce' ),
 						__( 'TossPay', 'korea-for-woocommerce' )
 					),

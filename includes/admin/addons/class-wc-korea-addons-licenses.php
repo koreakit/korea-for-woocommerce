@@ -8,8 +8,16 @@
 
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * WC_Korea_Addons_Licenses class.
+ *
+ * @extends WC_Korea_Addons
+ */
 class WC_Korea_Addons_Licenses extends WC_Korea_Addons {
 
+	/**
+	 * Class constructor
+	 */
 	public function __construct() {
 		parent::__construct();
 
@@ -22,7 +30,8 @@ class WC_Korea_Addons_Licenses extends WC_Korea_Addons {
 	 * @since 1.0.0
 	 */
 	public function output() {
-		if ( ! isset( $_GET['tab'] ) || isset( $_GET['tab'] ) && 'licenses' !== $_GET['tab'] ) {
+		$tab = isset( $_GET['tab'] ) && ! empty( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : null; // @codingStandardsIgnoreLine WordPress.Security.NonceVerification.Recommended
+		if ( 'licenses' !== $tab ) {
 			return;
 		}
 
@@ -97,7 +106,7 @@ class WC_Korea_Addons_Licenses extends WC_Korea_Addons {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $args arguments passed by the setting
+	 * @param array $args arguments passed by the setting.
 	 */
 	public function license_key_callback( $args ) {
 
@@ -119,10 +128,11 @@ class WC_Korea_Addons_Licenses extends WC_Korea_Addons {
 				switch ( $license->error ) {
 
 					case 'expired':
-						$class          = 'expired';
-						$messages[]     = sprintf(
+						$class      = 'expired';
+						$messages[] = sprintf(
+							/* translators: 1) expiration date, 2) renew license link start, 3) renew license link end */
 							__( 'Your license key expired on %1$s. Please %2$srenew your license key%3$s.', 'korea-for-woocommerce' ),
-							date_i18n( get_option( 'date_format' ), strtotime( $license->expires, current_time( 'timestamp' ) ) ),
+							date_i18n( get_option( 'date_format' ), strtotime( $license->expires, time() ) ),
 							'<a href="https://greys.co/checkout/?edd_license_key=' . $value . '&utm_campaign=admin&utm_source=licenses&utm_medium=expired" target="_blank">',
 							'</a>'
 						);
@@ -130,8 +140,9 @@ class WC_Korea_Addons_Licenses extends WC_Korea_Addons {
 						break;
 
 					case 'revoked':
-						$class          = 'error';
-						$messages[]     = sprintf(
+						$class      = 'error';
+						$messages[] = sprintf(
+							/* translators: 1) contact link start, 2) contact link end */
 							__( 'Your license key has been disabled. Please %1$scontact support%2$s for more information.', 'korea-for-woocommerce' ),
 							'<a href="https://greys.co/contact?utm_campaign=admin&utm_source=licenses&utm_medium=revoked" target="_blank">',
 							'</a>'
@@ -140,8 +151,9 @@ class WC_Korea_Addons_Licenses extends WC_Korea_Addons {
 						break;
 
 					case 'missing':
-						$class          = 'error';
-						$messages[]     = sprintf(
+						$class      = 'error';
+						$messages[] = sprintf(
+							/* translators: 1) purchase history link start, 2) purchase history link end */
 							__( 'Invalid license. Please %1$svisit your account page%2$s and verify it.', 'korea-for-woocommerce' ),
 							'<a href="https://greys.co/checkout/purchase-history/?utm_campaign=admin&utm_source=licenses&utm_medium=missing" target="_blank">',
 							'</a>'
@@ -151,8 +163,9 @@ class WC_Korea_Addons_Licenses extends WC_Korea_Addons {
 
 					case 'invalid':
 					case 'site_inactive':
-						$class          = 'error';
-						$messages[]     = sprintf(
+						$class      = 'error';
+						$messages[] = sprintf(
+							/* translators: 1) plugin name, 2) purchase history link start, 3) purchase history link end */
 							__( 'Your %1$s is not active for this URL. Please %2$svisit your account page%3$s to manage your license key URLs.', 'korea-for-woocommerce' ),
 							$args['name'],
 							'<a href="https://greys.co/checkout/purchase-history/?utm_campaign=admin&utm_source=licenses&utm_medium=invalid" target="_blank">',
@@ -162,13 +175,15 @@ class WC_Korea_Addons_Licenses extends WC_Korea_Addons {
 						break;
 
 					case 'item_name_mismatch':
-						$class          = 'error';
+						$class = 'error';
+						/* translators: 1) plugin name */
 						$messages[]     = sprintf( __( 'This appears to be an invalid license key for %s.', 'korea-for-woocommerce' ), $args['name'] );
 						$license_status = 'license-' . $class . '-notice';
 						break;
 
 					case 'no_activations_left':
-						$class          = 'error';
+						$class = 'error';
+						/* translators: 1) purchase history start, 2) purchase history end */
 						$messages[]     = sprintf( __( 'Your license key has reached its activation limit. %1$sView possible upgrades%2$s now.', 'korea-for-woocommerce' ), '<a href="https://greys.co/checkout/purchase-history/">', '</a>' );
 						$license_status = 'license-' . $class . '-notice';
 						break;
@@ -180,9 +195,10 @@ class WC_Korea_Addons_Licenses extends WC_Korea_Addons {
 						break;
 
 					default:
-						$class          = 'error';
-						$error          = ! empty( $license->error ) ? $license->error : __( 'unknown_error', 'korea-for-woocommerce' );
-						$messages[]     = sprintf( __( 'There was an error with this license key: %1%s. Please %2$scontact our support team%3$s.', 'korea-for-woocommerce' ), $error, '<a href="https://greys.co/contact/">', '</a>' );
+						$class = 'error';
+						$error = ! empty( $license->error ) ? $license->error : __( 'unknown_error', 'korea-for-woocommerce' );
+						/* translators: 1) plugin name, 2) contact link end, 3) contact link end */
+						$messages[]     = sprintf( __( 'There was an error with this license key: %1$s. Please %2$scontact our support team%3$s.', 'korea-for-woocommerce' ), $error, '<a href="https://greys.co/contact/">', '</a>' );
 						$license_status = 'license-' . $class . '-notice';
 						break;
 				}
@@ -193,8 +209,8 @@ class WC_Korea_Addons_Licenses extends WC_Korea_Addons {
 					case 'valid':
 					default:
 						$class      = 'valid';
-						$now        = current_time( 'timestamp' );
-						$expiration = strtotime( $license->expires, current_time( 'timestamp' ) );
+						$now        = time();
+						$expiration = strtotime( $license->expires, $now );
 
 						if ( 'lifetime' === $license->expires ) {
 
@@ -203,9 +219,10 @@ class WC_Korea_Addons_Licenses extends WC_Korea_Addons {
 
 						} elseif ( $expiration > $now && $expiration - $now < ( DAY_IN_SECONDS * 30 ) ) {
 
-							$messages[]     = sprintf(
+							$messages[] = sprintf(
+								/* translators: 1) expiration date, 2) renew license link start, 3) renew license link end */
 								__( 'Your license key expires soon! It expires on %1$s. %2$sRenew your license key%3$s.', 'korea-for-woocommerce' ),
-								date_i18n( get_option( 'date_format' ), strtotime( $license->expires, current_time( 'timestamp' ) ) ),
+								date_i18n( get_option( 'date_format' ), strtotime( $license->expires, time() ) ),
 								'<a href="https://greys.co/checkout/?edd_license_key=' . $value . '&utm_campaign=admin&utm_source=licenses&utm_medium=renew" target="_blank">',
 								'</a>'
 							);
@@ -213,9 +230,10 @@ class WC_Korea_Addons_Licenses extends WC_Korea_Addons {
 
 						} else {
 
-							$messages[]     = sprintf(
+							$messages[] = sprintf(
+								/* translators: 1) expiration date */
 								__( 'Your license key expires on %s.', 'korea-for-woocommerce' ),
-								date_i18n( get_option( 'date_format' ), strtotime( $license->expires, current_time( 'timestamp' ) ) )
+								date_i18n( get_option( 'date_format' ), strtotime( $license->expires, time() ) )
 							);
 							$license_status = 'license-expiration-date-notice';
 						}
@@ -223,7 +241,8 @@ class WC_Korea_Addons_Licenses extends WC_Korea_Addons {
 				}
 			}
 		} else {
-			$class          = 'empty';
+			$class = 'empty';
+			/* translators: 1) plugin name */
 			$messages[]     = sprintf( __( 'To receive updates, please enter your valid %s license key.', 'korea-for-woocommerce' ), $args['name'] );
 			$license_status = null;
 		}
@@ -233,7 +252,7 @@ class WC_Korea_Addons_Licenses extends WC_Korea_Addons {
 		$size = ( isset( $args['size'] ) && ! is_null( $args['size'] ) ) ? $args['size'] : 'regular';
 		$html = '<input type="text" class="' . sanitize_html_class( $size ) . '-text" id="' . sanitize_text_field( $args['id'] ) . '" name="' . sanitize_text_field( $args['id'] ) . '" value="' . esc_attr( $value ) . '"/>';
 
-		if ( ( is_object( $license ) && 'valid' == $license->license ) || 'valid' == $license ) {
+		if ( ( is_object( $license ) && 'valid' === $license->license ) || 'valid' === $license ) {
 			$html .= '<input type="submit" class="button-secondary" name="' . $args['id'] . '_deactivate" value="' . __( 'Deactivate License', 'korea-for-woocommerce' ) . '"/>';
 		}
 
@@ -247,7 +266,7 @@ class WC_Korea_Addons_Licenses extends WC_Korea_Addons {
 		}
 
 		wp_nonce_field( sanitize_text_field( $args['id'] ) . '-nonce', sanitize_text_field( $args['id'] ) . '-nonce' );
-		echo $html;
+		echo wp_kses_post( $html );
 	}
 
 	/**
@@ -257,10 +276,10 @@ class WC_Korea_Addons_Licenses extends WC_Korea_Addons {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $input the value inputted in the field
+	 * @param array $input the value inputted in the field.
 	 * @return string $input sanitized value
 	 */
-	function settings_sanitize( $input = array() ) {
+	public function settings_sanitize( $input = array() ) {
 		$setting_types = array( 'text' );
 
 		foreach ( $setting_types as $type ) {
