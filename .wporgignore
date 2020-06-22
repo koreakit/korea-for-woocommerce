@@ -1,0 +1,24 @@
+# Directories
+.wordpress-org
+.github
+bin
+docs
+docker
+tests
+
+# Files
+/.editorconfig
+/.gitattributes
+/.gitignore
+/.gitmodules
+/.phpcs.xml
+/composer.json
+/composer.lock
+/default.env
+/docker-compose.yml
+/docs/DOCKER.md
+/README.md
+/package.json
+/package-lock.json
+/phpunit.xml.dist
+/phpunit.xml
