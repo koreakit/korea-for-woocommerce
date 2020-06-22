@@ -74,8 +74,6 @@ class WC_Korea_Daum_SEP {
 				$category_name = $category->name;
 			}
 
-			$lt    = '<<<';
-			$gt    = '>>>';
 			$class = 'U';
 
 			/**
