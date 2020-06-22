@@ -17,9 +17,11 @@ class WC_Korea_Daum_SEP {
 	 * Class constructor
 	 */
 	public function __construct() {
-		$this->settings = get_option( 'woocommerce_korea_settings' );
+		$settings = get_option( 'woocommerce_korea_settings' );
 
-		if ( ! isset( $this->settings['daum_shopping_ep'] ) || 'yes' !== $this->settings['daum_shopping_ep'] ) {
+		$this->enabled = isset( $settings['daum_shopping_ep'] ) && ! empty( $settings['daum_shopping_ep'] ) ? 'yes' === $settings['daum_shopping_ep'] : false;
+
+		if ( ! $this->enabled ) {
 			return;
 		}
 

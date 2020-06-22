@@ -17,9 +17,11 @@ class WC_Korea_Naver_SEP {
 	 * Class constructor
 	 */
 	public function __construct() {
-		$this->settings = get_option( 'woocommerce_korea_settings' );
+		$settings = get_option( 'woocommerce_korea_settings' );
 
-		if ( ! isset( $this->settings['naver_shopping_ep'] ) || 'yes' !== $this->settings['naver_shopping_ep'] ) {
+		$this->enabled = isset( $settings['naver_shopping_ep'] ) && ! empty( $settings['naver_shopping_ep'] ) ? 'yes' === $settings['naver_shopping_ep'] : false;
+
+		if ( ! $this->enabled ) {
 			return;
 		}
 
