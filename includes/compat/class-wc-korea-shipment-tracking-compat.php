@@ -67,4 +67,4 @@ class WC_Korea_Shipment_Tracking_Compat {
 
 }
 
-return new WC_Korea_Shipment_Tracking();
+return new WC_Korea_Shipment_Tracking_Compat();

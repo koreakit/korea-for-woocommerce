@@ -33,4 +33,4 @@ class WC_Korea_ML_Compat {
 
 }
 
-return new WC_Korea_ML();
+return new WC_Korea_ML_Compat();
