@@ -94,7 +94,6 @@ class WC_Korea_Daum_SEP {
 			$values[] = '<<<pname>>>' . esc_html( get_the_title() );
 			$values[] = '<<<pgurl>>>' . esc_url( get_the_permalink() );
 			$values[] = '<<<igurl>>>' . esc_url( get_the_post_thumbnail_url( get_the_ID() ) );
-			$values[] = '<<<ftend>>>';
 
 			$i = 1;
 			foreach ( $categories as $category ) {
@@ -104,6 +103,7 @@ class WC_Korea_Daum_SEP {
 			}
 
 			$values[] = '<<<deliv>>>0';
+			$values[] = '<<<ftend>>>';
 
 			echo implode( PHP_EOL, $values ) . PHP_EOL; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
