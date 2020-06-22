@@ -55,6 +55,8 @@ class WC_Korea_Daum_SEP {
 			return;
 		}
 
+		header('Content-Type: text/plain; charset=utf-8;');
+
 		ob_start();
 
 		while ( $products->have_posts() ) {
