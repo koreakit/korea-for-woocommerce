@@ -5,7 +5,7 @@
  * Action/filter hooks used for WooCommerce.
  *
  * @package WC_Korea
- * @author  @greys
+ * @author  @jgreys
  */
 
 /**
