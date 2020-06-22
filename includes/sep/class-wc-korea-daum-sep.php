@@ -105,7 +105,7 @@ class WC_Korea_Daum_SEP {
 
 			$values[] = '<<<deliv>>>0';
 
-			echo implode( PHP_OEL, $values ) . PHP_OEL; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo implode( PHP_EOL, $values ) . PHP_EOL; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 
 		wp_reset_postdata();
