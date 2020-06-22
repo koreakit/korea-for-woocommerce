@@ -99,7 +99,7 @@ class WC_Korea_Naver_SEP {
 			$values[] = 'u';
 			$values[] = esc_html( get_the_modified_date( 'Y-m-d' ) . ' ' . get_the_modified_date( 'H:i:s' ) );
 
-			echo PHP_OEL . implode( chr( 9 ), $values ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo PHP_EOL . implode( chr( 9 ), $values ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 
 		wp_reset_postdata();
