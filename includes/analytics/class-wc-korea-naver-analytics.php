@@ -17,9 +17,11 @@ class WC_Korea_Naver_Analytics {
 	 * Class constructor
 	 */
 	public function __construct() {
-		$this->settings = get_option( 'woocommerce_korea_settings' );
+		$settings = get_option( 'woocommerce_korea_settings' );
 
-		if ( isset( $this->settings['woocommerce_korea_naver_analytics'] ) && empty( $this->settings['woocommerce_korea_naver_analytics'] ) ) {
+		$this->id = isset( $settings['naver_analytics'] ) && ! empty( $settings['naver_analytics'] ) ? sanitize_text_field( $settings['naver_analytics'] ) : null;
+
+		if ( ! $this->id ) {
 			return;
 		}
 
@@ -43,7 +45,7 @@ class WC_Korea_Naver_Analytics {
 			if ( !wcs_add ) {
 				var wcs_add = {};
 			}
-			wcs_add['wa'] = "<?php echo esc_js( $this->settings['woocommerce_korea_naver_analytics'] ); ?>";
+			wcs_add['wa'] = "<?php echo esc_js( $this->id ); ?>";
 			wcs_do();
 		</script>
 		<?php

@@ -238,11 +238,15 @@ class WC_Korea_License {
 	 * Activate the license key
 	 */
 	public function activate_license() {
+		$nonce_value = wc_get_var( $_REQUEST["{$this->prefix}_license_key-nonce"], wc_get_var( $_REQUEST['_wpnonce'], '' ) ); // @codingStandardsIgnoreLine
+		if ( ! $nonce_value ) {
+			return;
+		}
+
 		if ( ! current_user_can( 'manage_woocommerce' ) ) {
 			return;
 		}
 
-		$nonce_value = wc_get_var( $_REQUEST["{$this->prefix}_license_key-nonce"], wc_get_var( $_REQUEST['_wpnonce'], '' ) ); // @codingStandardsIgnoreLine
 		if ( ! wp_verify_nonce( $nonce_value, "{$this->prefix}_license_key-nonce" ) ) {
 			wp_die( esc_html__( 'Nonce verification failed', 'korea-for-woocommerce' ), esc_html__( 'Error', 'korea-for-woocommerce' ), array( 'response' => 403 ) );
 		}
@@ -299,11 +303,15 @@ class WC_Korea_License {
 	 * Deactivate the license key
 	 */
 	public function deactivate_license() {
+		$nonce_value = wc_get_var( $_REQUEST["{$this->prefix}_license_key-nonce"], wc_get_var( $_REQUEST['_wpnonce'], '' ) ); // @codingStandardsIgnoreLine
+		if ( ! $nonce_value ) {
+			return;
+		}
+
 		if ( ! current_user_can( 'manage_woocommerce' ) ) {
 			return;
 		}
 
-		$nonce_value = wc_get_var( $_REQUEST["{$this->prefix}_license_key-nonce"], wc_get_var( $_REQUEST['_wpnonce'], '' ) ); // @codingStandardsIgnoreLine
 		if ( ! wp_verify_nonce( $nonce_value, "{$this->prefix}_license_key-nonce" ) ) {
 			wp_die( esc_html__( 'Nonce verification failed', 'korea-for-woocommerce' ), esc_html__( 'Error', 'korea-for-woocommerce' ), array( 'response' => 403 ) );
 		}

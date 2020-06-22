@@ -31,6 +31,7 @@ class WC_Korea_Addons_Licenses extends WC_Korea_Addons {
 	 */
 	public function output() {
 		$tab = isset( $_GET['tab'] ) && ! empty( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : null; // @codingStandardsIgnoreLine WordPress.Security.NonceVerification.Recommended
+
 		if ( 'licenses' !== $tab ) {
 			return;
 		}
@@ -266,7 +267,7 @@ class WC_Korea_Addons_Licenses extends WC_Korea_Addons {
 		}
 
 		wp_nonce_field( sanitize_text_field( $args['id'] ) . '-nonce', sanitize_text_field( $args['id'] ) . '-nonce' );
-		echo wp_kses_post( $html );
+		echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 	/**

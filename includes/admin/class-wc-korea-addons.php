@@ -96,6 +96,7 @@ class WC_Korea_Addons {
 				'page'    => 'wc-addons',
 				'section' => 'wc-korea',
 			);
+
 			if ( 'premium' !== $id ) {
 				$args['tab'] = sanitize_title( $id );
 			}

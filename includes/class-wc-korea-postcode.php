@@ -17,13 +17,14 @@ class WC_Korea_Postcode {
 	 * Class constructor
 	 */
 	public function __construct() {
-		$this->settings = get_option( 'woocommerce_korea_settings' );
+		$settings      = get_option( 'woocommerce_korea_settings' );
+		$this->enabled = isset( $settings['postcode_yn'] ) && ! empty( $settings['postcode_yn'] ) ? 'yes' === $settings['postcode_yn'] : false;
 
-		if ( ! isset( $this->settings['postcode_yn'] ) || ! wc_string_to_bool( $this->settings['postcode_yn'] ) ) {
+		if ( ! $this->enabled ) {
 			return;
 		}
 
-		$this->overlay            = isset( $settings['postcode_displaymode'] ) && ! empty( $settings['postcode_displaymode'] ) ? $settings['postcode_displaymode'] : 'overlay';
+		$this->displaymode        = isset( $settings['postcode_displaymode'] ) && ! empty( $settings['postcode_displaymode'] ) ? $settings['postcode_displaymode'] : 'overlay';
 		$this->bgcolor            = isset( $settings['postcode_bgcolor'] ) && ! empty( $settings['postcode_bgcolor'] ) ? $settings['postcode_bgcolor'] : '#ececec';
 		$this->searchbgcolor      = isset( $settings['postcode_searchbgcolor'] ) && ! empty( $settings['postcode_searchbgcolor'] ) ? $settings['postcode_searchbgcolor'] : '#ffffff';
 		$this->contentbgcolor     = isset( $settings['postcode_contentbgcolor'] ) && ! empty( $settings['postcode_contentbgcolor'] ) ? $settings['postcode_contentbgcolor'] : '#ffffff';

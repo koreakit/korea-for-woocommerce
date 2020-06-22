@@ -21,7 +21,8 @@ class WC_Korea_Addons_Premium extends WC_Korea_Addons {
 	 * @since 1.0.0
 	 */
 	public function output() {
-		$tab = isset( $_GET['tab'] ) && ! empty( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : null; // @codingStandardsIgnoreLine WordPress.Security.NonceVerification.Recommended
+		$tab = isset( $_GET['tab'] ) && ! empty( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : 'addons'; // @codingStandardsIgnoreLine WordPress.Security.NonceVerification.Recommended
+
 		if ( 'addons' !== $tab ) {
 			return;
 		}

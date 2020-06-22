@@ -605,7 +605,7 @@ class WC_Korea_Updater {
 			return false; // Cache is expired
 		}
 
-		return wp_json_decode( $cache['value'] );
+		return json_decode( $cache['value'] );
 	}
 
 	/**
