@@ -513,8 +513,6 @@ class WC_Korea_Updater {
 
 	/**
 	 * Shows the plugin changelog.
-	 *
-	 * @since 1.0.0
 	 */
 	public function show_changelog() {
 		global $wc_korea_plugin_data;

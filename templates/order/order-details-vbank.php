@@ -20,7 +20,7 @@
 <section class="woocommerce-vbank-details">
 	<h2 class="woocommerce-vbank-details__title"><?php esc_html_e( 'Virtual Bank details', 'korea-for-woocommerce' ); ?></h2>
 	<table class="woocommerce-table woocommerce-table--vbank-details shop_table order_details">
-		<tbody>
+		<thead>
 			<tr>
 				<?php
 				foreach ( $account_fields as $field_key => $field ) {
@@ -34,6 +34,8 @@
 				}
 				?>
 			</tr>
+		</thead>
+		<tbody>
 			<tr>
 				<?php
 				foreach ( $account_fields as $field_key => $field ) {

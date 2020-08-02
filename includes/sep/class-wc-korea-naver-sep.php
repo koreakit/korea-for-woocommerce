@@ -91,7 +91,7 @@ class WC_Korea_Naver_SEP {
 			}
 
 			$values   = array();
-			$values[] = intval( get_the_ID() );
+			$values[] = absint( get_the_ID() );
 			$values[] = esc_html( get_the_title() );
 			$values[] = esc_html( get_post_meta( get_the_ID(), '_regular_price', true ) );
 			$values[] = esc_url( get_the_permalink() );

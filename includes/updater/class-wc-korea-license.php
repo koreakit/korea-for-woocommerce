@@ -237,8 +237,7 @@ class WC_Korea_License {
 	/**
 	 * Activate the license key
 	 */
-	public function activate_license() {
-		$nonce_value = wc_get_var( $_REQUEST["{$this->prefix}_license_key-nonce"], wc_get_var( $_REQUEST['_wpnonce'], '' ) ); // @codingStandardsIgnoreLine
+	public function activate_license() { 		$nonce_value = wc_get_var($_REQUEST["{$this->prefix}_license_key-nonce"], ''); // @codingStandardsIgnoreLine
 		if ( ! $nonce_value ) {
 			return;
 		}
@@ -302,8 +301,7 @@ class WC_Korea_License {
 	/**
 	 * Deactivate the license key
 	 */
-	public function deactivate_license() {
-		$nonce_value = wc_get_var( $_REQUEST["{$this->prefix}_license_key-nonce"], wc_get_var( $_REQUEST['_wpnonce'], '' ) ); // @codingStandardsIgnoreLine
+	public function deactivate_license() { 		$nonce_value = wc_get_var($_REQUEST["{$this->prefix}_license_key-nonce"], ''); // @codingStandardsIgnoreLine
 		if ( ! $nonce_value ) {
 			return;
 		}
@@ -475,5 +473,4 @@ class WC_Korea_License {
 	public function get_license_settings_instance() {
 		return $this->settings;
 	}
-
 }

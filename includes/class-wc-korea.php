@@ -16,7 +16,7 @@ class WC_Korea {
 	/**
 	 * The single instance of the class.
 	 *
-	 * @var WC_KCP
+	 * @var WC_Korea
 	 */
 	private static $instance;
 
@@ -66,12 +66,16 @@ class WC_Korea {
 	 * Verify if the requirements are met
 	 */
 	public function are_requirements_met() {
-		if ( ! class_exists( 'WooCommerce' ) ) {
+		if ( ! function_exists( 'is_plugin_active' ) ) {
+			include_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
+
+		// WooCommerce
+		if ( ! is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
 			add_action(
 				'admin_notices',
 				function() {
-					echo '<div class="error">';
-					echo '<p>';
+					echo '<div class="error"><p>';
 					echo wp_kses(
 						sprintf(
 							/* translators: 1) woocommerce link */

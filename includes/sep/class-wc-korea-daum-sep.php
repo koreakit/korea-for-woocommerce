@@ -87,7 +87,7 @@ class WC_Korea_Daum_SEP {
 
 			$values   = array();
 			$values[] = '<<<begin>>>';
-			$values[] = '<<<mapid>>>' . intval( get_the_ID() );
+			$values[] = '<<<mapid>>>' . absint( get_the_ID() );
 			$values[] = '<<<price>>>' . esc_html( get_post_meta( get_the_ID(), '_regular_price', true ) );
 			$values[] = '<<<class>>>U';
 			$values[] = '<<<utime>>>' . esc_html( get_the_modified_date( 'H:i:s' ) );
@@ -97,7 +97,7 @@ class WC_Korea_Daum_SEP {
 
 			$i = 1;
 			foreach ( $categories as $category ) {
-				$values[] = '<<<cate' . $i . '>>>' . intval( $category->ID );
+				$values[] = '<<<cate' . $i . '>>>' . absint( $category->ID );
 				$values[] = '<<<caid' . $i . '>>>' . esc_html( $category->name );
 				++$i;
 			}
