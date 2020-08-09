@@ -89,6 +89,15 @@ In the search field type “Korea for WooCommerce” and click Search Plugins. O
 The manual installation method involves downloading our plugin and uploading it to your webserver via your favourite FTP application.
 
 == Changelog ==
+= 1.1.0 - 2020-08-09 =
+* New - Korean phone format and validate
+* New - Coding Standards WordPress & WooCommerce compliance
+* Tweak - Order virtual bank template improved
+* Tweak - Rename multilingual compatibility class
+* Fix - Postcode Finder wasn't initiated when shop was selling to a single country
+* Fix - Partially refunded order status dropped
+* Fix - Remove unused file
+
 = 1.0.5 - 2020-05-19 =
 * New - New addons added
 
