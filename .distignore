@@ -8,11 +8,11 @@ docker
 tests
 
 # Files
+/.distignore
 /.editorconfig
 /.gitattributes
 /.gitignore
 /.gitmodules
-/.wporgignore
 /composer.json
 /composer.lock
 /default.env
