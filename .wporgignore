@@ -1,6 +1,6 @@
 # Directories
-.wordpress-org
 .github
+.wordpress-org
 bin
 docs
 docker
@@ -11,14 +11,15 @@ tests
 /.gitattributes
 /.gitignore
 /.gitmodules
-/.phpcs.xml
+/.wporgignore
 /composer.json
 /composer.lock
 /default.env
 /docker-compose.yml
 /docs/DOCKER.md
-/README.md
 /package.json
 /package-lock.json
+/phpcs.xml
 /phpunit.xml.dist
 /phpunit.xml
+/README.md
