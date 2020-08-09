@@ -4,11 +4,11 @@ docker export-ignore
 docs export-ignore
 docs/DOCKER.md export-ignore
 tests export-ignore
+.distignore export-ignore
 .editorconfig export-ignore
 .gitattributes export-ignore
 .gitignore export-ignore
 .gitmodules export-ignore
-.wporgignore export-ignore
 composer.json export-ignore
 composer.lock export-ignore
 default.env export-ignore
