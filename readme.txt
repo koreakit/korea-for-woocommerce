@@ -1,7 +1,7 @@
 === Korea for WooCommerce ===
 Tags: woocommerce, korea, korean payment, woocommerce korean payment, inicis, kakaopay, kcp, lguplus, naverpay, nicepay, payco, tosspay, 우커머스 결제, 워드프레스 결제, 우커머스 이니시스, 워드프레스 이니시스, 우커머스 카카오페이, 워드프레스 카카오페이, 워드프레스 네이버페이, 워드프레스 네이버페이, 우커머스 나이스페이, 워드프레스 나이스페이, 우커머스 토스페이, 워드프레스 토스페이, 우커머스 페이코, 워드프레스 페이코
 Requires at least: 4.9.0
-Tested up to: 5.4.1
+Tested up to: 5.5.0
 Stable tag: 1.1.0
 Requires PHP: 7.0
 License: GPLv3
