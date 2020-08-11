@@ -21,6 +21,7 @@ This plugin enhance the shopping experience for your Korean customers with WooCo
 * Add your products on Naver Shopping and/or Daum Shopping.
 * Add korean delivery companies to "WooCommerce Shipment Tracking"
 * Answer your customers questions with the chat buttons of Kakao Channel or Naver TalkTalk.
+* Validate and format korean phone number.
 
 = Addons (coming soon) =
 
