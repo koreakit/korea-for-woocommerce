@@ -99,23 +99,4 @@ The manual installation method involves downloading our plugin and uploading it 
 * Fix - Partially refunded order status dropped
 * Fix - Remove unused file
 
-= 1.0.5 - 2020-05-19 =
-* New - New addons added
-
-= 1.0.4 - 2020-05-15 =
-* Tweak - Main settings improved for Korean Payment Gateways 
-
-= 1.0.3 - 2020-04-20 =
-* Fix - Columns height of the addons page.
-* Fix - When an update of an addon was available, fatal error was thrown.
-* Fix - When saving licenses changes, fatal error was thrown.
-
-= 1.0.2 - 2020-03-30 =
-* Add - Display mode option to the postcode finder. (default: overlay)
-* Fix - Strict standards warning.
-
-= 1.0.1 - 2020-02-06 =
-* Fix - Strict standards warning.
-
-= 1.0 - 2019-11-20 =
-* First Release
+[See changelog for all versions.](https://raw.githubusercontent.com/jgreys/korea-for-woocommerce/master/CHANGELOG.txt)
