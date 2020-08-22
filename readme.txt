@@ -99,4 +99,4 @@ The manual installation method involves downloading our plugin and uploading it 
 * Fix - Partially refunded order status dropped
 * Fix - Remove unused file
 
-[See changelog for all versions.](https://raw.githubusercontent.com/jgreys/korea-for-woocommerce/master/CHANGELOG.txt)
+[See changelog for all versions.](https://raw.githubusercontent.com/jgreys/korea-for-woocommerce/master/changelog.txt)
