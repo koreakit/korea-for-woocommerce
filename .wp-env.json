@@ -4,6 +4,6 @@
 		"WP_DEBUG_LOG": true,
 		"WP_DEBUG_DISPLAY": false
 	},
-	"plugins": [ "https://downloads.wordpress.org/plugin/woocommerce.zip", "." ],
-	"themes": [ "https://downloads.wordpress.org/theme/storefront.zip" ]
+	"plugins": [ "https://downloads.wordpress.org/plugin/woocommerce.latest-stable.zip", "." ],
+	"themes": [ "https://downloads.wordpress.org/theme/storefront.latest-stable.zip" ]
 }
