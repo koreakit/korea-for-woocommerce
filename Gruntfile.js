@@ -5,14 +5,17 @@ module.exports = function( grunt ) {
 
 		// Setting folder templates.
 		dirs: {
-			js: 'assets/js'
+			dist_css: 'assets/css',
+			dist_js: 'assets/js',
+			src_css: 'assets/src/css',
+			src_js: 'assets/src/js'
 		},
 
 		// Validate .js files with JSHint.
 		jshint: {
 			files: [
-				'<%= dirs.js %>/src/admin/*.js',
-				'<%= dirs.js %>/src/*.js'
+				'<%= dirs.src_js %>/admin/*.js',
+				'<%= dirs.src_js %>/*.js'
 			],
 			options: {
 				expr: true,
@@ -30,18 +33,33 @@ module.exports = function( grunt ) {
 			admin: {
 				files: [{
 					expand: true,
-					cwd: '<%= dirs.js %>/src/',
+					cwd: '<%= dirs.src_js %>',
 					src: [ '*.js' ],
-					dest: '<%= dirs.js %>'
+					dest: '<%= dirs.dist_js %>'
 				}]
 			},
 			src: {
 				files: [{
 					expand: true,
-					cwd: '<%= dirs.js %>/src/admin/',
+					cwd: '<%= dirs.src_js %>/admin/',
 					src: [ '*.js' ],
-					dest: '<%= dirs.js %>/admin/'
+					dest: '<%= dirs.dist_js %>/admin/'
 				}]
+			}
+		},
+
+		// Minify all .css files.
+		cssmin: {
+			minify: {
+				files: [
+					{
+						expand: true,
+						cwd: '<%= dirs.src_css %>/',
+						src: ['*.css'],
+						dest: '<%= dirs.dist_css %>/',
+						ext: '.css'
+					}
+				]
 			}
 		},
 
@@ -50,10 +68,10 @@ module.exports = function( grunt ) {
 			js: {
 				files: [
 					'GruntFile.js',
-					'<%= dirs.js %>/src/admin/*.js',
-					'<%= dirs.js %>/src/*.js',
-					'!<%= dirs.js %>/admin/*.js',
-					'!<%= dirs.js %>/*.js',
+					'<%= dirs.src_js %>/admin/*.js',
+					'<%= dirs.src_js %>/*.js',
+					'!<%= dirs.dest_js %>/admin/*.js',
+					'!<%= dirs.dest_js %>/*.js',
 				],
 				tasks: ['jshint','uglify']
 			}
@@ -79,14 +97,27 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( 'grunt-phpcs' );
 	grunt.loadNpmTasks( 'grunt-contrib-jshint' );
 	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
+	grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
 	grunt.loadNpmTasks( 'grunt-contrib-watch' );
 
 	// Register tasks.
-	grunt.registerTask( 'default', [ 'js' ]);
+	grunt.registerTask( 'default', [
+		'js',
+		'css'
+	]);
 
 	grunt.registerTask( 'js', [
 		'jshint',
 		'uglify:admin',
 		'uglify:src'
+	]);
+
+	grunt.registerTask( 'css', [
+		'cssmin'
+	]);
+
+	grunt.registerTask( 'assets', [
+		'js',
+		'css'
 	]);
 };
