@@ -1,5 +1,7 @@
 .github export-ignore
 .wordpress-org export-ignore
+assets/css/src export-ignore
+assets/js/src export-ignore
 docker export-ignore
 docs export-ignore
 docs/DOCKER.md export-ignore
