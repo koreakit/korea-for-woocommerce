@@ -3,39 +3,35 @@
   "title": "WooCommerce Toolkit for Korean use.",
   "version": "1.0.6",
   "license": "GPL-3.0",
+  "main": "Gruntfile.js",
   "homepage": "https://wordpress.org/plugins/korea-for-woocommerce/",
   "repository": {
     "type": "git",
     "url": "git@github.com:jgreys/korea-for-woocommerce.git"
   },
-  "assets": {
-    "js": {
-      "min": "assets/js/*.min.js",
-      "js": "assets/js/*.js"
-    },
-    "styles": {
-      "css": "assets/css/*.css",
-      "sass": "assets/css/*.scss",
-      "cssfolder": "assets/css/"
-    }
+  "devDependencies": {
+    "grunt": "1.2.1",
+    "grunt-phpcs": "0.4.0",
+    "grunt-contrib-jshint": "2.1.0",
+    "grunt-contrib-uglify": "4.0.1",
+    "grunt-contrib-cssmin": "3.0.0",
+    "grunt-contrib-watch": "1.1.0"
   },
   "scripts": {
-		"start": "npm run env:start",
-		"stop": "npm run env:stop",
-		"cli:wp": "wp-env run cli wp",
-		"env:setup": "wait-on http://localhost:8888 -i 1000 -s 1 -t 60000 && bin/wp-env-config.sh",
-		"env:clean": "wp-env clean",
-		"env:destroy": "wp-env destroy",
-		"env:logs": "wp-env logs",
-		"env:start": "wp-env start",
-		"env:stop": "wp-env stop",
+    "build:core": "grunt && npm run makepot",
+    "build-watch": "grunt watch",
+    "build:assets": "grunt assets",
+    "cli:wp": "wp-env run cli wp",
+    "env:setup": "wait-on http://localhost:8888 -i 1000 -s 1 -t 60000 && bin/wp-env-config.sh",
+    "env:clean": "wp-env clean",
+    "env:destroy": "wp-env destroy",
+    "env:logs": "wp-env logs",
+    "env:start": "wp-env start",
+    "env:stop": "wp-env stop",
 		"test:php": "./vendor/bin/phpunit -c phpunit.xml",
 		"makepot": "composer run-script makepot"
-	},
+  },
   "engines": {
     "npm": ">=5.5.1"
-  },
-  "config": {
-    "wp_org_slug": "korea-for-woocommerce"
   }
 }
