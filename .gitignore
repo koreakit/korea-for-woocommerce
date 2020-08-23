@@ -1,11 +1,36 @@
-/node_modules/
+# Editors
+project.xml
+project.properties
+/nbproject/private/
+.buildpath
+.project
+.settings*
+.idea
+.vscode
+*.sublime-project
+*.sublime-workspace
+.sublimelinterrc
+*.swp
+
+# Grunt
+node_modules/
+none
+
+# OS X metadata
 .DS_Store
+
+# Windows junk
 Thumbs.db
-vendor
 
-composer.lock
+# Unit tests
+/tmp
+/tests/bin/tmp
 
-# Volumes mounted by Docker containers
-docker/data
-docker/wordpress
-docker/logs
+# Logs
+/logs
+
+# Composer
+/vendor/
+
+# Language files
+i18n/korea-for-woocommerce.pot

@@ -28,8 +28,8 @@
     "env:logs": "wp-env logs",
     "env:start": "wp-env start",
     "env:stop": "wp-env stop",
-    "makepot": "composer run-script makepot",
-    "test:php": "./vendor/bin/phpunit -c phpunit.xml"
+		"test:php": "./vendor/bin/phpunit -c phpunit.xml",
+		"makepot": "composer run-script makepot"
   },
   "engines": {
     "npm": ">=5.5.1"
