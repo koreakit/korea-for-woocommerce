@@ -33,17 +33,18 @@ module.exports = function( grunt ) {
 			admin: {
 				files: [{
 					expand: true,
-					cwd: '<%= dirs.src_js %>',
+					cwd: '<%= dirs.src_js %>/admin/',
 					src: [ '*.js' ],
-					dest: '<%= dirs.dist_js %>'
+					dest: '<%= dirs.dist_js %>/admin/'
 				}]
+
 			},
 			src: {
 				files: [{
 					expand: true,
-					cwd: '<%= dirs.src_js %>/admin/',
+					cwd: '<%= dirs.src_js %>',
 					src: [ '*.js' ],
-					dest: '<%= dirs.dist_js %>/admin/'
+					dest: '<%= dirs.dist_js %>'
 				}]
 			}
 		},
