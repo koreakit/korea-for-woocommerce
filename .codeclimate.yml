@@ -18,4 +18,3 @@ ratings:
    - "includes/*"
 exclude_paths:
 - "tests/"
-- "sample-data/"
