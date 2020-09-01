@@ -1,0 +1,21 @@
+{
+	"env": {
+		"url": "http://localhost:8889",
+		"users": {
+			"admin": {
+				"username": "admin",
+				"password": "password"
+			},
+			"customer": {
+				"username": "customer",
+				"password": "password"
+			}
+		}
+	},
+	"integrationFolder": "tests/e2e/integration",
+	"pluginsFile": "tests/e2e/plugins/index.js",
+	"screenshotsFolder": "tests/e2e/screenshots",
+	"supportFile": "tests/e2e/support/index.js",
+	"video": false,
+	"videosFolder": "tests/e2e/videos"
+}
