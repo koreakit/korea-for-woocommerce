@@ -1,9 +1,7 @@
 .github export-ignore
 .wordpress-org export-ignore
 assets/src export-ignore
-docker export-ignore
-docs export-ignore
-docs/DOCKER.md export-ignore
+bin export-ignore
 tests export-ignore
 .distignore export-ignore
 .editorconfig export-ignore
