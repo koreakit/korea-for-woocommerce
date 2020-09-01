@@ -9,7 +9,7 @@ describe( 'Korea for WooCommerce General Settings', function() {
         cy.get( '#wp-submit' ).click();
     });
 
-    it( 'can activate postcode', function() {
+    it( 'can update postcode settings', function() {
 		cy.visit( baseURL + '/wp-admin/admin.php?page=wc-settings&tab=integration&section=korea' );
 
 		cy.get( '#woocommerce_korea_postcode_yn' ).check();
@@ -17,5 +17,5 @@ describe( 'Korea for WooCommerce General Settings', function() {
 		cy.get( '.woocommerce-save-button' ).click();
 
 		cy.get('#message').should('have.class', 'updated');
-    } );
+	} );
 } );
