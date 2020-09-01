@@ -17,19 +17,21 @@
     "grunt-contrib-jshint": "2.1.0",
     "grunt-contrib-uglify": "4.0.1",
     "grunt-contrib-watch": "1.1.0",
-    "grunt-phpcs": "0.4.0"
+    "grunt-phpcs": "0.4.0",
+    "wait-on": "^5.2.0"
   },
   "scripts": {
     "build:core": "grunt && npm run makepot",
     "build-watch": "grunt watch",
     "build:assets": "grunt assets",
     "cli:wp": "wp-env run cli wp",
-    "env:setup": "wait-on http://localhost:8888 -i 1000 -s 1 -t 60000 && bin/wp-env-config.sh",
+    "env:setup": "wait-on http://localhost:8888 -i 1000 -s 1 -t 60000 && ./bin/setup.sh",
     "env:clean": "wp-env clean",
     "env:destroy": "wp-env destroy",
     "env:logs": "wp-env logs",
     "env:start": "wp-env start",
-    "env:stop": "wp-env stop",
+		"env:stop": "wp-env stop",
+		"tests:setup": "wait-on http://localhost:8889 -i 1000 -s 1 -t 60000 && ./bin/tests-setup.sh",
     "test:e2e": "npx cypress run",
     "test:php": "./vendor/bin/phpunit -c phpunit.xml",
     "makepot": "composer run-script makepot"
