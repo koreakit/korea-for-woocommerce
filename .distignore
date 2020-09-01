@@ -15,6 +15,7 @@ tests
 /.gitmodules
 /composer.json
 /composer.lock
+/cypress.json
 /default.env
 /docker-compose.yml
 /docs/DOCKER.md

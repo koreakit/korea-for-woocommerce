@@ -12,6 +12,7 @@ tests export-ignore
 .gitmodules export-ignore
 composer.json export-ignore
 composer.lock export-ignore
+cypress.json export-ignore
 default.env export-ignore
 docker-compose.yml export-ignore
 package.json export-ignore
