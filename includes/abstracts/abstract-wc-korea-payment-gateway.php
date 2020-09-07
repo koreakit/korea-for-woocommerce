@@ -37,10 +37,6 @@ abstract class WC_Korea_Payment_Gateway extends WC_Payment_Gateway {
 			return false;
 		}
 
-		if ( $this->testmode && get_current_user_id() !== $this->testaccount && ! current_user_can( 'manage_woocommerce' ) ) {
-			return false;
-		}
-
 		return parent::is_available();
 	}
 
