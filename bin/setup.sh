@@ -13,8 +13,14 @@ wp-env run cli "wp core update --quiet"
 echo "Updating the WordPress database..."
 wp-env run cli "wp core update-db --quiet"
 
+echo "Updating the permalink structure"
+wp-env run cli "wp option update permalink_structure '/%postname%'"
+
 echo "Installing and activating WooCommerce..."
 wp-env run cli "wp plugin install woocommerce --activate"
+
+echo "Creating customer account"
+wp-env run cli "wp user create customer customer@woocommercecoree2etestsuite.com --user_pass=password --role=customer"
 
 echo "Adding basic WooCommerce settings..."
 wp-env run cli "wp option set woocommerce_store_address '123 Maple Street'"
