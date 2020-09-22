@@ -1,0 +1,64 @@
+{
+  "projectId": "5e8t8k",
+	"baseUrl": "http://localhost:8889",
+	"viewportWidth": 1280,
+  "viewportHeight": 720,
+  "env": {
+    "users": {
+      "admin": {
+        "username": "admin",
+        "password": "password"
+      },
+      "customer": {
+        "username": "customer",
+        "password": "password"
+      }
+		},
+		"addresses": {
+			"admin": {
+				"store": {
+					"firstname": "John",
+					"lastname": "Doe",
+					"company": "Greys",
+					"country": "South Korea",
+					"addressfirstline": "addr 1",
+					"addresssecondline": "addr 2",
+					"city": "Seoul",
+					"postcode": "12345"
+				}
+			},
+			"customer": {
+				"billing": {
+					"firstname": "John",
+					"lastname": "Doe",
+					"company": "Greys",
+					"country": "South Korea",
+					"addressfirstline": "123 Maple Street",
+					"addresssecondline": "addr 2",
+					"city": "Seoul",
+					"postcode": "12345",
+					"phone": "01056781234",
+					"email": "john.doe@example.com"
+				},
+				"shipping": {
+					"firstname": "John",
+					"lastname": "Doe",
+					"company": "Greys",
+					"country": "South Korea",
+					"addressfirstline": "123 Maple Street",
+					"addresssecondline": "addr 2",
+					"city": "Seoul",
+					"postcode": "12345"
+				}
+			}
+		}
+	},
+  "chromeWebSecurity": false,
+  "fixturesFolder": "tests/e2e/fixtures",
+  "integrationFolder": "tests/e2e/integration",
+  "pluginsFile": "tests/e2e/plugins/index.js",
+  "screenshotsFolder": "tests/e2e/screenshots",
+  "supportFile": "tests/e2e/support/index.js",
+  "video": false,
+  "videosFolder": "tests/e2e/videos"
+}
