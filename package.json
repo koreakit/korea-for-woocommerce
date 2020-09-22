@@ -30,9 +30,10 @@
     "env:destroy": "wp-env destroy",
     "env:logs": "wp-env logs",
     "env:start": "wp-env start",
-		"env:stop": "wp-env stop",
-    "test:e2e": "npx cypress run",
+    "env:stop": "wp-env stop",
     "test:setup": "wait-on http://localhost:8889 -i 1000 -s 1 -t 60000 && tests/bin/setup.sh",
+		"test:run": "npx cypress run --config-file tests/e2e/config.json",
+		"test:open": "npx cypress run --config-file tests/e2e/config.json",
     "test:php": "./vendor/bin/phpunit -c phpunit.xml",
     "makepot": "composer run-script makepot"
   },
