@@ -12,6 +12,7 @@
   "devDependencies": {
     "@wordpress/env": "^1.6.0",
     "cypress": "^5.0.0",
+    "cypress-woocommerce": "^0.1.1",
     "grunt": "1.2.1",
     "grunt-contrib-cssmin": "3.0.0",
     "grunt-contrib-jshint": "2.1.0",
