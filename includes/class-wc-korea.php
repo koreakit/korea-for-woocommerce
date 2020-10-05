@@ -60,6 +60,8 @@ class WC_Korea {
 		$this->load_plugin_textdomain();
 		$this->includes();
 		$this->init();
+
+		do_action( 'woocommerce_korea_loaded' );
 	}
 
 	/**
