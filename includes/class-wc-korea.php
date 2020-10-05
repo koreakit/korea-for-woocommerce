@@ -157,6 +157,24 @@ class WC_Korea {
 	}
 
 	/**
+	 * Adds plugin action links.
+	 *
+	 * @param array $links Links.
+	 *
+	 * @return array
+	 */
+	public function plugin_action_links( $links ) {
+		return array_merge(
+			array(
+				'<a href="admin.php?page=wc-settings&tab=integration&section=korea">' . esc_html__( 'Settings', 'korea-for-woocommerce' ) . '</a>',
+				'<a href="admin.php?page=wc-addons&section=wc-korea">' . esc_html__( 'Addons', 'korea-for-woocommerce' ) . '</a>',
+				'<a href="https://greys.co/contact/">' . esc_html__( 'Support', 'korea-for-woocommerce' ) . '</a>',
+			),
+			$links
+		);
+	}
+
+	/**
 	 * Add SEP query vars
 	 *
 	 * @param array $query_vars The array of available query variables.
@@ -178,22 +196,6 @@ class WC_Korea {
 		update_option( 'woocommerce_korea_version', WC_KOREA_VERSION );
 	}
 
-	/**
-	 * Adds plugin action links.
-	 *
-	 * @param array $links Links.
-	 *
-	 * @return array
-	 */
-	public function plugin_action_links( $links ) {
-		$plugin_links = array(
-			'<a href="admin.php?page=wc-settings&tab=integration&section=korea">' . esc_html__( 'Settings', 'korea-for-woocommerce' ) . '</a>',
-			'<a href="admin.php?page=wc-addons&section=wc-korea">' . esc_html__( 'Addons', 'korea-for-woocommerce' ) . '</a>',
-			'<a href="https://greys.co/contact/">' . esc_html__( 'Support', 'korea-for-woocommerce' ) . '</a>',
-		);
-
-		return array_merge( $plugin_links, $links );
-	}
 
 	/**
 	 * Load the plugin text domain for translation.
