@@ -59,7 +59,7 @@ class WC_Korea {
 
 		$this->load_plugin_textdomain();
 		$this->includes();
-		$this->init();
+		$this->hooks();
 
 		do_action( 'woocommerce_korea_loaded' );
 	}
@@ -144,9 +144,9 @@ class WC_Korea {
 	}
 
 	/**
-	 * Init the plugin after plugins_loaded so environment variables are set.
+	 * Hooks
 	 */
-	public function init() {
+	public function hooks() {
 		add_filter( 'woocommerce_integrations', array( $this, 'wc_integrations' ) );
 		add_filter( 'plugin_action_links_' . plugin_basename( WC_KOREA_MAIN_FILE ), array( $this, 'plugin_action_links' ) );
 		add_filter( 'query_vars', array( $this, 'wc_sep_query_var' ) );
