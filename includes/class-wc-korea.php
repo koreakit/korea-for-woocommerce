@@ -53,7 +53,7 @@ class WC_Korea {
 	 * *Singleton* via the `new` operator from outside of this class.
 	 */
 	private function __construct() {
-		if ( ! $this->are_requirements_met() ) {
+		if ( ! $this->requirements() ) {
 			return;
 		}
 
@@ -67,7 +67,7 @@ class WC_Korea {
 	/**
 	 * Verify if the requirements are met
 	 */
-	public function are_requirements_met() {
+	public function requirements() {
 		if ( ! function_exists( 'is_plugin_active' ) ) {
 			include_once ABSPATH . 'wp-admin/includes/plugin.php';
 		}
