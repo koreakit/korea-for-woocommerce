@@ -14,7 +14,7 @@ echo "Updating the WordPress database..."
 wp-env run tests-cli "wp core update-db --quiet"
 
 echo "Updating the permalink structure"
-wp-env run cli "wp option update permalink_structure '/%postname%'"
+wp-env run cli "wp option update permalink_structure '/%postname%/'"
 
 echo "Installing and activating WooCommerce..."
 wp-env run tests-cli "wp plugin install woocommerce --activate"
