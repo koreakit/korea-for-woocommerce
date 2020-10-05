@@ -101,6 +101,13 @@ class WC_Korea {
 	}
 
 	/**
+	 * Load the plugin text domain for translation.
+	 */
+	public function load_plugin_textdomain() {
+		load_plugin_textdomain( 'korea-for-woocommerce', false, plugin_basename( WC_KOREA_ABSPATH ) . '/i18n' );
+	}
+
+	/**
 	 * Init the plugin after plugins_loaded so environment variables are set.
 	 */
 	public function includes() {
@@ -194,14 +201,6 @@ class WC_Korea {
 	public function update_plugin_version() {
 		delete_option( 'woocommerce_korea_version' );
 		update_option( 'woocommerce_korea_version', WC_KOREA_VERSION );
-	}
-
-
-	/**
-	 * Load the plugin text domain for translation.
-	 */
-	public function load_plugin_textdomain() {
-		load_plugin_textdomain( 'korea-for-woocommerce', false, plugin_basename( WC_KOREA_ABSPATH ) . '/i18n' );
 	}
 
 }
