@@ -1,20 +1,18 @@
-.github export-ignore
-.wordpress-org export-ignore
-assets/src export-ignore
-bin export-ignore
-tests export-ignore
-.distignore export-ignore
-.editorconfig export-ignore
-.gitattributes export-ignore
-.gitignore export-ignore
-.gitmodules export-ignore
-composer.json export-ignore
-composer.lock export-ignore
-cypress.json export-ignore
-default.env export-ignore
-docker-compose.yml export-ignore
-package.json export-ignore
-package-lock.json export-ignore
-phpcs.xml export-ignore
-phpunit.xml export-ignore
-README.md export-ignore
+# Set the default behavior, in case people don't have `core.autocrlf` set.
+* text=auto
+
+# Declare files that will always have LF line endings on checkout.
+*.php text eol=lf
+
+# Remove files for archives generated using `git archive`.
+/.*                export-ignore
+assets/src/        export-ignore
+bin                export-ignore
+composer.*         export-ignore
+Gruntfile.js       export-ignore
+package.json       export-ignore
+package-lock.json  export-ignore
+phpcs.xml          export-ignore
+phpunit.*          export-ignore
+README.md          export-ignore
+tests              export-ignore

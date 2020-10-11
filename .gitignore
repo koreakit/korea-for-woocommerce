@@ -35,5 +35,8 @@ Thumbs.db
 # Language files
 i18n/korea-for-woocommerce.pot
 
+# Build
+build/
+
 # E2E Testing
 tests/e2e/screenshots/**/*.png

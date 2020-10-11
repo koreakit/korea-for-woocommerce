@@ -22,8 +22,10 @@
     "wait-on": "^5.2.0"
   },
   "scripts": {
+		"build": "./bin/build-zip.sh",
     "build:core": "grunt && npm run makepot",
-    "build-watch": "grunt watch",
+		"build:watch": "grunt watch",
+		"build:zip": "npm run build && composer install && npm run build:core",
     "build:assets": "grunt assets",
     "cli:wp": "wp-env run cli wp",
     "env:setup": "wait-on http://localhost:8888 -i 1000 -s 1 -t 60000 && bin/setup.sh",
