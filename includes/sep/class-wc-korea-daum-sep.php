@@ -25,24 +25,17 @@ class WC_Korea_Daum_SEP {
 			return;
 		}
 
-		add_action( 'template_include', array( $this, 'template_include' ) );
+		add_action( 'parse_request', array( $this, 'output' ) );
 	}
 
 	/**
 	 * Daum SEP output
 	 *
-	 * @param  string $original_template Original template.
 	 * @return string
 	 */
-	public function template_include( $original_template ) {
-		$wc_sep = get_query_var( 'wc-sep' );
-
-		if ( ! $wc_sep ) {
-			return $original_template;
-		}
-
-		if ( 'daum' !== $wc_sep ) {
-			return $original_template;
+	public function output() {
+		if ( 'daum' !== $_GET['wc-sep'] ) {
+			return;
 		}
 
 		$products = new WP_Query(
@@ -67,15 +60,10 @@ class WC_Korea_Daum_SEP {
 			global $product;
 
 			if ( empty( $product ) || ! $product->is_visible() ) {
-				return;
+				continue;
 			}
 
 			$categories = get_the_terms( get_the_ID(), 'product_cat' );
-			foreach ( $categories as $category ) {
-				$category_id   = $category->ID;
-				$category_name = $category->name;
-			}
-
 			$class = 'U';
 
 			/**
@@ -110,7 +98,8 @@ class WC_Korea_Daum_SEP {
 
 		wp_reset_postdata();
 
-		return ob_get_clean();
+		echo ob_get_clean();
+		exit;
 	}
 
 }

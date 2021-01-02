@@ -25,24 +25,17 @@ class WC_Korea_Naver_SEP {
 			return;
 		}
 
-		add_action( 'template_include', array( $this, 'template_include' ) );
+		add_action( 'parse_request', array( $this, 'output' ) );
 	}
 
 	/**
 	 * Naver SEP output
 	 *
-	 * @param  string $original_template Original template.
 	 * @return string
 	 */
-	public function template_include( $original_template ) {
-		$wc_sep = get_query_var( 'wc-sep' );
-
-		if ( ! $wc_sep ) {
-			return $original_template;
-		}
-
-		if ( 'naver' !== $wc_sep ) {
-			return $original_template;
+	public function output() {
+		if ( 'naver' !== $_GET['wc-sep'] ) {
+			return;
 		}
 
 		$products = new WP_Query(
@@ -80,14 +73,17 @@ class WC_Korea_Naver_SEP {
 			global $product;
 
 			if ( empty( $product ) || ! $product->is_visible() ) {
-				return;
+				continue;
 			}
 
+			$category_name = '';
 			$categories = get_the_terms( get_the_ID(), 'product_cat' );
 			foreach ( $categories as $category ) {
-				if ( 0 === $category->parent ) {
-					$category = $category->name;
+				if ( 0 !== $category->parent ) {
+					continue;
 				}
+
+				$category_name = $category->name;
 			}
 
 			$values   = array();
@@ -96,7 +92,7 @@ class WC_Korea_Naver_SEP {
 			$values[] = esc_html( get_post_meta( get_the_ID(), '_regular_price', true ) );
 			$values[] = esc_url( get_the_permalink() );
 			$values[] = esc_url( get_the_post_thumbnail_url( get_the_ID() ) );
-			$values[] = esc_html( $category );
+			$values[] = esc_html( $category_name );
 			$values[] = '0';
 			$values[] = 'u';
 			$values[] = esc_html( get_the_modified_date( 'Y-m-d' ) . ' ' . get_the_modified_date( 'H:i:s' ) );
@@ -105,8 +101,9 @@ class WC_Korea_Naver_SEP {
 		}
 
 		wp_reset_postdata();
-
-		return ob_get_clean();
+		
+		echo ob_get_clean();
+		exit;
 	}
 
 }
