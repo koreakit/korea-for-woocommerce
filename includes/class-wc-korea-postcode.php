@@ -91,17 +91,17 @@ class WC_Korea_Postcode {
 			'wc-korea-postcode',
 			'_postcode',
 			array(
+				'displaymode' => $this->displaymode,
 				'theme' => array(
-					'displaymode'        => $this->displaymode,
-					'bgcolor'            => $this->bgcolor,
-					'searchbgcolor'      => $this->searchbgcolor,
-					'contentbgcolor'     => $this->contentbgcolor,
-					'pagebgcolor'        => $this->pagebgcolor,
-					'textcolor'          => $this->textcolor,
-					'querytxtcolor'      => $this->querytxtcolor,
-					'postalcodetxtcolor' => $this->postalcodetxtcolor,
-					'emphtxtcolor'       => $this->emphtxtcolor,
-					'outlinecolor'       => $this->outlinecolor,
+					'bgColor'            => $this->bgcolor,
+					'searchBgColor'      => $this->searchbgcolor,
+					'contentBgColor'     => $this->contentbgcolor,
+					'pageBgColor'        => $this->pagebgcolor,
+					'textColor'          => $this->textcolor,
+					'queryTextColor'     => $this->querytxtcolor,
+					'postcodeTextColor'  => $this->postalcodetxtcolor,
+					'emphTextColor'      => $this->emphtxtcolor,
+					'outlineColor'       => $this->outlinecolor,
 				),
 			)
 		);
