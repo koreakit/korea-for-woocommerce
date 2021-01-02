@@ -49,7 +49,21 @@ class WC_Korea_Postcode {
 		}
 		?>
 		<style type="text/css">
-			#postcode_form.overlay {
+			#billing-address-autocomplete,
+			#shipping-address-autocomplete {
+				display: none;
+			}
+
+			#billing-address-autocomplete.embed,
+			#shipping-address-autocomplete.embed {
+				position: relative;
+				width: 100%;
+				height: 395px;
+				border: 1px solid #e7e7e7;
+			}
+
+			#billing-address-autocomplete.overlay,
+			#shipping-address-autocomplete.overlay {
 				position: fixed;
 				width: 100%;
 				height: 100%;
@@ -57,13 +71,6 @@ class WC_Korea_Postcode {
 				top: 0;
 				left: 0;
 				z-index: 99998;
-			}
-
-			#postcode_form.embed {
-				position: relative;
-				width: 100%;
-				height: 395px;
-				border: 1px solid #e7e7e7;
 			}
 		</style>
 		<?php
