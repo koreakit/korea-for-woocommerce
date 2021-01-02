@@ -26,10 +26,10 @@ return apply_filters(
 			'description'       => __( 'Choose the display mode', 'korea-for-woocommerce' ),
 			'type'              => 'select',
 			'class'             => 'show_if_postcode',
-			'default'           => 'overlay',
+			'default'           => 'embed',
 			'options'           => array(
-				'overlay' => __( 'Overlay', 'korea-for-woocommerce' ),
 				'embed'   => __( 'Embed', 'korea-for-woocommerce' ),
+				'overlay' => __( 'Overlay', 'korea-for-woocommerce' )
 			),
 			'custom_attributes' => array( 'required' => 'required' ),
 		),
