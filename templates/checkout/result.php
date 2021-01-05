@@ -29,7 +29,7 @@
 		<?php if ( wp_is_mobile() ) { ?>
 			location.href = '<?php echo esc_url( $redirect_url ); ?>';
 		<?php } else { ?>
-			if ( window.opener && !window.opener.closed ) {
+			if ( window.opener && ! window.opener.closed ) {
 				window.opener.location.href = '<?php echo esc_url( $redirect_url ); ?>';
 				window.close();
 			} else {
