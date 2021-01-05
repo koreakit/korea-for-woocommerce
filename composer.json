@@ -31,7 +31,7 @@
       "phpcbf -p"
     ],
     "makepot-audit": [
-      "wp --allow-root i18n make-pot . --exclude=\".github,.wordpress-org,bin,node_modules,tests,vendor\" --slug=korea-for-woocommerce"
+      "wp --allow-root i18n make-pot . --exclude=\".github,.wordpress-org,bin,sample-data,node_modules,tests,vendor\" --slug=korea-for-woocommerce"
     ],
     "makepot": [
       "@makepot-audit --skip-audit"
