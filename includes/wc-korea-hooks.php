@@ -34,42 +34,44 @@ if ( true == apply_filters( 'wc_korea_checkout_phone_validation', true ) ) {
 
 }
 
+if ( true == apply_filters( 'wc_korea_checkout_phone_format', true ) ) {
 
+	add_action(
+		'woocommerce_checkout_create_order',
+		function( $order, $data ) {
+			if ( 'required' !== get_option( 'woocommerce_checkout_phone_field', 'required' ) ) {
+				return;
+			}
 
-add_action(
-	'woocommerce_checkout_create_order',
-	function( $order, $data ) {
-		if ( 'required' !== get_option( 'woocommerce_checkout_phone_field', 'required' ) ) {
-			return;
-		}
+			if ( 'KR' !== $data['billing_country'] ) {
+				return;
+			}
 
-		if ( 'KR' !== $data['billing_country'] ) {
-			return;
-		}
+			$phone = WC_Korea_Helper::format_phone( $data['billing_phone'] );
 
-		$phone = WC_Korea_Helper::format_phone( $data['billing_phone'] );
+			// Format phone for order.
+			$order->set_billing_phone( $phone );
+		},
+		10,
+		2
+	);
 
-		// Format phone for order.
-		$order->set_billing_phone( $phone );
-	},
-	10,
-	2
-);
+	add_action(
+		'woocommerce_checkout_update_customer',
+		function( $customer, $data ) {
+			if ( 'required' !== get_option( 'woocommerce_checkout_phone_field', 'required' ) ) {
+				return;
+			}
 
-add_action(
-	'woocommerce_checkout_update_customer',
-	function( $customer, $data ) {
-		if ( 'required' !== get_option( 'woocommerce_checkout_phone_field', 'required' ) ) {
-			return;
-		}
+			if ( 'KR' !== $data['billing_country'] ) {
+				return;
+			}
 
-		if ( 'KR' !== $data['billing_country'] ) {
-			return;
-		}
+			// Format phone for order.
+			$customer->set_billing_phone( WC_Korea_Helper::format_phone( $data['billing_phone'] ) );
+		},
+		10,
+		2
+	);
 
-		// Format phone for order.
-		$customer->set_billing_phone( WC_Korea_Helper::format_phone( $data['billing_phone'] ) );
-	},
-	10,
-	2
-);
+}
