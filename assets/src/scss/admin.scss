@@ -1,0 +1,161 @@
+.wrap-korea-licenses {
+	tbody {
+		display: block;
+	}
+
+	tfoot {
+		display: block;
+	}
+
+	tr {
+		display: block;
+	}
+
+	caption {
+		display: block;
+	}
+
+	p {
+		&.submit {
+			clear: both;
+		}
+	}
+
+	.form-table {
+		display: block;
+
+		tr {
+			float: left;
+			margin: 0 15px 15px 0;
+			background: #fff;
+			border: 1px solid #ccc;
+			width: 30.5%;
+			max-width: 350px;
+			padding: 14px;
+			min-height: 220px;
+			position: relative;
+			box-sizing: border-box;
+		}
+
+		th {
+			background: #f9f9f9;
+			padding: 14px !important;
+			border-bottom: 1px solid #ccc;
+			margin: -14px -14px 20px;
+			width: 100%;
+			position: inherit !important;
+		}
+
+		td {
+			padding: 0;
+			display: block;
+
+			input.regular-text {
+				margin: 0 0 8px !important;
+				width: 100% !important;
+			}
+		}
+
+		thead {
+			display: block;
+		}
+
+		th {
+			display: block;
+		}
+	}
+
+	.wc-korea-license-data {
+		&[class*="wc-korea-license-"] {
+			position: absolute;
+			background: #fafafa;
+			padding: 14px;
+			border-top: 1px solid #eee;
+			margin: 20px -14px -14px;
+			min-height: 67px;
+			width: 100%;
+			bottom: 14px;
+			box-sizing: border-box;
+
+			a {
+				color: #444;
+
+				&:hover {
+					text-decoration: none;
+				}
+			}
+		}
+
+		p {
+			font-size: 13px;
+			margin-top: 0;
+		}
+
+		&.wc-korea-license {
+			&-missing {
+				background-color: #ffebcd;
+				border-color: #ffebcd;
+			}
+
+			&-invalid {
+				background-color: #ffebcd;
+				border-color: #ffebcd;
+			}
+
+			&-site_inactive {
+				background-color: #ffebcd;
+				border-color: #ffebcd;
+			}
+
+			&-item_name_mismatch {
+				background-color: #ffebcd;
+				border-color: #ffebcd;
+			}
+		}
+
+		&.license-expires-soon-notice {
+			background-color: #00a0d2;
+			color: #fff;
+			border-color: #00a0d2;
+
+			a {
+				color: #fff;
+				&: hover {
+					text-decoration: none;
+				}
+			}
+		}
+
+		&.wc-korea-license {
+			&-expired {
+				background-color: #e24e4e;
+				color: #fff;
+				border-color: #e24e4e;
+
+				a {
+					color: #fff;
+					&: hover {
+						text-decoration: none;
+					}
+				}
+			}
+
+			&-error {
+				background-color: #ffebcd;
+				border-color: #ffebcd;
+			}
+		}
+	}
+
+	.wc_addons_wrap {
+		.products {
+			li {
+				max-height: 220px;
+			}
+		}
+	}
+
+	.storefront {
+		display: none !important;
+	}
+}
