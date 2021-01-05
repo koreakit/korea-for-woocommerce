@@ -90,13 +90,20 @@ In the search field type “Korea for WooCommerce” and click Search Plugins. O
 The manual installation method involves downloading our plugin and uploading it to your webserver via your favourite FTP application.
 
 == Changelog ==
-= 1.1.0 - 2020-08-09 =
-* New - Korean phone format and validate
-* New - Coding Standards WordPress & WooCommerce compliance
-* Tweak - Order virtual bank template improved
-* Tweak - Rename multilingual compatibility class
-* Fix - Postcode Finder wasn't initiated when shop was selling to a single country
-* Fix - Partially refunded order status dropped
-* Fix - Remove unused file
+= 1.1.1 - 2021-01-05 =
+* New - New Korea for WooCommerce branding 🎨
+* New - Korea for WooCommerce is now translatable from translate.wordpress.org
+* New - Added woocommerce_korea_loaded action hook
+* New - Korean version of sample data for WooCommerce added
+* New - Added wc_korea_checkout_phone_validation filter hook
+* New - Added wc_korea_checkout_phone_format filter hook
+* Tweak - Use absolute path constant to avoid potential issues when opcache is activated
+* Tweak - Updated postcode finder styling
+* Tweak - Set embed as default for display mode for Postcode finder
+* Tweak - Added jQuery dependency to postcode script
+* Tweak - Test account feature for payment gateways dropped
+* Fix - Fixes installments for korean payment gateways
+* Fix - Postcode finder is now working for shipping address fields
+* Fix - Minor bug fixes
 
 [See changelog for all versions.](https://raw.githubusercontent.com/jgreys/korea-for-woocommerce/master/changelog.txt)
