@@ -18,7 +18,10 @@
     "grunt-contrib-jshint": "2.1.0",
     "grunt-contrib-uglify": "4.0.1",
     "grunt-contrib-watch": "1.1.0",
-    "grunt-phpcs": "0.4.0"
+    "grunt-phpcs": "0.4.0",
+    "grunt-sass": "^3.1.0",
+    "node-sass": "^5.0.0",
+    "wait-on": "^5.2.0"
   },
   "scripts": {
     "build": "grunt",
@@ -33,8 +36,8 @@
     "env:start": "wp-env start",
     "env:stop": "wp-env stop",
     "test:setup": "wait-on http://localhost:8889 -i 1000 -s 1 -t 60000 && tests/bin/setup.sh",
-		"test:run": "npx cypress run --config-file tests/e2e/config.json",
-		"test:open": "npx cypress run --config-file tests/e2e/config.json",
+    "test:run": "npx cypress run --config-file tests/e2e/config.json",
+    "test:open": "npx cypress run --config-file tests/e2e/config.json",
     "test:php": "./vendor/bin/phpunit -c phpunit.xml",
     "makepot": "composer run-script makepot"
   },
