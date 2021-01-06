@@ -29,6 +29,10 @@ Thumbs.db
 # Logs
 /logs
 
+# Assets
+/assets/css
+/assets/js
+
 # Composer
 /vendor/
 
