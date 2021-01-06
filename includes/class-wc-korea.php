@@ -102,9 +102,18 @@ class WC_Korea {
 
 	/**
 	 * Load the plugin text domain for translation.
+	 * 
+	 * Locales found in:
+	 *  - WP_LANG_DIR/korea-for-woocommerce/korea-for-woocommerce-LOCALE.mo
+	 *  - WP_LANG_DIR/plugins/korea-for-woocommerce-LOCALE.mo
 	 */
-	public function load_plugin_textdomain() {
-		load_plugin_textdomain( 'korea-for-woocommerce', false, plugin_basename( WC_KOREA_ABSPATH ) . '/i18n' );
+	 public function load_plugin_textdomain() {
+		$locale = determine_locale();
+		$locale = apply_filters( 'plugin_locale', $locale, 'korea-for-woocommerce' );
+
+		unload_textdomain( 'korea-for-woocommerce' );
+		load_textdomain( 'korea-for-woocommerce', WP_LANG_DIR . '/korea-for-woocommerce/korea-for-woocommerce-' . $locale . '.mo' );
+		load_plugin_textdomain( 'korea-for-woocommerce', false, plugin_basename( dirname( WC_KOREA_ABSPATH ) ) . '/i18n' );
 	}
 
 	/**

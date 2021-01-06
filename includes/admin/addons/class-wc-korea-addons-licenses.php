@@ -197,7 +197,7 @@ class WC_Korea_Addons_Licenses extends WC_Korea_Addons {
 
 					default:
 						$class = 'error';
-						$error = ! empty( $license->error ) ? $license->error : __( 'unknown_error', 'korea-for-woocommerce' );
+						$error = ! empty( $license->error ) ? $license->error : 'unknown_error';
 						/* translators: 1) plugin name, 2) contact link end, 3) contact link end */
 						$messages[]     = sprintf( __( 'There was an error with this license key: %1$s. Please %2$scontact our support team%3$s.', 'korea-for-woocommerce' ), $error, '<a href="https://greys.co/contact/">', '</a>' );
 						$license_status = 'license-' . $class . '-notice';

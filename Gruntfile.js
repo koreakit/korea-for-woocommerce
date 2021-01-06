@@ -1,5 +1,6 @@
 module.exports = function( grunt ) {
 	'use strict';
+	var sass = require( 'node-sass' );
 
 	grunt.initConfig({
 
@@ -7,7 +8,7 @@ module.exports = function( grunt ) {
 		dirs: {
 			dist_css: 'assets/css',
 			dist_js: 'assets/js',
-			src_css: 'assets/src/css',
+			src_scss: 'assets/src/scss',
 			src_js: 'assets/src/js'
 		},
 
@@ -49,13 +50,30 @@ module.exports = function( grunt ) {
 			}
 		},
 
+		// Compile all .scss files.
+		sass: {
+			compile: {
+				options: {
+					implementation: sass,
+					sourceMap: 'none'
+				},
+				files: [{
+					expand: true,
+					cwd: '<%= dirs.src_scss %>/',
+					src: ['*.scss'],
+					dest: '<%= dirs.dist_css %>/',
+					ext: '.css'
+				}]
+			}
+		},
+
 		// Minify all .css files.
 		cssmin: {
 			minify: {
 				files: [
 					{
 						expand: true,
-						cwd: '<%= dirs.src_css %>/',
+						cwd: '<%= dirs.dist_css %>/',
 						src: ['*.css'],
 						dest: '<%= dirs.dist_css %>/',
 						ext: '.css'
@@ -95,6 +113,7 @@ module.exports = function( grunt ) {
 	});
 
 	// Load NPM tasks to be used here.
+	grunt.loadNpmTasks( 'grunt-sass' );
 	grunt.loadNpmTasks( 'grunt-phpcs' );
 	grunt.loadNpmTasks( 'grunt-contrib-jshint' );
 	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
@@ -114,7 +133,7 @@ module.exports = function( grunt ) {
 	]);
 
 	grunt.registerTask( 'css', [
-		'cssmin'
+		'sass','cssmin'
 	]);
 
 	grunt.registerTask( 'assets', [
