@@ -78,7 +78,7 @@ class WC_Korea_Integration extends WC_Integration {
 			'general'  => __( 'General', 'korea-for-woocommerce' ),
 			'sep'      => __( 'Search Engine Page', 'korea-for-woocommerce' ),
 			'support'  => __( 'Support', 'korea-for-woocommerce' ),
-			'advanced' => __( 'Avanced', 'korea-for-woocommerce' ),
+			'advanced' => __( 'Advanced', 'korea-for-woocommerce' ),
 		);
 	}
 
