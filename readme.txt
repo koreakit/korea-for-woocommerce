@@ -90,6 +90,11 @@ In the search field type “Korea for WooCommerce” and click Search Plugins. O
 The manual installation method involves downloading our plugin and uploading it to your webserver via your favourite FTP application.
 
 == Changelog ==
+
+= 1.1.2 - 2021-01-17 =
+* Fix - Korea for WooCommerce is now translatable from translate.wordpress.org
+* Fix - Minor bug fixes
+
 = 1.1.1 - 2021-01-05 =
 * New - New Korea for WooCommerce branding 🎨
 * New - Korea for WooCommerce is now translatable from translate.wordpress.org
