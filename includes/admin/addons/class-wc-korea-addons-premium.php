@@ -32,7 +32,7 @@ class WC_Korea_Addons_Premium extends WC_Korea_Addons {
 			array(
 				'korea-for-woocommerce-pro'           => array(
 					'title'       => __( 'Korea for WooCommerce Pro', 'korea-for-woocommerce' ),
-					'description' => __( 'Enchance your shop for Korean use with more options.', 'korea-for-woocommerce' ),
+					'description' => __( 'Enhance your shop for Korean use with more options.', 'korea-for-woocommerce' ),
 					'permalink'   => __( 'https://greys.co/plugin/korea-for-woocommerce-pro/', 'korea-for-woocommerce' ),
 					'price'       => __( '$129.00', 'korea-for-woocommerce' ),
 				),
