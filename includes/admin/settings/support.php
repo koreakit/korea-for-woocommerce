@@ -11,12 +11,12 @@ defined( 'ABSPATH' ) || exit;
 return apply_filters(
 	'wc_korea_support_settings',
 	array(
-		'kakaochannel'          => array(
+		'kakaochannel'            => array(
 			'title'       => __( 'Kakao Channel', 'korea-for-woocommerce' ),
 			'description' => __( 'Once enabled, you can copy and paste the following shortcode <code>[kakaochannel]</code> directly into the page, post or widget where you\'d like the button to show up.', 'korea-for-woocommerce' ),
 			'type'        => 'title',
 		),
-		'kakaochannel_yn'       => array(
+		'kakaochannel_yn'         => array(
 			'title'       => __( 'Enable/Disable', 'korea-for-woocommerce' ),
 			'description' => sprintf(
 				/* translators: Kakao Channel registration link */
@@ -27,17 +27,17 @@ return apply_filters(
 			'type'        => 'checkbox',
 			'default'     => 'no',
 		),
-		'kakaochannel_appkey'   => array(
+		'kakaochannel_appkey'     => array(
 			'title' => __( 'App Key', 'korea-for-woocommerce' ),
 			'type'  => 'text',
 			'class' => 'show_if_kakaochannel',
 		),
-		'kakaochannel_id'       => array(
+		'kakaochannel_id'         => array(
 			'title' => __( 'Channel ID', 'korea-for-woocommerce' ),
 			'type'  => 'text',
 			'class' => 'show_if_kakaochannel',
 		),
-		'kakaochannel_btntype'  => array(
+		'kakaochannel_btntype'    => array(
 			'title'   => __( 'Button Type', 'korea-for-woocommerce' ),
 			'type'    => 'select',
 			'class'   => 'show_if_kakaochannel',
@@ -47,7 +47,7 @@ return apply_filters(
 				'question' => __( 'Question', 'korea-for-woocommerce' ),
 			),
 		),
-		'kakaochannel_btnsize'  => array(
+		'kakaochannel_btnsize'    => array(
 			'title'   => __( 'Button Size', 'korea-for-woocommerce' ),
 			'type'    => 'select',
 			'class'   => 'show_if_kakaochannel',
@@ -56,7 +56,7 @@ return apply_filters(
 				'large' => __( 'Large', 'korea-for-woocommerce' ),
 			),
 		),
-		'kakaochannel_btncolor' => array(
+		'kakaochannel_btncolor'   => array(
 			'title'   => __( 'Button Color', 'korea-for-woocommerce' ),
 			'type'    => 'select',
 			'class'   => 'show_if_kakaochannel',

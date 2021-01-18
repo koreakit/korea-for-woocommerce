@@ -30,35 +30,21 @@ class WC_Korea_Kakao_Channel {
 		$this->btnsize  = isset( $settings['kakaochannel_btnsize'] ) && ! empty( $settings['kakaochannel_btnsize'] ) ? $settings['kakaochannel_btnsize'] : 'small';
 		$this->btncolor = isset( $settings['kakaochannel_btncolor'] ) && ! empty( $settings['kakaochannel_btncolor'] ) ? $settings['kakaochannel_btncolor'] : 'yellow';
 
+		// Enqueue styles.
+		add_action( 'wp_head', array( $this, 'add_styles' ) );
+
 		// Shortcodes.
-		add_shortcode( 'kakaochannel', array( $this, 'shortcode_addchannel_button' ) );
+		add_shortcode( 'kakaochannel', array( $this, 'shortcode_output' ) );
 
-		// Add Kakao Channel snippet.
-		add_action( 'wp_footer', array( $this, 'add_kakaochannel_snippet' ) );
+		// Add Kakao Channel.
+		add_action( 'wp_footer', array( $this, 'output' ) );
 	}
 
 	/**
-	 * Enqueue Kakao SDK
+	 * Load Naver TalkTalk styles.
 	 */
-	public function wp_enqueue_scripts() {
-		wp_enqueue_script( 'kakao-sdk', '//developers.kakao.com/sdk/js/kakao.min.js', null, WC_KOREA_VERSION, true );
-	}
-
-	/**
-	 * Add KakaoChannel snippet
-	 */
-	public function add_kakaochannel_snippet() {
-		switch ( $this->btntype ) {
-			case 'consult':
-			case 'question':
-				$fn = 'createChatButton';
-				break;
-
-			case 'add':
-				$fn = 'createAddChannelButton';
-				break;
-		}
-
+	public function add_styles() {
+		ob_start();
 		?>
 		<style type="text/css">
 			#kakaochannel-button {
@@ -68,26 +54,8 @@ class WC_Korea_Kakao_Channel {
 				right   : 30px;
 			}
 		</style>
-		<div id="kakaochannel-button" data-channel-public-id="<?php echo esc_attr( $this->id ); ?>" data-title="<?php echo esc_attr( $this->btntype ); ?>" data-size="<?php echo esc_attr( $this->btnsize ); ?>" data-color="<?php echo esc_attr( $this->btncolor ); ?>" data-shape="<?php echo wp_is_mobile() ? 'mobile' : 'pc'; ?>" data-support-multiple-densities="true"></div>
-		<script type='text/javascript'>
-			//<![CDATA[
-				window.kakaoAsyncInit = function () {
-					Kakao.init('<?php echo esc_js( $this->appkey ); ?>');
-					Kakao.Channel.<?php echo esc_js( $fn ); ?>({
-						container: '#kakaochannel-button'
-					});
-				};
-
-				(function (d, s, id) {
-					var js, fjs = d.getElementsByTagName(s)[0];
-					if (d.getElementById(id)) return;
-					js = d.createElement(s); js.id = id;
-					js.src = "//developers.kakao.com/sdk/js/kakao.plusfriend.min.js";
-					fjs.parentNode.insertBefore(js, fjs);
-				}(document, 'script', 'kakao-js-sdk'));
-			//]]>
-		</script>
 		<?php
+		ob_end_flush();
 	}
 
 	/**
@@ -95,7 +63,7 @@ class WC_Korea_Kakao_Channel {
 	 *
 	 * @param array $atts Shortcode attributes.
 	 */
-	public function shortcode_button( $atts ) {
+	public function shortcode_output( $atts ) {
 		$atts = shortcode_atts(
 			array(
 				'id'    => $this->id,
@@ -118,15 +86,8 @@ class WC_Korea_Kakao_Channel {
 				break;
 		}
 
+		ob_start();
 		?>
-		<style type="text/css">
-			#kakaochannel-button {
-				position: fixed;
-				z-index : 9999;
-				bottom  : 20px;
-				right   : 30px;
-			}
-		</style>
 		<div id="kakaochannel-button" data-channel-public-id="<?php echo esc_attr( $atts['id'] ); ?>" data-title="<?php echo esc_attr( $atts['type'] ); ?>" data-size="<?php echo esc_attr( $atts['size'] ); ?>" data-color="<?php echo esc_attr( $atts['color'] ); ?>" data-shape="<?php echo wp_is_mobile() ? 'mobile' : 'pc'; ?>" data-support-multiple-densities="true"></div>
 		<script type='text/javascript'>
 			//<![CDATA[
@@ -147,6 +108,47 @@ class WC_Korea_Kakao_Channel {
 			//]]>
 		</script>
 		<?php
+		ob_end_flush();
+	}
+
+	/**
+	 * Add KakaoChannel snippet
+	 */
+	public function add_kakaochannel_snippet() {
+		switch ( $this->btntype ) {
+			case 'consult':
+			case 'question':
+				$fn = 'createChatButton';
+				break;
+
+			case 'add':
+				$fn = 'createAddChannelButton';
+				break;
+		}
+
+		ob_start();
+		?>
+		<div id="kakaochannel-button" data-channel-public-id="<?php echo esc_attr( $this->id ); ?>" data-title="<?php echo esc_attr( $this->btntype ); ?>" data-size="<?php echo esc_attr( $this->btnsize ); ?>" data-color="<?php echo esc_attr( $this->btncolor ); ?>" data-shape="<?php echo wp_is_mobile() ? 'mobile' : 'pc'; ?>" data-support-multiple-densities="true"></div>
+		<script type='text/javascript'>
+			//<![CDATA[
+				window.kakaoAsyncInit = function () {
+					Kakao.init('<?php echo esc_js( $this->appkey ); ?>');
+					Kakao.Channel.<?php echo esc_js( $fn ); ?>({
+						container: '#kakaochannel-button'
+					});
+				};
+
+				(function (d, s, id) {
+					var js, fjs = d.getElementsByTagName(s)[0];
+					if (d.getElementById(id)) return;
+					js = d.createElement(s); js.id = id;
+					js.src = "//developers.kakao.com/sdk/js/kakao.plusfriend.min.js";
+					fjs.parentNode.insertBefore(js, fjs);
+				}(document, 'script', 'kakao-js-sdk'));
+			//]]>
+		</script>
+		<?php
+		ob_end_flush();
 	}
 
 }
