@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 1.1.3 - 2021-01-31 =
+* Fix - Prevents popup to display an error message API (Postcode)
+* Fix - Prevents PHP notices in Naver & Daum SEP
+* Fix - Naver TalkTalk Banner
+* Fix - Minor bug fixes
+
 = 1.1.2 - 2021-01-17 =
 * Fix - Korea for WooCommerce is now translatable from translate.wordpress.org
 * Fix - Minor bug fixes
