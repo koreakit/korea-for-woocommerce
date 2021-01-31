@@ -19,38 +19,39 @@ class WC_Korea_Naver_TalkTalk {
 	public function __construct() {
 		$this->settings = get_option( 'woocommerce_korea_settings' );
 
-		if ( ! isset( $this->settings['navertalktalk_yn'] ) || 'yes' !== $this->settings['navertalktalk_yn'] ) {
+		$this->enabled = isset( $this->settings['navertalktalk_yn'] ) && ! empty( $this->settings['navertalktalk_yn'] ) ? 'yes' === $this->settings['navertalktalk_yn'] : false;
+		if ( ! $this->enabled ) {
 			return;
 		}
 
-		$this->pc_productkey     = isset( $this->settings['navertalktalk_pc_productkey'] ) && ! empty( $this->settings['navertalktalk_pc_productkey'] ) ? $this->settings['navertalktalk_pc_productkey'] : '';
-		$this->mobile_productkey = isset( $this->settings['navertalktalk_mobile_productkey'] ) && ! empty( $this->settings['navertalktalk_mobile_productkey'] ) ? $this->settings['navertalktalk_mobile_productkey'] : '';
+		$this->id = isset( $this->settings['navertalktalk_id'] ) && ! empty( $this->settings['navertalktalk_id'] ) ? $this->settings['navertalktalk_id'] : '';
+		if ( wp_is_mobile() ) {
+			$this->id = isset( $this->settings['navertalktalk_mobile_id'] ) && ! empty( $this->settings['navertalktalk_mobile_id'] ) ? $this->settings['navertalktalk_mobile_id'] : $this->id;
+		}
 
-		// Load JS Library.
-		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_scripts' ) );
+		// Enqueue scripts/styles.
+		add_action( 'wp_enqueue_scripts', array( $this, 'add_scripts' ), -1 );
+		add_action( 'wp_head', array( $this, 'add_styles' ) );
 
 		// Shortcodes.
-		add_shortcode( 'navertalktalk', array( $this, 'shortcode_button' ) );
+		add_shortcode( 'navertalktalk', array( $this, 'shortcode_output' ) );
 
-		// Add Naver TalkTalk snippet.
-		add_action( 'wp_footer', array( $this, 'add_navertalktalk_snippet' ) );
+		// Add Naver TalkTalk.
+		add_action( 'wp_footer', array( $this, 'output' ), 90 );
 	}
 
 	/**
-	 * Load payment scripts.
+	 * Load Naver TalkTalk scripts.
 	 */
-	public function frontend_scripts() {
-		wp_enqueue_script( 'wc-korea-naver-talktalk', 'https://partner.talk.naver.com/banners/script', array(), WC_KOREA_VERSION, true );
+	public function add_scripts() {
+		//wp_enqueue_script( 'wc-korea-naver-talktalk', 'https://partner.talk.naver.com/banners/script', array(), null, true );
 	}
 
 	/**
-	 * Add Naver TalkTalk snippet
+	 * Load Naver TalkTalk styles.
 	 */
-	public function add_navertalktalk_snippet() {
-		global $post;
-
-		$id  = wp_is_mobile() ? $this->mobile_product_key : $this->pc_product_key;
-		$ref = esc_url( get_permalink( $post->ID ) );
+	public function add_styles() {
+		ob_start();
 		?>
 		<style type="text/css">
 			#navertalktalk-button {
@@ -60,26 +61,48 @@ class WC_Korea_Naver_TalkTalk {
 				right   : 30px;
 			}
 		</style>
-		<div id="navertalktalk-button" class="talk_banner_div" data-id="<?php echo esc_attr( $this->settings['navertalktalk_id'] ); ?>" data-ref="<?php echo esc_url( get_permalink( $post->ID ) ); ?>"></div>
 		<?php
+		ob_end_flush();
 	}
 
 	/**
 	 * Naver TalkTalk Shortcode
+	 *
+	 * @param array  $atts Attributes.
+	 * @param string $content
 	 */
-	public function shortcode_button() {
-		$id  = wp_is_mobile() ? $this->mobile_productkey : $this->pc_productkey;
-		$ref = esc_url( get_permalink( $post->ID ) );
+	public function shortcode_button( $atts, $content = null ) {
+		global $post;
+
+		$atts = shortcode_atts(
+			array(
+				'id'  => $this->id,
+				'ref' => get_permalink( $post->ID ),
+			),
+			$atts,
+			'navertalktalk'
+		);
+
+		ob_start();
 		?>
-		<style type="text/css">
-			#navertalktalk-button {
-				position: fixed;
-				z-index : 9999;
-				bottom  : 20px;
-				right   : 30px;
-			}
-		</style>
-		<div id="navertalktalk-button" class="talk_banner_div" data-id="<?php echo esc_attr( $id ); ?>" data-ref="<?php echo esc_url( get_permalink( $post->ID ) ); ?>"></div>
+		<div class="talk_banner_div"
+			data-id="<?php echo esc_attr( $id ); ?>"
+			data-ref="<?php echo esc_url( $ref ); ?>">
+		</div>
+		<?php
+		ob_end_flush();
+	}
+
+	/**
+	 * Output Naver TalkTalk button
+	 */
+	public function output() {
+		global $post;
+
+		?>
+		<script type="text/javascript" src="https://partner.talk.naver.com/banners/script"></script>
+		<div class="talk_banner_div" data-id="<?php echo esc_attr( $this->id ); ?>">
+		</div>
 		<?php
 	}
 

@@ -81,10 +81,17 @@ return apply_filters(
 			'type'        => 'checkbox',
 			'default'     => 'no',
 		),
-		'navertalktalk_id'      => array(
-			'title' => __( 'TalkTalk ID', 'korea-for-woocommerce' ),
-			'type'  => 'text',
-			'class' => 'show_if_navertalktalk',
+		'navertalktalk_id'        => array(
+			'title'       => __( 'TalkTalk ID (PC)', 'korea-for-woocommerce' ),
+			'type'        => 'text',
+			'description' => __( 'Enter an ID for Naver TalkTalk (PC)', 'korea-for-woocommerce' ),
+			'class'       => 'show_if_navertalktalk',
+		),
+		'navertalktalk_mobile_id' => array(
+			'title'       => __( 'TalkTalk ID (mobile)', 'korea-for-woocommerce' ),
+			'type'        => 'text',
+			'description' => __( 'Enter an ID for Naver TalkTalk (mobile)', 'korea-for-woocommerce' ),
+			'class'       => 'show_if_navertalktalk',
 		),
 	)
 );
