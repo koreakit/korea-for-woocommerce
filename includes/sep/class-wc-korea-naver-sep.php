@@ -34,7 +34,8 @@ class WC_Korea_Naver_SEP {
 	 * @return string
 	 */
 	public function output() {
-		if ( 'naver' !== $_GET['wc-sep'] ) {
+		$sep = isset( $_GET['wc-sep'] ) && ! empty( $_GET['wc-sep'] ) ? wc_clean( $_GET['wc-sep'] ) : '';
+		if ( 'naver' !== $sep ) {
 			return;
 		}
 
@@ -101,7 +102,7 @@ class WC_Korea_Naver_SEP {
 		}
 
 		wp_reset_postdata();
-		
+
 		echo ob_get_clean();
 		exit;
 	}
