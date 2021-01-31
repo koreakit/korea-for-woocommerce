@@ -19,7 +19,7 @@ class WC_Korea_Naver_TalkTalk {
 	public function __construct() {
 		$this->settings = get_option( 'woocommerce_korea_settings' );
 
-		$this->enabled = isset( $settings['navertalktalk_yn'] ) && ! empty( $settings['navertalktalk_yn'] ) ? 'yes' === $settings['navertalktalk_yn'] : false;
+		$this->enabled = isset( $this->settings['navertalktalk_yn'] ) && ! empty( $this->settings['navertalktalk_yn'] ) ? 'yes' === $this->settings['navertalktalk_yn'] : false;
 		if ( ! $this->enabled ) {
 			return;
 		}
@@ -30,21 +30,21 @@ class WC_Korea_Naver_TalkTalk {
 		}
 
 		// Enqueue scripts/styles.
-		add_action( 'wp_enqueue_scripts', array( $this, 'add_scripts' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'add_scripts' ), -1 );
 		add_action( 'wp_head', array( $this, 'add_styles' ) );
 
 		// Shortcodes.
 		add_shortcode( 'navertalktalk', array( $this, 'shortcode_output' ) );
 
 		// Add Naver TalkTalk.
-		add_action( 'wp_footer', array( $this, 'output' ) );
+		add_action( 'wp_footer', array( $this, 'output' ), 90 );
 	}
 
 	/**
 	 * Load Naver TalkTalk scripts.
 	 */
 	public function add_scripts() {
-		wp_enqueue_script( 'wc-korea-naver-talktalk', 'https://partner.talk.naver.com/banners/script', array(), WC_KOREA_VERSION, true );
+		//wp_enqueue_script( 'wc-korea-naver-talktalk', 'https://partner.talk.naver.com/banners/script', array(), null, true );
 	}
 
 	/**
@@ -85,8 +85,7 @@ class WC_Korea_Naver_TalkTalk {
 
 		ob_start();
 		?>
-		<div id="navertalktalk-button"
-			class="talk_banner_div"
+		<div class="talk_banner_div"
 			data-id="<?php echo esc_attr( $id ); ?>"
 			data-ref="<?php echo esc_url( $ref ); ?>">
 		</div>
@@ -100,18 +99,11 @@ class WC_Korea_Naver_TalkTalk {
 	public function output() {
 		global $post;
 
-		// Get permalink
-		$ref = get_permalink( $post->ID );
-
-		ob_start();
 		?>
-		<div id="navertalktalk-button"
-			class="talk_banner_div"
-			data-id="<?php echo esc_attr( $id ); ?>"
-			data-ref="<?php echo esc_url( $ref ); ?>">
+		<script type="text/javascript" src="https://partner.talk.naver.com/banners/script"></script>
+		<div class="talk_banner_div" data-id="<?php echo esc_attr( $this->id ); ?>">
 		</div>
 		<?php
-		ob_end_flush();
 	}
 
 }
