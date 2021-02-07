@@ -33,11 +33,6 @@ if ( ! class_exists( 'WC_Korea' ) ) {
 }
 
 /**
-* Hook to run when your plugin is activated
-*/
-register_activation_hook( __FILE__, array( 'WC_Korea', 'install' ) );
-
-/**
 * Initialize the plugin.
 */
 add_action( 'plugins_loaded', array( 'WC_Korea', 'get_instance' ) );
