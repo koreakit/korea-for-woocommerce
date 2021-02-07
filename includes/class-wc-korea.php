@@ -38,7 +38,7 @@ class WC_Korea {
 	 *
 	 * @return void
 	 */
-	private function __clone() {}
+	public function __clone() {}
 
 	/**
 	 * Private unserialize method to prevent unserializing of the *Singleton*
@@ -46,13 +46,13 @@ class WC_Korea {
 	 *
 	 * @return void
 	 */
-	private function __wakeup() {}
+	public function __wakeup() {}
 
 	/**
 	 * Protected constructor to prevent creating a new instance of the
 	 * *Singleton* via the `new` operator from outside of this class.
 	 */
-	private function __construct() {
+	public function __construct() {
 		if ( ! $this->requirements() ) {
 			return;
 		}
@@ -102,7 +102,7 @@ class WC_Korea {
 
 	/**
 	 * Load the plugin text domain for translation.
-	 * 
+	 *
 	 * Locales found in:
 	 *  - WP_LANG_DIR/korea-for-woocommerce/korea-for-woocommerce-LOCALE.mo
 	 *  - WP_LANG_DIR/plugins/korea-for-woocommerce-LOCALE.mo
