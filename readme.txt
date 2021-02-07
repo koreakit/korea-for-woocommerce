@@ -91,6 +91,9 @@ The manual installation method involves downloading our plugin and uploading it 
 
 == Changelog ==
 
+= 1.1.4 - 2021-02-08 =
+* Fix - Improved PHP 8 support
+
 = 1.1.3 - 2021-01-31 =
 * Fix - Prevents popup to display an error message API (Postcode)
 * Fix - Prevents PHP notices in Naver & Daum SEP
