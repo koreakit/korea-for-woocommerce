@@ -85,7 +85,7 @@ class WC_Korea_Postcode {
 			return;
 		}
 
-		wp_enqueue_script( 'wc-korea-daum-postcode', 'https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js', array(), null, true );
+		wp_enqueue_script( 'wc-korea-daum-postcode', '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js', array(), null, true );
 		wp_enqueue_script( 'wc-korea-postcode', plugins_url( 'assets/js/wc-korea-postcode.js', WC_KOREA_MAIN_FILE ), array( 'jquery' ), WC_KOREA_VERSION, true );
 		wp_localize_script(
 			'wc-korea-postcode',
