@@ -91,6 +91,9 @@ The manual installation method involves downloading our plugin and uploading it 
 
 == Changelog ==
 
+= 1.1.5 - 2021-02-09 =
+* Fix - Fix - Updated the script for the address autocompletion (postcode)
+
 = 1.1.4 - 2021-02-08 =
 * Fix - Improved PHP 8 support
 
