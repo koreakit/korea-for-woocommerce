@@ -14,13 +14,13 @@ echo "Updating the WordPress database..."
 npx wp-env run tests-cli "wp core update-db --quiet"
 
 echo "Updating the permalink structure"
-npx wp-env run cli "wp option update permalink_structure '/%postname%/'"
+npx wp-env run tests-cli "wp rewrite structure '/%postname%/'"
 
 echo "Installing and activating WooCommerce..."
 npx wp-env run tests-cli "wp plugin install woocommerce --activate"
 
 echo "Creating customer account"
-npx wp-env run cli "wp user create customer customer@woocommercecoree2etestsuite.com --user_pass=password --role=customer"
+npx wp-env run tests-cli "wp user create customer customer@woocommercecoree2etestsuite.com --user_pass=password --role=customer"
 
 echo "Adding basic WooCommerce settings..."
 npx wp-env run tests-cli "wp option set woocommerce_store_address '123 Maple Street'"
