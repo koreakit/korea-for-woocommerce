@@ -37,7 +37,7 @@
     "env:stop": "npx wp-env stop",
     "test:setup": "bash ./tests/bin/setup.sh",
     "test:run": "npx cypress run --config-file tests/e2e/config.json",
-    "test:open": "npx cypress run --config-file tests/e2e/config.json",
+    "test:open": "npx cypress open --config-file tests/e2e/config.json",
     "test:php": "./vendor/bin/phpunit -c phpunit.xml",
     "makepot": "composer run-script makepot"
   },
