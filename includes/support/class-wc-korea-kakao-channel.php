@@ -114,7 +114,7 @@ class WC_Korea_Kakao_Channel {
 	/**
 	 * Add KakaoChannel snippet
 	 */
-	public function add_kakaochannel_snippet() {
+	public function output() {
 		switch ( $this->btntype ) {
 			case 'consult':
 			case 'question':
