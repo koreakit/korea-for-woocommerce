@@ -17,8 +17,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-versions: [ '7.2', '7.3', '7.4' ]
-    name: PHP ${{ matrix.php-versions }}
+        php-versions: [ '7.2', '7.3', '7.4', '8.0' ]
+        wp-versions: [ '5.0', '5.7' ]
+    name: WordPress ${{ matrix.wp-versions }} ( PHP ${{ matrix.php-versions }} )
 
     steps:
     - name: Checkout
@@ -36,20 +37,10 @@ jobs:
       run: |
         cat >>./.wp-env.override.json <<END
         {
+          "core": "WordPress/WordPress#${{ matrix.wp-versions }}"
           "phpVersion": "${{ matrix.php-versions }}"
         }
         END
-
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: ${{ matrix.php-versions }}
-        extensions: dom, curl, libxml, mbstring, zip, pdo, sqlite, pdo_sqlite, mysql, mysqli, pdo_mysql, soap
-        ini-values: post_max_size=256M
-        coverage: none
-
-    - name: Check PHP Version
-      run: php -v
 
     - name: Start wp-env
       run: |
