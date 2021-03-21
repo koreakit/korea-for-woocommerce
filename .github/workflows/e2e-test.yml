@@ -42,6 +42,14 @@ jobs:
         }
         END
 
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-versions }}
+        extensions: dom, curl, libxml, mbstring, zip, pdo, sqlite, pdo_sqlite, mysql, mysqli, pdo_mysql, soap
+        ini-values: post_max_size=256M
+        coverage: none
+
     - name: Check PHP Version
       run: php -v
 
