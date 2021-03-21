@@ -91,6 +91,9 @@ The manual installation method involves downloading our plugin and uploading it 
 
 == Changelog ==
 
+= 1.1.6 - 2021-03-21 =
+* Fix - Missing output method for Kakao Channel
+
 = 1.1.5 - 2021-02-09 =
 * Fix - Updated the script for the address autocompletion (postcode)
 
