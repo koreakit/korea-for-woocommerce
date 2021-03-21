@@ -16,7 +16,6 @@ jobs:
   run:  
     runs-on: ubuntu-latest
     strategy:
-      max-parallel: 1
       fail-fast: false
       matrix:
         php-versions: [ '7.2', '7.3', '7.4', '8.0' ]
@@ -34,6 +33,17 @@ jobs:
     - name: Install npm dependencies
       run: |
         npm install
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-versions }}
+        extensions: dom, curl, libxml, mbstring, zip, pdo, sqlite, pdo_sqlite, mysql, mysqli, pdo_mysql
+        ini-values: post_max_size=256M
+        coverage: none
+
+    - name: Check PHP Version
+      run: php -v
 
     - name: Configure wp-env
       run: |
