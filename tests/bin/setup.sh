@@ -7,12 +7,6 @@ echo
 echo "Setting up tests environment..."
 echo
 
-echo "Updating WordPress to the latest version..."
-npx wp-env run tests-cli "wp core update --quiet"
-
-echo "Updating the WordPress database..."
-npx wp-env run tests-cli "wp core update-db --quiet"
-
 echo "Updating the permalink structure"
 npx wp-env run tests-cli "wp rewrite structure '/%postname%/'"
 
