@@ -27,19 +27,9 @@ jobs:
       uses: actions/checkout@v2
     - uses: actions/setup-node@v1
       with:
-        node-version: '12'
+        node-version: '14'
     - name: Install npm dependencies
-      run: |
-        npm install
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: ${{ matrix.php-versions }}
-        extensions: dom, curl, libxml, mbstring, zip, pdo, sqlite, pdo_sqlite, mysql, mysqli, pdo_mysql
-        ini-values: post_max_size=256M
-        coverage: none
-    - name: Check PHP Version
-      run: php -v
+      run: npm install
     - name: Configure wp-env
       run: |
         cat >>./.wp-env.override.json <<END
@@ -52,8 +42,8 @@ jobs:
       run: npm run env:start
     - name: Setup wp-env
       run: npm run test:setup
-    - name: End to End testing...
+    - name: Run E2E tests...
       run: npm run test:run
-    - name: Stop wp-env
+    - name: Destroy wp-env
       if: always()
-      run: npm run env:stop
+      run: npm run env:destroy
