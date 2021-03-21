@@ -1,4 +1,4 @@
-name: build
+name: E2E tests
 
 on:
   # Trigger the workflow on push,
