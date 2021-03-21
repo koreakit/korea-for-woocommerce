@@ -39,11 +39,13 @@ jobs:
         }
         END
     - name: Start wp-env
-      run: npm run env:start
+      run: |
+        export WP_ENV_HOME=".wp-env"
+        npm run env:start
     - name: Setup wp-env
       run: npm run test:setup
     - name: Run E2E tests...
       run: npm run test:run
     - name: Destroy wp-env
       if: always()
-      run: npm run env:destroy
+      run: echo Y | npm run env:destroy
