@@ -23,7 +23,7 @@ jobs:
         wp-versions: [ '5.0', '5.7' ]
         experimental: [ false ]
         include:
-          - php-versions: [ '7.4', '8.0' ]
+          - php-versions: [ '8.0' ]
             wp-versions: [ 'master' ]
             experimental: true
         exclude:
