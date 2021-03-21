@@ -33,7 +33,7 @@
     "env:clean": "npx wp-env clean",
     "env:destroy": "npx wp-env destroy",
     "env:logs": "npx wp-env logs",
-    "env:start": "WP_ENV_HOME='.wp-env' npx wp-env start",
+    "env:start": "npx wp-env start",
     "env:stop": "npx wp-env stop",
     "test:setup": "bash ./tests/bin/setup.sh",
     "test:run": "npx cypress run --config-file tests/e2e/config.json",
