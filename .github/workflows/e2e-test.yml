@@ -23,12 +23,12 @@ jobs:
         wp-versions: [ '5.0', '5.7' ]
         experimental: [ false ]
         include:
-          - php-versions: [ '8.0' ]
-            wp-versions: [ 'master' ]
+          - php-versions: '8.0'
+            wp-versions: 'master'
             experimental: true
         exclude:
-          - php-versions: [ '8.0' ]
-            wp-versions: [ '5.0' ]
+          - php-versions: '8.0'
+            wp-versions: '5.0'
     name: WordPress ${{ matrix.wp-versions }} ( PHP ${{ matrix.php-versions }} )
     steps:
     - name: Checkout
