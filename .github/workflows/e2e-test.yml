@@ -36,7 +36,6 @@ jobs:
       run: |
         cat >>./.wp-env.override.json <<END
         {
-          "core": "WordPress/WordPress#${{ matrix.wp-versions }}",
           "phpVersion": "${{ matrix.php-versions }}"
         }
         END
