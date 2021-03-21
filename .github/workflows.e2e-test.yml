@@ -1,0 +1,53 @@
+name: build
+
+on:
+  # Trigger the workflow on push,
+  # but only for the update/ci-di branch
+  push:
+    branches:
+      - update/ci-di
+  # Trigger the workflow on pull request,
+  # but only for the main branch
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  run:  
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-versions: [ '7.1','7.2','7.3','7.4' ]
+        wp-versions: [ '5.7.0' ]
+    name: PHP ${{ matrix.php-versions }}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '12'
+
+    - name: Install npm dependencies
+      run: |
+        npm install
+
+    - name: Configure wp-env
+      run: |
+        cat >>./.wp-env.override.json <<END
+        {
+          "core": "WordPress/WordPress#${{ matrix.wp-versions }}",
+          "phpVersion": "${{ matrix.php-versions }}"
+        }
+        END
+
+    - name: Start wp-env
+      run: |
+        npm run env:start
+
+    - name: Setup wp-env
+      run: npm run test:setup
+      
+    - name: End to End testing...
+      run: npm run test:run
