@@ -1,0 +1,55 @@
+name: E2E tests
+
+on:
+  # Trigger the workflow on pull request,
+  # but only for the main branch
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  run:  
+    runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.experimental }}
+    strategy:
+      fail-fast: false
+      matrix:
+        php-versions: [ '7.2', '7.3', '7.4', '8.0' ]
+        wp-versions: [ '5.0', '5.7' ]
+        experimental: [ false ]
+        include:
+          - php-versions: '8.0'
+            wp-versions: 'master'
+            experimental: true
+        exclude:
+          - php-versions: '8.0'
+            wp-versions: '5.0'
+          - php-versions: '7.2'
+            wp-versions: '5.0'
+    name: WordPress ${{ matrix.wp-versions }} ( PHP ${{ matrix.php-versions }} )
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '14'
+    - name: Install npm dependencies
+      run: npm install
+    - name: Configure wp-env
+      run: |
+        cat >>./.wp-env.override.json <<END
+        {
+          "core": "WordPress/WordPress#${{ matrix.wp-versions }}",
+          "phpVersion": "${{ matrix.php-versions }}"
+        }
+        END
+    - name: Setup wp-env
+      run: |
+        npm run env:start
+        npm run test:setup
+      env:
+        WP_ENV_HOME: ".wp-env-${{ matrix.wp-versions }}-${{ matrix.php-versions }}"
+    - name: Run E2E tests...
+      run: npm run test:run
+      env:
+        WP_ENV_HOME: ".wp-env-${{ matrix.wp-versions }}-${{ matrix.php-versions }}"
