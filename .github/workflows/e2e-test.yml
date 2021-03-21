@@ -46,15 +46,13 @@ jobs:
           "phpVersion": "${{ matrix.php-versions }}"
         }
         END
-    - name: Start wp-env
-      run: npm run env:start
-      env:
-        WP_ENV_HOME: ".wp-env"
     - name: Setup wp-env
-      run: npm run test:setup
+      run: |
+        npm run env:start
+        npm run test:setup
       env:
-        WP_ENV_HOME: ".wp-env"
+        WP_ENV_HOME: ".wp-env-${{ matrix.wp-versions }}-${{ matrix.php-versions }}"
     - name: Run E2E tests...
       run: npm run test:run
       env:
-        WP_ENV_HOME: ".wp-env"
+        WP_ENV_HOME: ".wp-env-${{ matrix.wp-versions }}-${{ matrix.php-versions }}"
