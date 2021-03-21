@@ -16,6 +16,8 @@ jobs:
   run:  
     runs-on: ubuntu-latest
     strategy:
+      max-parallel: 1
+      fail-fast: false
       matrix:
         php-versions: [ '7.2', '7.3', '7.4', '8.0' ]
         wp-versions: [ '5.0', '5.7' ]
