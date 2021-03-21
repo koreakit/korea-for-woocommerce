@@ -19,7 +19,7 @@ jobs:
       fail-fast: false
       matrix:
         php-versions: [ '7.2', '7.3', '7.4', '8.0' ]
-        wp-versions: [ '5.1', '5.7' ]
+        wp-versions: [ '5.0', '5.7' ]
     name: WordPress ${{ matrix.wp-versions }} ( PHP ${{ matrix.php-versions }} )
     steps:
     - name: Checkout
@@ -49,6 +49,3 @@ jobs:
       run: npm run test:run
       env:
         WP_ENV_HOME: ".wp-env"
-    - name: Destroy wp-env
-      if: always()
-      run: echo Y | npm run env:destroy
