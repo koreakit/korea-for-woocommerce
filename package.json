@@ -10,7 +10,7 @@
     "url": "git@github.com:jgreys/korea-for-woocommerce.git"
   },
   "devDependencies": {
-    "@wordpress/env": "^4.0.0",
+    "@wordpress/env": "^3.0.2",
     "cypress": "^6.8.0",
     "cypress-woocommerce": "^0.1.1",
     "grunt": "1.3.0",
