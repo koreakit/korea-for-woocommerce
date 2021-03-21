@@ -16,8 +16,8 @@ npx wp-env run tests-cli "wp core update-db --quiet"
 echo "Updating the permalink structure"
 npx wp-env run tests-cli "wp rewrite structure '/%postname%/'"
 
-echo "Installing and activating WooCommerce..."
-npx wp-env run tests-cli "wp plugin install woocommerce --activate"
+echo "Activating WooCommerce..."
+npx wp-env run tests-cli "wp plugin activate woocommerce"
 
 echo "Creating customer account"
 npx wp-env run tests-cli "wp user create customer customer@woocommercecoree2etestsuite.com --user_pass=password --role=customer"
@@ -36,8 +36,8 @@ npx wp-env run tests-cli "wp option set woocommerce_allow_tracking 'no'"
 echo "Importing WooCommerce shop pages..."
 npx wp-env run tests-cli "wp wc --user=admin tool run install_pages"
 
-echo "Installing and activating the WordPress Importer plugin..."
-npx wp-env run tests-cli "wp plugin install wordpress-importer --activate"
+echo "Activating the WordPress Importer plugin..."
+npx wp-env run tests-cli "wp plugin activate wordpress-importer"
 
 echo "Importing some sample data..."
 npx wp-env run tests-cli "wp import wp-content/plugins/woocommerce/sample-data/sample_products.xml --authors=skip"
