@@ -17,7 +17,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-versions: [ '7.4' ]
+        php-versions: [ '7.1','7.2','7.3','7.4' ]
+        wp-versions: [ '5.7.0' ]
     name: PHP ${{ matrix.php-versions }}
 
     steps:
@@ -36,9 +37,13 @@ jobs:
       run: |
         cat >>./.wp-env.override.json <<END
         {
+          "core": "WordPress/WordPress#${{ matrix.wp-versions }}",
           "phpVersion": "${{ matrix.php-versions }}"
         }
         END
+
+    - name: Check PHP Version
+      run: php -v
 
     - name: Start wp-env
       run: |
