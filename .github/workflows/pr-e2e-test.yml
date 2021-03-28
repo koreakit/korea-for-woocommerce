@@ -8,7 +8,7 @@ on:
       - main
 
 jobs:
-  run:  
+  e2e:  
     runs-on: ubuntu-latest
     continue-on-error: ${{ matrix.experimental }}
     strategy:
@@ -33,9 +33,19 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: '14'
+    - uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('./package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
     - name: Install npm dependencies
       run: npm install
-    - name: Configure wp-env
+    - uses: actions/cache@v2
+      with:
+        path: ~/.wp-env
+        key: ${{ runner.os }}-wp${{ matrix.wp-versions }}-php${{ matrix.php-versions }}-${{ hashFiles('./.wp-env.json') }}
+    - name: Configure & setup wp-env
       run: |
         cat >>./.wp-env.override.json <<END
         {
@@ -43,13 +53,7 @@ jobs:
           "phpVersion": "${{ matrix.php-versions }}"
         }
         END
-    - name: Setup wp-env
-      run: |
         npm run env:start
         npm run test:setup
-      env:
-        WP_ENV_HOME: ".wp-env-${{ matrix.wp-versions }}-${{ matrix.php-versions }}"
     - name: Run E2E tests...
       run: npm run test:run
-      env:
-        WP_ENV_HOME: ".wp-env-${{ matrix.wp-versions }}-${{ matrix.php-versions }}"
