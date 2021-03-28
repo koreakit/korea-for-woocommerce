@@ -3,6 +3,11 @@ name: E2E tests
 on:
   # Trigger the workflow on pull request,
   # but only for the main branch
+  push:
+    branches:
+      - update/ci-di
+  # Trigger the workflow on pull request,
+  # but only for the main branch
   pull_request:
     branches:
       - main
