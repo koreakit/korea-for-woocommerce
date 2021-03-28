@@ -1,11 +1,11 @@
 name: Code sniffs
 
 on:
-# Trigger the workflow on pull request,
-# but only for the main branch
-pull_request:
-  branches:
-    - main
+  # Trigger the workflow on pull request,
+  # but only for the main branch
+  pull_request:
+    branches:
+      - main
 
 jobs:
   cs:
