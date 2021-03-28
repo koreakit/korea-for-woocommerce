@@ -1,0 +1,34 @@
+name: Code sniffs
+
+on:
+# Trigger the workflow on pull request,
+# but only for the main branch
+pull_request:
+  branches:
+    - main
+
+jobs:
+  cs:
+    runs-on: ubuntu-latest
+    name: 
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: 7.4
+        tools: composer
+
+    - name: Tool versions
+      run: |
+        php --version
+        composer --version
+
+    - name: Setup and install composer
+      run: composer install
+
+    - name: Run code sniff
+      continue-on-error: true
+      run: ./vendor/bin/phpcs -s -p
