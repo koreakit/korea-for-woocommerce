@@ -1,17 +1,16 @@
 <?php
 /**
  * WooCommerce Korea - Postcode Finder
- *
- * @package WC_Korea
- * @author  @jgreys
  */
+
+namespace Greys\WooCommerce\Korea\Checkout;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * WC_Korea_Postcode class.
+ * Postcode class.
  */
-class WC_Korea_Postcode {
+class Postcode {
 
 	/**
 	 * Class constructor
@@ -121,5 +120,3 @@ class WC_Korea_Postcode {
 	}
 
 }
-
-return new WC_Korea_Postcode();

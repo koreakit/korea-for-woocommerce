@@ -1,17 +1,16 @@
 <?php
 /**
  * WooCommerce Korea - Naver TalkTalk
- *
- * @package WC_Korea
- * @author  @jgreys
  */
+
+namespace Greys\WooCommerce\Korea\Support;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * WC_Korea_Naver_TalkTalk class.
+ * Naver_TalkTalk class.
  */
-class WC_Korea_Naver_TalkTalk {
+class NaverTalkTalk {
 
 	/**
 	 * Class constructor
@@ -108,4 +107,4 @@ class WC_Korea_Naver_TalkTalk {
 
 }
 
-return new WC_Korea_Naver_TalkTalk();
+return new NaverTalkTalk();

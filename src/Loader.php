@@ -1,22 +1,26 @@
 <?php
 /**
- * Main Class.
+ * Loader Class.
  *
- * @package WC_Korea
+ * @package Greys\WooCommerce\Korea
  * @author  @jgreys
  */
 
+namespace Greys\WooCommerce\Korea;
+
 defined( 'ABSPATH' ) || exit;
 
+use Greys\WooCommerce\Korea\Admin\Admin;
+
 /**
- * WC_Korea class.
+ * Loader class.
  */
-class WC_Korea {
+class Loader {
 
 	/**
 	 * The single instance of the class.
 	 *
-	 * @var WC_Korea
+	 * @var Loader
 	 */
 	private static $instance;
 
@@ -53,21 +57,32 @@ class WC_Korea {
 	 * *Singleton* via the `new` operator from outside of this class.
 	 */
 	public function __construct() {
-		if ( ! $this->requirements() ) {
+		if ( ! self::requirements() ) {
 			return;
 		}
 
-		$this->load_plugin_textdomain();
-		$this->includes();
-		$this->hooks();
+		self::load_plugin_textdomain();
+		self::admin_init();
+		self::hooks();
 
 		do_action( 'woocommerce_korea_loaded' );
 	}
 
 	/**
+	* Initialize the plugin.
+	*/
+	public function admin_init() {
+		if ( ! is_admin() ) {
+			return;
+		}
+
+		Admin::init();
+	}
+
+	/**
 	 * Verify if the requirements are met
 	 */
-	public function requirements() {
+	public static function requirements() {
 		if ( ! function_exists( 'is_plugin_active' ) ) {
 			include_once ABSPATH . 'wp-admin/includes/plugin.php';
 		}
@@ -107,7 +122,7 @@ class WC_Korea {
 	 *  - WP_LANG_DIR/korea-for-woocommerce/korea-for-woocommerce-LOCALE.mo
 	 *  - WP_LANG_DIR/plugins/korea-for-woocommerce-LOCALE.mo
 	 */
-	 public function load_plugin_textdomain() {
+	 public static function load_plugin_textdomain() {
 		$locale = determine_locale();
 		$locale = apply_filters( 'plugin_locale', $locale, 'korea-for-woocommerce' );
 
@@ -117,48 +132,11 @@ class WC_Korea {
 	}
 
 	/**
-	 * Init the plugin after plugins_loaded so environment variables are set.
-	 */
-	public function includes() {
-		if ( is_admin() ) {
-			require_once WC_KOREA_ABSPATH . '/includes/admin/class-wc-korea-admin-ajax.php';
-			require_once WC_KOREA_ABSPATH . '/includes/admin/class-wc-korea-admin.php';
-
-			// Addons.
-			require_once WC_KOREA_ABSPATH . '/includes/admin/class-wc-korea-addons.php';
-			require_once WC_KOREA_ABSPATH . '/includes/admin/addons/class-wc-korea-addons-licenses.php';
-			require_once WC_KOREA_ABSPATH . '/includes/admin/addons/class-wc-korea-addons-premium.php';
-		}
-
-		// Compatibility with 3rd party plugins.
-		require_once WC_KOREA_ABSPATH . '/includes/compat/class-wc-korea-shipment-tracking-compat.php';
-		require_once WC_KOREA_ABSPATH . '/includes/compat/class-wc-korea-ml-compat.php';
-
-		// Integrations.
-		require_once WC_KOREA_ABSPATH . '/includes/class-wc-korea-integration.php';
-		require_once WC_KOREA_ABSPATH . '/includes/analytics/class-wc-korea-naver-analytics.php';
-		require_once WC_KOREA_ABSPATH . '/includes/support/class-wc-korea-kakao-channel.php';
-		require_once WC_KOREA_ABSPATH . '/includes/support/class-wc-korea-naver-talktalk.php';
-		require_once WC_KOREA_ABSPATH . '/includes/sep/class-wc-korea-daum-sep.php';
-		require_once WC_KOREA_ABSPATH . '/includes/sep/class-wc-korea-naver-sep.php';
-		require_once WC_KOREA_ABSPATH . '/includes/class-wc-korea-helper.php';
-		require_once WC_KOREA_ABSPATH . '/includes/class-wc-korea-postcode.php';
-		require_once WC_KOREA_ABSPATH . '/includes/wc-korea-hooks.php';
-
-		// Payment Gateways (Addons).
-		require_once WC_KOREA_ABSPATH . '/includes/abstracts/abstract-wc-korea-payment-gateway.php';
-
-		// License for Korea for WooCommerce Addons.
-		require_once WC_KOREA_ABSPATH . '/includes/updater/class-wc-korea-license.php';
-	}
-
-	/**
 	 * Hooks
 	 */
-	public function hooks() {
-		add_filter( 'woocommerce_integrations', array( $this, 'wc_integrations' ) );
-		add_filter( 'plugin_action_links_' . plugin_basename( WC_KOREA_MAIN_FILE ), array( $this, 'plugin_action_links' ) );
-		add_filter( 'query_vars', array( $this, 'wc_sep_query_var' ) );
+	public static function hooks() {
+		add_filter( 'woocommerce_integrations', array( __CLASS__, 'add_korea_integration' ) );
+		add_filter( 'plugin_action_links_' . plugin_basename( WC_KOREA_MAIN_FILE ), array( __CLASS__, 'plugin_action_links' ) );
 	}
 
 	/**
@@ -167,8 +145,8 @@ class WC_Korea {
 	 * @param array $integrations Integrations.
 	 * @return array
 	 */
-	public function wc_integrations( $integrations ) {
-		$integrations[] = 'WC_Korea_Integration';
+	public static function add_korea_integration( $integrations ) {
+		$integrations[] = '\Greys\WooCommerce\Korea\Admin\Integration';
 		return $integrations;
 	}
 
@@ -179,7 +157,7 @@ class WC_Korea {
 	 *
 	 * @return array
 	 */
-	public function plugin_action_links( $links ) {
+	public static function plugin_action_links( $links ) {
 		return array_merge(
 			array(
 				'<a href="admin.php?page=wc-settings&tab=integration&section=korea">' . esc_html__( 'Settings', 'korea-for-woocommerce' ) . '</a>',
@@ -188,28 +166,6 @@ class WC_Korea {
 			),
 			$links
 		);
-	}
-
-	/**
-	 * Add SEP query vars
-	 *
-	 * @param array $query_vars The array of available query variables.
-	 *
-	 * @link https://codex.wordpress.org/Plugin_API/Filter_Reference/query_vars
-	 *
-	 * @return array
-	 */
-	public function wc_sep_query_var( $query_vars ) {
-		$query_vars[] = 'wc-sep';
-		return $query_vars;
-	}
-
-	/**
-	 * Updates the plugin version in db
-	 */
-	public function update_plugin_version() {
-		delete_option( 'woocommerce_korea_version' );
-		update_option( 'woocommerce_korea_version', WC_KOREA_VERSION );
 	}
 
 }

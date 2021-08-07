@@ -1,50 +1,25 @@
 <?php
 /**
- * WooCommerce Korea - License Addons
+ * Licenses - Form Handler
  *
  * @package WC_Korea
  * @author  @jgreys
  */
 
+namespace Greys\WooCommerce\Korea;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
- * WC_Korea_Addons_Licenses class.
- *
- * @extends WC_Korea_Addons
+ * FormHandler class.
  */
-class WC_Korea_Addons_Licenses extends WC_Korea_Addons {
+class FormHandler {
 
 	/**
 	 * Class constructor
 	 */
 	public function __construct() {
-		parent::__construct();
-
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
-	}
-
-	/**
-	 * Outputs settings for all license sections.
-	 *
-	 * @since 1.0.0
-	 */
-	public function output() {
-		$tab = isset( $_GET['tab'] ) && ! empty( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : null; // @codingStandardsIgnoreLine WordPress.Security.NonceVerification.Recommended
-
-		if ( 'licenses' !== $tab ) {
-			return;
-		}
-
-		// Licenses
-		$licenses = apply_filters( 'wc_korea_plugin_license_settings', array() );
-
-		/**
-		 * Licenses page view.
-		 *
-		 * @uses $licenses
-		 */
-		include_once WC_KOREA_ABSPATH . '/includes/admin/views/html-admin-page-korea-licenses.php';
 	}
 
 	/**
@@ -302,5 +277,3 @@ class WC_Korea_Addons_Licenses extends WC_Korea_Addons {
 	}
 
 }
-
-new WC_Korea_Addons_Licenses();

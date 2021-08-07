@@ -6,14 +6,18 @@
  * @author  @jgreys
  */
 
+namespace Greys\WooCommerce\Korea\Admin\Addons;
+
 defined( 'ABSPATH' ) || exit;
 
+use Greys\WooCommerce\Korea\Classes\Addons as Addons;
+
 /**
- * WC_Korea_Addons_Premium class.
+ * Premium class.
  *
- * @extends WC_Korea_Addons
+ * @extends Addons
  */
-class WC_Korea_Addons_Premium extends WC_Korea_Addons {
+final class Premium extends Addons {
 
 	/**
 	 * Outputs addons.
@@ -146,9 +150,7 @@ class WC_Korea_Addons_Premium extends WC_Korea_Addons {
 		 *
 		 * @uses $addons
 		 */
-		include_once WC_KOREA_ABSPATH . '/includes/admin/views/html-admin-page-korea-addons.php';
+		include_once WC_KOREA_PLUGIN_PATH . '/includes/addons/html-admin-page-korea-addons.php';
 	}
 
 }
-
-new WC_Korea_Addons_Premium();

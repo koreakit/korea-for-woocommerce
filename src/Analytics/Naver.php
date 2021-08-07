@@ -1,17 +1,16 @@
 <?php
 /**
  * WooCommerce Korea - Naver Analytics
- *
- * @package WC_Korea
- * @author  @jgreys
  */
+
+namespace Greys\WooCommerce\Korea\Analytics;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * WC_Korea_Naver_Analytics class.
+ * Naver class.
  */
-class WC_Korea_Naver_Analytics {
+class Naver {
 
 	/**
 	 * Class constructor
@@ -53,4 +52,4 @@ class WC_Korea_Naver_Analytics {
 
 }
 
-return new WC_Korea_Naver_Analytics();
+return new Naver();

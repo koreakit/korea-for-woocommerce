@@ -6,24 +6,30 @@
  * @author  @jgreys
  */
 
+namespace Greys\WooCommerce\Korea\Admin;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
- * WC_Korea_Admin class.
+ * Admin class.
  */
-class WC_Korea_Admin {
+class Admin {
 
 	/**
-	 * Class constructor
+	 * Initialize admin.
 	 */
-	public function __construct() {
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
+	public static function init() {
+		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'admin_scripts' ) );
+
+		new Addons\Premium();
+		new Addons\Licenses();
+		new Licenses\FormHandler();
 	}
 
 	/**
 	 * Enqueue admin scripts
 	 */
-	public function admin_scripts() {
+	public static function admin_scripts() {
 		if ( 'woocommerce_page_wc-settings' !== get_current_screen()->id ) {
 			return;
 		}

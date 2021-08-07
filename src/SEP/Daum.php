@@ -1,17 +1,16 @@
 <?php
 /**
  * WooCommerce Korea - Daum SEP (Search Engine Page)
- *
- * @package WC_Korea
- * @author  @jgreys
  */
+
+namespace Greys\WooCommerce\Korea\SEP;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * WC_Korea_Daum_SEP class.
+ * Daum class.
  */
-class WC_Korea_Daum_SEP {
+class Daum {
 
 	/**
 	 * Class constructor
@@ -105,4 +104,4 @@ class WC_Korea_Daum_SEP {
 
 }
 
-return new WC_Korea_Daum_SEP();
+return new Daum();

@@ -1,19 +1,18 @@
 <?php
 /**
  * Abstract class that will be inherited by all korean payment methods.
- *
- * @package WC_Korea
- * @author  @jgreys
  */
+
+namespace Greys\WooCommerce\Korea\Payment;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * WC_Korea_Payment_Gateway abstract class.
+ * PaymentGateway abstract class.
  *
- * @extends WC_Payment_Gateway
+ * @extends \WC_Payment_Gateway
  */
-abstract class WC_Korea_Payment_Gateway extends WC_Payment_Gateway {
+abstract class PaymentGateway extends \WC_Payment_Gateway {
 
 	/**
 	 * Returns all supported currencies for the payment method.

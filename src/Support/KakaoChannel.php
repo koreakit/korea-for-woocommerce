@@ -1,17 +1,16 @@
 <?php
 /**
  * WooCommerce Korea - Kakao Channel
- *
- * @package WC_Korea
- * @author  @jgreys
  */
+
+namespace Greys\WooCommerce\Korea\Support;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * WC_Korea_Kakao_Channel class.
+ * KakaoChannel class.
  */
-class WC_Korea_Kakao_Channel {
+class KakaoChannel {
 
 	/**
 	 * Class constructor
@@ -153,4 +152,4 @@ class WC_Korea_Kakao_Channel {
 
 }
 
-return new WC_Korea_Kakao_Channel();
+return new KakaoChannel();

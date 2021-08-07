@@ -2,18 +2,18 @@
 /**
  * WooCommerce Korea - Updater
  *
- * @package WC_Korea
+ * @package Greys\WooCommerce\Korea
  * @author  @jgreys
  */
+
+namespace Greys\WooCommerce\Korea\Updater;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Adds the plugin updater API.
- *
- * @since 1.0.0
  */
-class WC_Korea_Updater {
+class Updater {
 
 	/**
 	 * URL from which updates are retrieved

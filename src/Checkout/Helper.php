@@ -6,41 +6,47 @@
  * @author  @jgreys
  */
 
+namespace Greys\WooCommerce\Korea\Checkout\Helpers;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
- * WC_Korea_Helper class.
+ * Helper class.
  */
-class WC_Korea_Helper {
+class Helper {
 
 	/**
-	 * Get test account
+	 * Check if a Korean phone number contains a valid area code and the correct number of digits.
 	 *
-	 * @param string $id Payment Gateway ID.
+	 * @source https://github.com/rhymix/rhymix/blob/master/common/framework/korea.php#L72
 	 *
-	 * @return array
+	 * @param string $tel Phone number.
+	 * @return bool
 	 */
-	public static function get_testaccount( $id ) {
-		if ( empty( $id ) ) {
-			return null;
+	public static function is_valid_phone( $tel ) {
+		$tel = str_replace( '-', '', self::format_phone( $tel ) );
+
+		if ( preg_match( '/^1[0-9]{7}$/', $tel ) ) {
+			return true;
 		}
 
-		$data     = array();
-		$settings = get_option( 'woocommerce_' . $id . '_settings' );
-
-		if ( ! isset( $settings['testaccount'] ) ) {
-			return null;
+		if ( preg_match( '/^02[2-9][0-9]{6,7}$/', $tel ) ) {
+			return true;
 		}
 
-		$testaccount = get_user_by( 'id', $settings['testaccount'] );
-
-		if ( ! $testaccount ) {
-			return null;
+		if ( preg_match( '/^0[13-8][0-9][2-9][0-9]{6,7}$/', $tel ) ) {
+			return true;
 		}
 
-		$data[ $testaccount->ID ] = $testaccount->user_email;
+		if ( preg_match( '/^0(?:303|505)[2-9][0-9]{6,7}$/', $tel ) ) {
+			return true;
+		}
 
-		return $data;
+		if ( preg_match( '/^01[016789][2-9][0-9]{6,7}$/', $tel ) ) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
@@ -86,40 +92,6 @@ class WC_Korea_Helper {
 					return substr( $tel, 0, 3 ) . '-' . substr( $tel, 3, 4 ) . '-' . substr( $tel, 7 );
 				}
 		}
-	}
-
-	/**
-	 * Check if a Korean phone number contains a valid area code and the correct number of digits.
-	 *
-	 * @source https://github.com/rhymix/rhymix/blob/master/common/framework/korea.php#L72
-	 *
-	 * @param string $tel Phone number.
-	 * @return bool
-	 */
-	public static function is_valid_phone( $tel ) {
-		$tel = str_replace( '-', '', self::format_phone( $tel ) );
-
-		if ( preg_match( '/^1[0-9]{7}$/', $tel ) ) {
-			return true;
-		}
-
-		if ( preg_match( '/^02[2-9][0-9]{6,7}$/', $tel ) ) {
-			return true;
-		}
-
-		if ( preg_match( '/^0[13-8][0-9][2-9][0-9]{6,7}$/', $tel ) ) {
-			return true;
-		}
-
-		if ( preg_match( '/^0(?:303|505)[2-9][0-9]{6,7}$/', $tel ) ) {
-			return true;
-		}
-
-		if ( preg_match( '/^01[016789][2-9][0-9]{6,7}$/', $tel ) ) {
-			return true;
-		}
-
-		return false;
 	}
 
 }

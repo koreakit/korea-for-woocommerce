@@ -1,17 +1,16 @@
 <?php
 /**
  * WooCommerce Korea - Addons
- *
- * @package WC_Korea
- * @author  @jgreys
  */
+
+namespace Greys\WooCommerce\Korea\Classes;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * WC_Korea_Addons class.
+ * Addons class.
  */
-class WC_Korea_Addons {
+class Addons {
 
 	/**
 	 * Class constructor

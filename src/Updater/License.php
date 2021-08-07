@@ -2,18 +2,18 @@
 /**
  * WooCommerce Korea - License
  *
- * @package WC_Korea
+ * @package Greys\WooCommerce\Korea
  * @author  @jgreys
  */
+
+namespace Greys\WooCommerce\Korea\Updater;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Provides a general license settings page for plugins to add license key inputs.
- *
- * @since 1.0.0
  */
-class WC_Korea_License {
+class License {
 
 	/**
 	 * Plugin update URL
@@ -124,8 +124,8 @@ class WC_Korea_License {
 	 * Includes required files.
 	 */
 	public function includes() {
-		if ( ! class_exists( 'WC_Korea_Updater' ) ) {
-			require_once WC_KOREA_ABSPATH . '/includes/updater/class-wc-korea-updater.php';
+		if ( ! class_exists( '\Greys\WooCommerce\Korea\Updater' ) ) {
+			require_once dirname( __DIR__ ) . '/Updater/Updater.php';
 		}
 	}
 
