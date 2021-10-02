@@ -19,7 +19,7 @@ class FormHandler {
 	 * Class constructor
 	 */
 	public function __construct() {
-		add_action( 'admin_init', array( $this, 'register_settings' ) );
+		add_action( 'admin_init', array( __CLASS__, 'register_settings' ) );
 	}
 
 	/**
@@ -67,13 +67,13 @@ class FormHandler {
 			add_settings_field(
 				$license['id'],
 				str_replace( 'WooCommerce ', '', $license['name'] ),
-				array( $this, 'license_key_callback' ),
+				array( __CLASS__, 'license_key_callback' ),
 				'wc_korea_plugin_license_settings_section',
 				'wc_korea_plugin_license_settings_section',
 				$license
 			);
 
-			register_setting( 'wc_korea_plugin_license_settings', $license['id'], array( $this, 'settings_sanitize' ) );
+			register_setting( 'wc_korea_plugin_license_settings', $license['id'], array( __CLASS__, 'settings_sanitize' ) );
 		}
 	}
 

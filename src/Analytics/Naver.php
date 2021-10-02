@@ -26,8 +26,8 @@ class Naver {
 			return;
 		}
 
-		add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
-		add_action( 'wp_footer', array( $this, 'wp_footer' ) );
+		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'wp_enqueue_scripts' ) );
+		add_action( 'wp_footer', array( __CLASS__, 'wp_footer' ) );
 	}
 
 	/**

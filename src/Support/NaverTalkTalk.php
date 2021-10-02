@@ -29,14 +29,14 @@ class NaverTalkTalk {
 		}
 
 		// Enqueue scripts/styles.
-		add_action( 'wp_enqueue_scripts', array( $this, 'add_scripts' ), -1 );
-		add_action( 'wp_head', array( $this, 'add_styles' ) );
+		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'add_scripts' ), -1 );
+		add_action( 'wp_head', array( __CLASS__, 'add_styles' ) );
 
 		// Shortcodes.
-		add_shortcode( 'navertalktalk', array( $this, 'shortcode_output' ) );
+		add_shortcode( 'navertalktalk', array( __CLASS__, 'shortcode_output' ) );
 
 		// Add Naver TalkTalk.
-		add_action( 'wp_footer', array( $this, 'output' ), 90 );
+		add_action( 'wp_footer', array( __CLASS__, 'output' ), 90 );
 	}
 
 	/**

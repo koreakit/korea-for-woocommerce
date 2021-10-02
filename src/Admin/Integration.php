@@ -34,10 +34,10 @@ final class Integration extends \WC_Integration {
 		$this->init_settings();
 
 		// JS Library.
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'admin_scripts' ) );
 
 		// Actions.
-		add_action( 'woocommerce_update_options_integration_' . $this->id, array( $this, 'process_admin_options' ) );
+		add_action( 'woocommerce_update_options_integration_' . $this->id, array( __CLASS__, 'process_admin_options' ) );
 	}
 
 	/**

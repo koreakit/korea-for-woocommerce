@@ -21,7 +21,7 @@ class Addons {
 	public function __construct() {
 		$this->tab = isset( $_GET['tab'] ) && ! empty( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : 'addons'; // @codingStandardsIgnoreLine WordPress.Security.NonceVerification.Recommended
 
-		add_action( 'current_screen', array( $this, 'init_tab' ) );
+		add_action( 'current_screen', array( __CLASS__, 'init_tab' ) );
 	}
 
 	/**
