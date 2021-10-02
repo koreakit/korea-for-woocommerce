@@ -18,9 +18,9 @@
  * @author  GREYS
  */
 
-defined( 'ABSPATH' ) || exit;
+namespace Greys\WooCommerce\Korea;
 
-require_once( 'vendor/autoload.php' );
+defined( 'ABSPATH' ) || exit;
 
 // Define Constants.
 define( 'WC_KOREA_VERSION', '1.1.6' );
