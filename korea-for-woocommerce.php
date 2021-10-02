@@ -23,11 +23,11 @@ namespace Greys\WooCommerce\Korea;
 defined( 'ABSPATH' ) || exit;
 
 // Define Constants.
-define( 'WC_KOREA_VERSION', '1.1.6' );
-define( 'WC_KOREA_MAIN_FILE', __FILE__ );
-define( 'WC_KOREA_ABSPATH', dirname( __FILE__ ) );
-define( 'WC_KOREA_PLUGIN_URL', untrailingslashit( plugins_url( basename( plugin_dir_path( __FILE__ ) ), basename( __FILE__ ) ) ) );
-define( 'WC_KOREA_PLUGIN_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
+define( __NAMESPACE__ . '\VERSION', '1.1.6' );
+define( __NAMESPACE__ . '\MAIN_FILE', __FILE__ );
+define( __NAMESPACE__ . '\ABSPATH', dirname( __FILE__ ) );
+define( __NAMESPACE__ . '\PLUGIN_URL', untrailingslashit( plugins_url( basename( plugin_dir_path( __FILE__ ) ), basename( __FILE__ ) ) ) );
+define( __NAMESPACE__ . '\PLUGIN_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
 
 /**
 * Initialize the plugin.
