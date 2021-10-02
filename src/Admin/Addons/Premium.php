@@ -32,7 +32,7 @@ final class Premium extends Addons {
 		}
 
 		$addons = apply_filters(
-			'wc_korea_addons',
+			'woocommerce_korea_addons',
 			array(
 				'korea-for-woocommerce-pro'           => array(
 					'title'       => __( 'Korea for WooCommerce Pro', 'korea-for-woocommerce' ),

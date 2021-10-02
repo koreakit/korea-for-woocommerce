@@ -46,7 +46,7 @@ final class Integration extends \WC_Integration {
 		switch ( $this->category ) {
 			case 'advanced':
 				$this->form_fields = apply_filters(
-					'wc_korea_advanced_settings',
+					'woocommerce_korea_advanced_settings',
 					array(
 						'naver_analytics' => array(
 							'title'       => __( 'Naver Analytics ID', 'korea-for-woocommerce' ),
@@ -64,7 +64,7 @@ final class Integration extends \WC_Integration {
 
 			case 'sep':
 				$this->form_fields = apply_filters(
-					'wc_korea_sep_settings',
+					'woocommerce_korea_sep_settings',
 					array(
 						'daum_shopping_ep'  => array(
 							'title'       => __( 'Daum Shopping', 'korea-for-woocommerce' ),
@@ -98,7 +98,7 @@ final class Integration extends \WC_Integration {
 
 			case 'support':
 				$this->form_fields = apply_filters(
-					'wc_korea_support_settings',
+					'woocommerce_korea_support_settings',
 					array(
 						'kakaochannel'            => array(
 							'title'       => __( 'Kakao Channel', 'korea-for-woocommerce' ),
@@ -189,7 +189,7 @@ final class Integration extends \WC_Integration {
 			case 'general':
 			default:
 				$this->form_fields = apply_filters(
-					'wc_korea_general_settings',
+					'woocommerce_korea_general_settings',
 					array(
 						'postcode'                    => array(
 							'title' => __( 'Korean Postcode', 'korea-for-woocommerce' ),

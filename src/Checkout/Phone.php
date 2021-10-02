@@ -19,10 +19,12 @@ class Phone {
 	 */
 	public function __construct() {
 		if ( true == apply_filters( 'wc_korea_checkout_phone_validation', true ) ) {
+		if ( true == apply_filters( 'woocommerce_korea_checkout_phone_validation', true ) ) {
 			add_action( 'woocommerce_after_checkout_validation', array( __CLASS__, 'validate_phone' ), 10, 2 );
 		}
 
 		if ( true == apply_filters( 'wc_korea_checkout_phone_format', true ) ) {
+		if ( true == apply_filters( 'woocommerce_korea_checkout_phone_format', true ) ) {
 			add_action( 'woocommerce_checkout_create_order', array( __CLASS__, 'format_phone' ), 10, 2 );
 			add_action( 'woocommerce_checkout_update_customer', array( __CLASS__, 'format_phone' ), 10, 2 );
 		}

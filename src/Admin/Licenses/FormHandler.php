@@ -29,7 +29,7 @@ class FormHandler {
 	 */
 	public function register_settings() {
 		// Licenses
-		$licenses = apply_filters( 'wc_korea_plugin_license_settings', array() );
+		$licenses = apply_filters( 'woocommerce_korea_plugin_license_settings', array() );
 
 		add_settings_section(
 			'wc_korea_plugin_license_settings_section',

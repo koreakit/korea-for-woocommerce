@@ -32,7 +32,7 @@ final class Licenses extends Addons {
 		}
 
 		// Licenses
-		$licenses = apply_filters( 'wc_korea_plugin_license_settings', array() );
+		$licenses = apply_filters( 'woocommerce_korea_plugin_license_settings', array() );
 
 		/**
 		 * Licenses page view.
