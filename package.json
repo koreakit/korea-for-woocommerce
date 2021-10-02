@@ -11,11 +11,11 @@
   },
   "devDependencies": {
     "@wordpress/env": "^4.1.1",
-    "cypress": "^8.4.0",
+    "cypress": "^8.5.0",
     "cypress-woocommerce": "^0.1.1",
     "grunt": "1.4.1",
     "grunt-contrib-cssmin": "4.0.0",
-    "grunt-contrib-jshint": "3.0.0",
+    "grunt-contrib-jshint": "3.1.1",
     "grunt-contrib-uglify": "5.0.1",
     "grunt-contrib-watch": "1.1.0",
     "grunt-phpcs": "0.4.0",
