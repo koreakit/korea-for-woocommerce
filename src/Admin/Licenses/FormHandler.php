@@ -6,7 +6,7 @@
  * @author  @jgreys
  */
 
-namespace Greys\WooCommerce\Korea;
+namespace Greys\WooCommerce\Korea\Admin\Licenses;
 
 defined( 'ABSPATH' ) || exit;
 
