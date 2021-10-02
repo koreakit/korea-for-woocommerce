@@ -7,6 +7,9 @@ namespace Greys\WooCommerce\Korea\Checkout;
 
 defined( 'ABSPATH' ) || exit;
 
+use const Greys\WooCommerce\Korea\VERSION as VERSION;
+use const Greys\WooCommerce\Korea\MAIN_FILE as MAIN_FILE;
+
 /**
  * Postcode class.
  */
