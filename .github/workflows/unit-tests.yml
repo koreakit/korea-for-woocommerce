@@ -1,0 +1,28 @@
+name: Unit tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  run:  
+    runs-on: ubuntu-latest
+    name: Unit Tests
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '14'
+    - name: Install npm dependencies
+      run: npm install
+    - name: Install composer dependencies
+      run: composer install
+    - name: Setup wp-env
+      run: npm run env:start
+    - name: Run unit tests...
+      run: npm run test:php
