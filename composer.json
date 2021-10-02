@@ -12,6 +12,11 @@
 		"woocommerce/woocommerce-sniffs": "^0.1.0",
 		"wp-phpunit/wp-phpunit": "^5.8"
 	},
+	"config": {
+	  "platform": {
+			"php": "7.1"
+	  }
+	},
 	"scripts": {
     "test": [
       "phpunit"
