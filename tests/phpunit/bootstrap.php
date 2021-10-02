@@ -1,91 +1,89 @@
 <?php
 /**
- * PHPUnit bootstrap file
- *
- * @package WC_KCP
+ * WooCommerce Korea for WooCommerce Unit Tests Bootstrap
  */
 
-$_tests_dir = getenv( 'WP_TESTS_DIR' );
-
-if ( ! $_tests_dir ) {
-	$_tests_dir = rtrim( sys_get_temp_dir(), '/\\' ) . '/wordpress-tests-lib';
-}
-
-if ( ! file_exists( $_tests_dir . '/includes/functions.php' ) ) {
-	echo "Could not find $_tests_dir/includes/functions.php, have you run tests/bin/install.sh ?" . PHP_EOL; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
-	exit( 1 );
-}
-
-// Give access to tests_add_filter() function.
-require_once $_tests_dir . '/includes/functions.php';
+namespace Greys\WooCommerce\Korea\Tests;
 
 /**
- * Returns WooCommerce main directory.
- *
- * @return string
+ * Class Bootstrap
  */
-function wc_dir() {
-	return rtrim( sys_get_temp_dir(), '/\\' ) . '/woocommerce';
-}
+class Bootstrap {
 
-/**
- * Adds WooCommerce testing framework classes.
- */
-function wc_test_includes() {
-	$wc_tests_framework_base_dir = wc_dir() . '/tests';
-	if ( ! is_dir( $wc_tests_framework_base_dir . '/framework' ) ) {
-		$wc_tests_framework_base_dir .= '/legacy';
+	/** @var Bootstrap instance */
+	protected static $instance = null;
+
+	/** @var string directory where wordpress-tests-lib is installed */
+	public $wp_tests_dir;
+
+	/** @var string testing directory */
+	public $tests_dir;
+
+	/** @var string plugin directory */
+	public $plugin_dir;
+
+	/**
+	 * Setup the unit testing environment.
+	 */
+	public function __construct() {
+		$this->tests_dir    = dirname( __FILE__ );
+		$this->plugin_dir   = dirname( dirname( $this->tests_dir ) );
+
+		ini_set( 'display_errors', 'on' ); // phpcs:ignore WordPress.PHP.IniSet.display_errors_Blacklisted
+		error_reporting( E_ALL ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.prevent_path_disclosure_error_reporting, WordPress.PHP.DiscouragedPHPFunctions.runtime_configuration_error_reporting
+
+		// Ensure server variable is set for WP email functions.
+		// phpcs:disable WordPress.VIP.SuperGlobalInputUsage.AccessDetected
+		if ( ! isset( $_SERVER['SERVER_NAME'] ) ) {
+			$_SERVER['SERVER_NAME'] = 'localhost';
+		}
+		// phpcs:enable WordPress.VIP.SuperGlobalInputUsage.AccessDetected
+
+		$this->wp_tests_dir = getenv( 'WP_TESTS_DIR' ) ? getenv( 'WP_TESTS_DIR' ) : sys_get_temp_dir() . '/wordpress-tests-lib';
+
+		// load test function so tests_add_filter() is available.
+		require_once $this->wp_tests_dir . '/includes/functions.php';
+
+		// load plugins.
+		tests_add_filter( 'muplugins_loaded', array( $this, 'load_plugins' ) );
+
+		// load the WP testing environment.
+		require_once $this->wp_tests_dir . '/includes/bootstrap.php';
+
+		// load WC testing framework.
+		$this->includes();
 	}
 
-	// WooCommerce test classes.
-	// Framework.
-	require_once $wc_tests_framework_base_dir . '/framework/class-wc-mock-session-handler.php';
-	require_once $wc_tests_framework_base_dir . '/framework/class-wc-mock-payment-gateway.php';
-
-	// Helpers.
-	require_once $wc_tests_framework_base_dir . '/framework/helpers/class-wc-helper-product.php';
-	require_once $wc_tests_framework_base_dir . '/framework/helpers/class-wc-helper-coupon.php';
-	require_once $wc_tests_framework_base_dir . '/framework/helpers/class-wc-helper-fee.php';
-	require_once $wc_tests_framework_base_dir . '/framework/helpers/class-wc-helper-shipping.php';
-	require_once $wc_tests_framework_base_dir . '/framework/helpers/class-wc-helper-customer.php';
-	require_once $wc_tests_framework_base_dir . '/framework/helpers/class-wc-helper-order.php';
-}
-
-/**
- * Manually load the plugin being tested.
- */
-tests_add_filter(
-	'muplugins_loaded',
-	function() {
-		require_once wc_dir() . '/woocommerce.php';
-		require dirname( dirname( dirname( __FILE__ ) ) ) . '/korea-for-woocommerce.php';
+	/**
+	 * Load plugins.
+	 */
+	public function load_plugins() {
+		require_once WP_PLUGIN_DIR .'/woocommerce/woocommerce.php';
+		require_once $this->plugin_dir .'/korea-for-woocommerce.php';
 	}
-);
 
-// install WC.
-tests_add_filter(
-	'setup_theme',
-	function() {
-		// Clean existing install first.
-		define( 'WP_UNINSTALL_PLUGIN', true );
-		define( 'WC_REMOVE_ALL_DATA', true );
-		include wc_dir() . '/uninstall.php';
+	/**
+	 * Load specific test cases and factories.
+	 */
+	public function includes() {
+		// Helpers.
+		require_once __DIR__ . '/helpers/class-wc-helper-product.php';
+		require_once __DIR__ . '/helpers/class-wc-helper-shipping.php';
+		require_once __DIR__ . '/helpers/class-wc-helper-order.php';
+	}
 
-		WC_Install::install();
-
-		// Reload capabilities after install, see https://core.trac.wordpress.org/ticket/28374.
-		if ( version_compare( $GLOBALS['wp_version'], '4.7', '<' ) ) {
-			$GLOBALS['wp_roles']->reinit();
-		} else {
-			$GLOBALS['wp_roles'] = null; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-			wp_roles();
+	/**
+	 * Get the single class instance.
+	 *
+	 * @return Bootstrap
+	 */
+	public static function instance() {
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self();
 		}
 
-		echo esc_html( 'Installing WooCommerce...' . PHP_EOL );
+		return self::$instance;
 	}
-);
+}
 
-// Start up the WP testing environment.
-require $_tests_dir . '/includes/bootstrap.php';
-
-wc_test_includes();
+Bootstrap::instance();
