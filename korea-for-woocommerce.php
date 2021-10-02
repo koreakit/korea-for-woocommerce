@@ -29,7 +29,8 @@ define( __NAMESPACE__ . '\ABSPATH', dirname( __FILE__ ) );
 define( __NAMESPACE__ . '\PLUGIN_URL', untrailingslashit( plugins_url( basename( plugin_dir_path( __FILE__ ) ), basename( __FILE__ ) ) ) );
 define( __NAMESPACE__ . '\PLUGIN_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
 
-/**
-* Initialize the plugin.
-*/
-add_action( 'plugins_loaded', array( '\Greys\WooCommerce\Korea\Loader', 'get_instance' ) );
+// Load the autoloader.
+require_once 'vendor/autoload.php';
+
+// Initialize the plugin.
+add_action( 'plugins_loaded', array( __NAMESPACE__ . '\Loader', 'instance' ) );
