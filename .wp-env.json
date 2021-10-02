@@ -4,8 +4,22 @@
 		"WP_DEBUG_LOG": true,
 		"WP_DEBUG_DISPLAY": false,
 		"WP_TESTS_TITLE": "Korea for WooCommerce E2E Test Suite",
-		"WP_TESTS_EMAIL": "admin@korea4wce2etestsuite.com"
+		"WP_TESTS_EMAIL": "admin@korea4wce2etestsuite.com",
+		"FS_METHOD": "direct"
 	},
-	"plugins": [ "https://downloads.wordpress.org/plugin/woocommerce.latest-stable.zip", "https://downloads.wordpress.org/plugin/wordpress-importer.latest-stable.zip", "." ],
-	"themes": [ "https://downloads.wordpress.org/theme/storefront.latest-stable.zip" ]
+	"env": {
+		"tests": {
+			"mappings": {
+				"../../../tmp/wordpress-tests-lib": "./vendor/wp-phpunit/wp-phpunit"
+			}
+		}
+	},
+	"plugins": [
+		"https://downloads.wordpress.org/plugin/woocommerce.latest-stable.zip",
+		"https://downloads.wordpress.org/plugin/wordpress-importer.latest-stable.zip",
+		"."
+	],
+	"themes": [
+		"https://downloads.wordpress.org/theme/storefront.latest-stable.zip"
+	]
 }
