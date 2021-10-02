@@ -16,9 +16,9 @@ use const Greys\WooCommerce\Korea\MAIN_FILE as MAIN_FILE;
 class Postcode {
 
 	/**
-	 * Class constructor
+	 * Initialize
 	 */
-	public function __construct() {
+	public static function init() {
 		$settings      = get_option( 'woocommerce_korea_settings' );
 		$this->enabled = isset( $settings['postcode_yn'] ) && ! empty( $settings['postcode_yn'] ) ? 'yes' === $settings['postcode_yn'] : false;
 

@@ -16,9 +16,9 @@ defined( 'ABSPATH' ) || exit;
 class FormHandler {
 
 	/**
-	 * Class constructor
+	 * Initialize
 	 */
-	public function __construct() {
+	public static function init() {
 		add_action( 'admin_init', array( __CLASS__, 'register_settings' ) );
 	}
 

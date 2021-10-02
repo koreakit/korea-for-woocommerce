@@ -15,10 +15,9 @@ use Greys\WooCommerce\Korea\Checkout\Helper as Helper;
 class Phone {
 
 	/**
-	 * Class constructor
+	 * Initialize
 	 */
-	public function __construct() {
-		if ( true == apply_filters( 'wc_korea_checkout_phone_validation', true ) ) {
+	public static function init() {
 		if ( true == apply_filters( 'woocommerce_korea_checkout_phone_validation', true ) ) {
 			add_action( 'woocommerce_after_checkout_validation', array( __CLASS__, 'validate_phone' ), 10, 2 );
 		}

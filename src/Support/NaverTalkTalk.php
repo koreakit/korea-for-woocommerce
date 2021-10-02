@@ -13,10 +13,10 @@ defined( 'ABSPATH' ) || exit;
 class NaverTalkTalk {
 
 	/**
-	 * Class constructor
+	 * Initialize
 	 */
-	public function __construct() {
 		$this->settings = get_option( 'woocommerce_korea_settings' );
+	public static function init() {
 
 		$this->enabled = isset( $this->settings['navertalktalk_yn'] ) && ! empty( $this->settings['navertalktalk_yn'] ) ? 'yes' === $this->settings['navertalktalk_yn'] : false;
 		if ( ! $this->enabled ) {

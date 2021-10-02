@@ -13,9 +13,9 @@ defined( 'ABSPATH' ) || exit;
 class KakaoChannel {
 
 	/**
-	 * Class constructor
+	 * Initialize
 	 */
-	public function __construct() {
+	public static function init() {
 		$settings = get_option( 'woocommerce_korea_settings' );
 
 		$this->enabled = isset( $settings['kakaochannel_yn'] ) && ! empty( $settings['kakaochannel_yn'] ) ? 'yes' === $settings['kakaochannel_yn'] : false;

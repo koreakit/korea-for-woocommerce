@@ -15,9 +15,9 @@ use const Greys\WooCommerce\Korea\VERSION as VERSION;
 class Naver {
 
 	/**
-	 * Class constructor
+	 * Initialize
 	 */
-	public function __construct() {
+	public static function init() {
 		$settings = get_option( 'woocommerce_korea_settings' );
 
 		$this->id = isset( $settings['naver_analytics'] ) && ! empty( $settings['naver_analytics'] ) ? sanitize_text_field( $settings['naver_analytics'] ) : null;
