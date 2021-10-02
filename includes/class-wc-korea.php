@@ -68,12 +68,8 @@ class WC_Korea {
 	 * Verify if the requirements are met
 	 */
 	public function requirements() {
-		if ( ! function_exists( 'is_plugin_active' ) ) {
-			include_once ABSPATH . 'wp-admin/includes/plugin.php';
-		}
-
 		// WooCommerce
-		if ( ! is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
+		if ( ! class_exists( 'WooCommerce' ) ) {
 			add_action(
 				'admin_notices',
 				function() {
