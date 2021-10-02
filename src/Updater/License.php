@@ -119,17 +119,7 @@ class License {
 		$this->data       = get_plugin_data( $this->file );
 		$this->license    = trim( get_option( "{$this->prefix}_license_key", '' ) );
 
-		$this->includes();
 		$this->add_hooks();
-	}
-
-	/**
-	 * Includes required files.
-	 */
-	public function includes() {
-		if ( ! class_exists( '\Greys\WooCommerce\Korea\Updater' ) ) {
-			require_once dirname( __DIR__ ) . '/Updater/Updater.php';
-		}
 	}
 
 	/**
@@ -176,7 +166,7 @@ class License {
 		);
 
 		// Setup the updater
-		$plugin_updater = new WC_Korea_Updater( $this->file, $data );
+		$plugin_updater = new UpdaterController( $this->file, $data );
 	}
 
 	/**

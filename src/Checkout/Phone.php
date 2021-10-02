@@ -22,7 +22,6 @@ class Phone {
 			add_action( 'woocommerce_after_checkout_validation', array( __CLASS__, 'validate_phone' ), 10, 2 );
 		}
 
-		if ( true == apply_filters( 'wc_korea_checkout_phone_format', true ) ) {
 		if ( true == apply_filters( 'woocommerce_korea_checkout_phone_format', true ) ) {
 			add_action( 'woocommerce_checkout_create_order', array( __CLASS__, 'format_phone' ), 10, 2 );
 			add_action( 'woocommerce_checkout_update_customer', array( __CLASS__, 'format_phone' ), 10, 2 );
@@ -35,7 +34,7 @@ class Phone {
 	 * @param array $data Format data.
 	 * @param object $errors Error object.
 	 */
-	public function validate_phone( $data, $errors ) {
+	public static function validate_phone( $data, $errors ) {
 		if ( 'required' !== get_option( 'woocommerce_checkout_phone_field', 'required' ) ) {
 			return;
 		}
@@ -55,7 +54,7 @@ class Phone {
 	 * @param WC_Order $order Order object.
 	 * @param array    $data  Form data.
 	 */
-	public function format_phone( $order, $data ) {
+	public static function format_phone( $order, $data ) {
 		if ( 'required' !== get_option( 'woocommerce_checkout_phone_field', 'required' ) ) {
 			return;
 		}

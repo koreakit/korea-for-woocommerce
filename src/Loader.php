@@ -30,10 +30,11 @@ class Loader {
 	 *
 	 * @return Singleton The *Singleton* instance.
 	 */
-	public static function get_instance() {
+	public static function instance() {
 		if ( null === self::$instance ) {
 			self::$instance = new self();
 		}
+
 		return self::$instance;
 	}
 
@@ -58,12 +59,33 @@ class Loader {
 	 * *Singleton* via the `new` operator from outside of this class.
 	 */
 	public function __construct() {
-		if ( ! self::requirements() ) {
+		// WooCommerce
+		if ( ! class_exists( 'WooCommerce' ) ) {
+			add_action( 'admin_notices',
+				function() {
+					echo '<div class="error"><p>';
+					echo wp_kses(
+						sprintf(
+							/* translators: 1) woocommerce link */
+							__( 'Korea for WooCommerce requires WooCommerce to be installed and active. You can download <a href="%s" target="_blank">WooCommerce</a> here.', 'korea-for-woocommerce' ),
+							'https://woocommerce.com/'
+						),
+						array(
+							'a' => array(
+								'href'   => array(),
+								'target' => array(),
+							),
+						)
+					);
+					echo '</p></div>';
+				}
+			);
 			return;
 		}
 
 		self::load_plugin_textdomain();
 		self::admin_init();
+		self::init();
 		self::hooks();
 
 		do_action( 'woocommerce_korea_loaded' );
@@ -77,19 +99,31 @@ class Loader {
 			return;
 		}
 
-		Admin::init();
+		Admin\Controller::init();
+		Admin\Licenses\FormHandler::init();
+	}
+
+	/**
+	* Initialize the plugin.
+	*/
+	public function init() {
+		Analytics\Naver::init();
+		Checkout\Address::init();
+		Checkout\Phone::init();
+		Checkout\Postcode::init();
+		ShoppingEnginePage\Daum::init();
+		ShoppingEnginePage\Naver::init();
+		Support\KakaoChannel::init();
+		Support\NaverTalkTalk::init();
+		BackwardCompatibility::init();
 	}
 
 	/**
 	 * Verify if the requirements are met
 	 */
 	public static function requirements() {
-		if ( ! function_exists( 'is_plugin_active' ) ) {
-			include_once ABSPATH . 'wp-admin/includes/plugin.php';
-		}
-
 		// WooCommerce
-		if ( ! is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
+		if ( ! class_exists( 'WooCommerce' ) ) {
 			add_action(
 				'admin_notices',
 				function() {

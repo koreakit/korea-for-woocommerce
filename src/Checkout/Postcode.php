@@ -20,9 +20,9 @@ class Postcode {
 	 */
 	public static function init() {
 		$settings      = get_option( 'woocommerce_korea_settings' );
-		$this->enabled = isset( $settings['postcode_yn'] ) && ! empty( $settings['postcode_yn'] ) ? 'yes' === $settings['postcode_yn'] : false;
+		self::$enabled = isset( $settings['postcode_yn'] ) && ! empty( $settings['postcode_yn'] ) ? 'yes' === $settings['postcode_yn'] : false;
 
-		if ( ! $this->enabled ) {
+		if ( ! self::$enabled ) {
 			return;
 		}
 
@@ -37,9 +37,8 @@ class Postcode {
 		$this->emphtxtcolor       = isset( $settings['postcode_emphtxtcolor'] ) && ! empty( $settings['postcode_emphtxtcolor'] ) ? $settings['postcode_emphtxtcolor'] : '#008bd3';
 		$this->outlinecolor       = isset( $settings['postcode_outlinecolor'] ) && ! empty( $settings['postcode_outlinecolor'] ) ? $settings['postcode_outlinecolor'] : '#e0e0e0';
 
-		add_action( 'wp_footer', array( $this, 'wp_footer' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
-		add_filter( 'woocommerce_get_country_locale', array( $this, 'wc_get_country_locale' ) );
+		add_action( 'wp_footer', array( __CLASS__, 'wp_footer' ) );
+		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'wp_enqueue_scripts' ) );
 	}
 
 	/**
@@ -74,6 +73,15 @@ class Postcode {
 				left: 0;
 				z-index: 99998;
 			}
+
+			#billing-address-autocomplete .closed,
+			#shipping-address-autocomplete .closed {
+				cursor:pointer;
+				position:absolute;
+				right:0px;
+				top:-1px;
+				z-index:1
+			}
 		</style>
 		<?php
 	}
@@ -88,7 +96,7 @@ class Postcode {
 		}
 
 		wp_enqueue_script( 'wc-korea-daum-postcode', '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js', array(), null, true );
-		wp_enqueue_script( 'wc-korea-postcode', plugins_url( 'assets/js/wc-korea-postcode.js', WC_KOREA_MAIN_FILE ), array( 'jquery' ), WC_KOREA_VERSION, true );
+		wp_enqueue_script( 'wc-korea-postcode', plugins_url( 'assets/js/wc-korea-postcode.js', MAIN_FILE ), array( 'jquery' ), VERSION, true );
 		wp_localize_script(
 			'wc-korea-postcode',
 			'_postcode',
@@ -107,19 +115,6 @@ class Postcode {
 				),
 			)
 		);
-	}
-
-	/**
-	 * Change priority & requirement for korean checkout fields
-	 *
-	 * @param array $fields Checkout fields.
-	 */
-	public function wc_get_country_locale( $fields ) {
-		$fields['KR']['postcode']['priority'] = 40;
-		$fields['KR']['postcode']['required'] = true;
-		$fields['KR']['country']['priority']  = 30;
-
-		return $fields;
 	}
 
 }

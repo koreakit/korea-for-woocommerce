@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Adds the plugin updater API.
  */
-class Updater {
+class Controller {
 
 	/**
 	 * URL from which updates are retrieved
@@ -87,7 +87,7 @@ class Updater {
 	 * @param string $_api_url the URL pointing to the custom API endpoint.
 	 */
 	public function __construct( $_plugin_file, $_api_data, $_api_url = 'https://greys.co/' ) {
-		global $wc_korea_plugin_data;
+		global $plugin_data;
 
 		$this->api_url     = trailingslashit( $_api_url );
 		$this->api_data    = $_api_data;
@@ -99,7 +99,7 @@ class Updater {
 		$this->beta        = ! empty( $this->api_data['beta'] ) ? true : false;
 		$this->cache_key   = 'woocommerce_korea_' . md5( serialize( $this->slug . $this->api_data['license'] . $this->beta ) ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
 
-		$wc_korea_plugin_data[ $this->slug ] = $this->api_data;
+		$plugin_data[ $this->slug ] = $this->api_data;
 
 		// set up hooks.
 		$this->init();
@@ -419,7 +419,7 @@ class Updater {
 		$request = wp_remote_post(
 			$this->api_url,
 			array(
-				'timeout'   => 25,
+				'timeout'   => 5,
 				'sslverify' => $this->verify_ssl(),
 				'body'      => $api_params,
 			)
@@ -451,7 +451,7 @@ class Updater {
 		 * @param array the custom icons; should include $icon['svg'] or $icon['1x'] and $icon['2x']
 		 * @param object $value the version info
 		 */
-		$custom_icons = apply_filters( "wc_korea_plugin_updater_{$this->name}_icon", array(), $request );
+		$custom_icons = apply_filters( "woocommerce_korea_plugin_updater_{$this->name}_icon", array(), $request );
 
 		if ( ! empty( $custom_icons ) ) {
 			$request->icons = (array) $custom_icons;
@@ -515,7 +515,7 @@ class Updater {
 	 * Shows the plugin changelog.
 	 */
 	public function show_changelog() {
-		global $wc_korea_plugin_data;
+		global $plugin_data;
 
 		if ( empty( $_REQUEST['edd_sl_action'] ) || 'view_plugin_changelog' !== $_REQUEST['edd_sl_action'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			return;
@@ -530,7 +530,7 @@ class Updater {
 		}
 
 		$slug         = ! empty( $_REQUEST['slug'] ) ? sanitize_key( wp_unslash( $_REQUEST['slug'] ) ) : null; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		$data         = ! empty( $wc_korea_plugin_data[ $slug ] ) ? $wc_korea_plugin_data[ $slug ] : null;
+		$data         = ! empty( $plugin_data[ $slug ] ) ? $plugin_data[ $slug ] : null;
 		$beta         = ! empty( $data['beta'] ) ? true : false;
 		$cache_key    = $this->cache_key . '_version_info';
 		$version_info = $this->get_cached_version_info( $cache_key );
@@ -628,7 +628,7 @@ class Updater {
 		 * @param array the custom icons; should include $icon['svg'] or $icon['1x'] and $icon['2x']
 		 * @param object $value the version info
 		 */
-		$custom_icons = apply_filters( "wc_korea_plugin_updater_{$this->name}_icon", array(), $value );
+		$custom_icons = apply_filters( "woocommerce_korea_plugin_updater_{$this->name}_icon", array(), $value );
 
 		if ( ! empty( $custom_icons ) ) {
 			$value->icons = (array) $custom_icons;
@@ -650,7 +650,7 @@ class Updater {
 	 * @return bool
 	 */
 	private function verify_ssl() {
-		return (bool) apply_filters( 'wc_korea_sl_api_request_verify_ssl', true, $this );
+		return (bool) apply_filters( 'woocommerce_korea_api_request_verify_ssl', true, $this );
 	}
 
 	/**

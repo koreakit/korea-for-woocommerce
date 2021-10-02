@@ -3,7 +3,7 @@
  * WooCommerce Korea - Daum SEP (Search Engine Page)
  */
 
-namespace Greys\WooCommerce\Korea\SEP;
+namespace Greys\WooCommerce\Korea\ShoppingEnginePage;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -13,18 +13,25 @@ defined( 'ABSPATH' ) || exit;
 class Daum {
 
 	/**
-	 * Class constructor
+	 * Yes or no based on whether the method is enabled.
+	 *
+	 * @var boolean
 	 */
-	public function __construct() {
+	private static $enabled;
+
+	/**
+	 * Initialize
+	 */
+	public static function init() {
 		$settings = get_option( 'woocommerce_korea_settings' );
 
-		$this->enabled = isset( $settings['daum_shopping_ep'] ) && ! empty( $settings['daum_shopping_ep'] ) ? 'yes' === $settings['daum_shopping_ep'] : false;
+		self::$enabled = isset( $settings['daum_shopping_ep'] ) && ! empty( $settings['daum_shopping_ep'] ) ? 'yes' === $settings['daum_shopping_ep'] : false;
 
-		if ( ! $this->enabled ) {
+		if ( ! self::$enabled ) {
 			return;
 		}
 
-		add_action( 'parse_request', array( $this, 'output' ) );
+		add_action( 'parse_request', array( __CLASS__, 'output' ) );
 	}
 
 	/**
@@ -103,5 +110,3 @@ class Daum {
 	}
 
 }
-
-return new Daum();

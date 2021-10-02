@@ -18,8 +18,8 @@ class KakaoChannel {
 	public static function init() {
 		$settings = get_option( 'woocommerce_korea_settings' );
 
-		$this->enabled = isset( $settings['kakaochannel_yn'] ) && ! empty( $settings['kakaochannel_yn'] ) ? 'yes' === $settings['kakaochannel_yn'] : false;
-		if ( ! $this->enabled ) {
+		self::$enabled = isset( $settings['kakaochannel_yn'] ) && ! empty( $settings['kakaochannel_yn'] ) ? 'yes' === $settings['kakaochannel_yn'] : false;
+		if ( ! self::$enabled ) {
 			return;
 		}
 
@@ -151,5 +151,3 @@ class KakaoChannel {
 	}
 
 }
-
-return new KakaoChannel();

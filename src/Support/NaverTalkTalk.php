@@ -15,11 +15,11 @@ class NaverTalkTalk {
 	/**
 	 * Initialize
 	 */
-		$this->settings = get_option( 'woocommerce_korea_settings' );
 	public static function init() {
+		$settings = get_option( 'woocommerce_korea_settings' );
 
-		$this->enabled = isset( $this->settings['navertalktalk_yn'] ) && ! empty( $this->settings['navertalktalk_yn'] ) ? 'yes' === $this->settings['navertalktalk_yn'] : false;
-		if ( ! $this->enabled ) {
+		self::$enabled = isset( $settings['navertalktalk_yn'] ) && ! empty( $settings['navertalktalk_yn'] ) ? 'yes' === $settings['navertalktalk_yn'] : false;
+		if ( ! self::$enabled ) {
 			return;
 		}
 
@@ -106,5 +106,3 @@ class NaverTalkTalk {
 	}
 
 }
-
-return new NaverTalkTalk();

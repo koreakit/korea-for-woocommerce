@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @extends \WC_Payment_Gateway
  */
-abstract class PaymentGateway extends \WC_Payment_Gateway {
+class PaymentGateway extends \WC_Payment_Gateway {
 
 	/**
 	 * Returns all supported currencies for the payment method.

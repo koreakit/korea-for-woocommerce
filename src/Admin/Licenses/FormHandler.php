@@ -86,12 +86,12 @@ class FormHandler {
 	 */
 	public function license_key_callback( $args ) {
 
-		$wc_korea_option = get_option( $args['id'] );
-		$messages        = array();
-		$license         = get_option( $args['options']['is_valid_license_option'] );
+		$option   = get_option( $args['id'] );
+		$messages = array();
+		$license  = get_option( $args['options']['is_valid_license_option'] );
 
-		if ( $wc_korea_option ) {
-			$value = $wc_korea_option;
+		if ( $option ) {
+			$value = $option;
 		} else {
 			$value = isset( $args['std'] ) ? $args['std'] : '';
 		}
