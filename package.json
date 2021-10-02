@@ -38,7 +38,7 @@
     "test:setup": "bash ./tests/bin/setup.sh",
     "test:run": "npx cypress run --config-file tests/e2e/config.json",
     "test:open": "npx cypress open --config-file tests/e2e/config.json",
-    "test:php": "./vendor/bin/phpunit -c phpunit.xml",
+    "test:php": "npx wp-env run phpunit 'phpunit -c ./html/wp-content/plugins/korea-for-woocommerce/phpunit.xml'",
     "makepot": "composer run-script makepot"
   },
   "engines": {
