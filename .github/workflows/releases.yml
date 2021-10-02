@@ -1,4 +1,4 @@
-name: Deploy to WordPress.org
+name: Releases
 on:
   release:
     types: [published]
