@@ -11,6 +11,7 @@ namespace Greys\WooCommerce\Korea\Updater;
 defined( 'ABSPATH' ) || exit;
 
 use const Greys\WooCommerce\Korea\PLUGIN_URL as PLUGIN_URL;
+use Greys\WooCommerce\Korea\Updater\Controller as UpdaterController;
 
 /**
  * Provides a general license settings page for plugins to add license key inputs.

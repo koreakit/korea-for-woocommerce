@@ -10,7 +10,6 @@ namespace Greys\WooCommerce\Korea;
 
 defined( 'ABSPATH' ) || exit;
 
-use Greys\WooCommerce\Korea\Admin\Admin;
 use const Greys\WooCommerce\Korea\ABSPATH as ABSPATH;
 use const Greys\WooCommerce\Korea\MAIN_FILE as MAIN_FILE;
 

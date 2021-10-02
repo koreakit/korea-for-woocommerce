@@ -6,7 +6,7 @@
  * @author  @jgreys
  */
 
-namespace Greys\WooCommerce\Korea\Checkout\Helpers;
+namespace Greys\WooCommerce\Korea\Checkout;
 
 defined( 'ABSPATH' ) || exit;
 
