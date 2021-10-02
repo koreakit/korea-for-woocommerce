@@ -11,6 +11,7 @@ namespace Greys\WooCommerce\Korea\Admin\Addons;
 defined( 'ABSPATH' ) || exit;
 
 use Greys\WooCommerce\Korea\Classes\Addons as Addons;
+use const Greys\WooCommerce\Korea\PLUGIN_PATH as PLUGIN_PATH;
 
 /**
  * Licenses class.
