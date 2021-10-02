@@ -9,7 +9,7 @@
 		verbose="true"
 >
 	<testsuites>
-		<testsuite>
+		<testsuite name="Korea for WooCommerce Test Suite">
 			<directory prefix="test-" suffix=".php">./tests/phpunit</directory>
 		</testsuite>
 	</testsuites>
