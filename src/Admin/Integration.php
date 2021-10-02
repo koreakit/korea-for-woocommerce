@@ -10,6 +10,9 @@ namespace Greys\WooCommerce\Korea\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
+use const Greys\WooCommerce\Korea\VERSION as VERSION;
+use const Greys\WooCommerce\Korea\MAIN_FILE as MAIN_FILE;
+
 /**
  * Integration class.
  *
@@ -359,7 +362,7 @@ final class Integration extends \WC_Integration {
 			return;
 		}
 
-		wp_enqueue_script( 'wc-korea-admin', plugins_url( 'assets/js/admin/settings.js', WC_KOREA_MAIN_FILE ), array(), WC_KOREA_VERSION, true );
+		wp_enqueue_script( 'wc-korea-admin', plugins_url( 'assets/js/admin/settings.js', MAIN_FILE ), array(), VERSION, true );
 	}
 
 	/**

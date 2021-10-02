@@ -7,6 +7,8 @@ namespace Greys\WooCommerce\Korea\Analytics;
 
 defined( 'ABSPATH' ) || exit;
 
+use const Greys\WooCommerce\Korea\VERSION as VERSION;
+
 /**
  * Naver class.
  */
@@ -32,7 +34,7 @@ class Naver {
 	 * Enqueue Naver Analytics script
 	 */
 	public function wp_enqueue_scripts() {
-		wp_enqueue_script( 'wc-korea-naver-analytics', '//wcs.naver.net/wcslog.js', null, WC_KOREA_VERSION, true );
+		wp_enqueue_script( 'wc-korea-naver-analytics', '//wcs.naver.net/wcslog.js', null, VERSION, true );
 	}
 
 	/**

@@ -11,6 +11,8 @@ namespace Greys\WooCommerce\Korea;
 defined( 'ABSPATH' ) || exit;
 
 use Greys\WooCommerce\Korea\Admin\Admin;
+use const Greys\WooCommerce\Korea\ABSPATH as ABSPATH;
+use const Greys\WooCommerce\Korea\MAIN_FILE as MAIN_FILE;
 
 /**
  * Loader class.
@@ -128,7 +130,7 @@ class Loader {
 
 		unload_textdomain( 'korea-for-woocommerce' );
 		load_textdomain( 'korea-for-woocommerce', WP_LANG_DIR . '/korea-for-woocommerce/korea-for-woocommerce-' . $locale . '.mo' );
-		load_plugin_textdomain( 'korea-for-woocommerce', false, plugin_basename( dirname( WC_KOREA_ABSPATH ) ) . '/i18n' );
+		load_plugin_textdomain( 'korea-for-woocommerce', false, plugin_basename( dirname( ABSPATH ) ) . '/i18n' );
 	}
 
 	/**
@@ -136,7 +138,7 @@ class Loader {
 	 */
 	public static function hooks() {
 		add_filter( 'woocommerce_integrations', array( __CLASS__, 'add_korea_integration' ) );
-		add_filter( 'plugin_action_links_' . plugin_basename( WC_KOREA_MAIN_FILE ), array( __CLASS__, 'plugin_action_links' ) );
+		add_filter( 'plugin_action_links_' . plugin_basename( MAIN_FILE ), array( __CLASS__, 'plugin_action_links' ) );
 	}
 
 	/**

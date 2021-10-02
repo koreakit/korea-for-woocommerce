@@ -39,7 +39,7 @@ final class Licenses extends Addons {
 		 *
 		 * @uses $licenses
 		 */
-		include_once WC_KOREA_PLUGIN_PATH . '/includes/addons/html-admin-page-korea-licenses.php';
+		include_once PLUGIN_PATH . '/includes/addons/html-admin-page-korea-licenses.php';
 	}
 
 }

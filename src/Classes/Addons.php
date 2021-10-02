@@ -7,6 +7,9 @@ namespace Greys\WooCommerce\Korea\Classes;
 
 defined( 'ABSPATH' ) || exit;
 
+use const Greys\WooCommerce\Korea\VERSION as VERSION;
+use const Greys\WooCommerce\Korea\MAIN_FILE as MAIN_FILE;
+
 /**
  * Addons class.
  */
@@ -34,7 +37,7 @@ class Addons {
 		$section = isset( $_GET['section'] ) && ! empty( $_GET['section'] ) ? sanitize_key( wp_unslash( $_GET['section'] ) ) : null; // @codingStandardsIgnoreLine WordPress.Security.NonceVerification.Recommended
 
 		if ( ! wp_script_is( 'wc-korea-addons', 'enqueued' ) ) {
-			wp_enqueue_script( 'wc-korea-addons', plugins_url( 'assets/js/admin/addons.js', WC_KOREA_MAIN_FILE ), array(), WC_KOREA_VERSION, true );
+			wp_enqueue_script( 'wc-korea-addons', plugins_url( 'assets/js/admin/addons.js', MAIN_FILE ), array(), VERSION, true );
 			wp_localize_script(
 				'wc-korea-addons',
 				'wc_korea_addons_params',

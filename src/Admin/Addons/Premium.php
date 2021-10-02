@@ -11,6 +11,8 @@ namespace Greys\WooCommerce\Korea\Admin\Addons;
 defined( 'ABSPATH' ) || exit;
 
 use Greys\WooCommerce\Korea\Classes\Addons as Addons;
+use const Greys\WooCommerce\Korea\PLUGIN_PATH as PLUGIN_PATH;
+use Greys\WooCommerce\Korea\Classes\Addons;
 
 /**
  * Premium class.
@@ -150,7 +152,7 @@ final class Premium extends Addons {
 		 *
 		 * @uses $addons
 		 */
-		include_once WC_KOREA_PLUGIN_PATH . '/includes/addons/html-admin-page-korea-addons.php';
+		include_once PLUGIN_PATH . '/includes/addons/html-admin-page-korea-addons.php';
 	}
 
 }
