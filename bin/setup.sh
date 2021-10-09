@@ -7,9 +7,6 @@ echo
 echo "Setting up environment..."
 echo
 
-echo "Updating WordPress to the latest version..."
-npx wp-env run cli "wp core update --quiet"
-
 echo "Updating the WordPress database..."
 npx wp-env run cli "wp core update-db --quiet"
 
