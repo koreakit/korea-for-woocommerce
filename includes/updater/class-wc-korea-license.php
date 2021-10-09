@@ -81,7 +81,7 @@ class WC_Korea_License {
 	/**
 	 * The settings instance
 	 *
-	 * @var $settings
+	 * @var array $settings
 	 */
 	protected $settings;
 

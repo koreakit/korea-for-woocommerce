@@ -86,8 +86,8 @@ class WC_Korea_Naver_TalkTalk {
 		ob_start();
 		?>
 		<div class="talk_banner_div"
-			data-id="<?php echo esc_attr( $id ); ?>"
-			data-ref="<?php echo esc_url( $ref ); ?>">
+			data-id="<?php echo esc_attr( $atts['id'] ); ?>"
+			data-ref="<?php echo esc_url( $atts['ref'] ); ?>">
 		</div>
 		<?php
 		ob_end_flush();

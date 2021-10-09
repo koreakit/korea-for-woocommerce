@@ -83,7 +83,7 @@ class WC_Korea_Updater {
 	 * Class constructor.
 	 *
 	 * @param string $_plugin_file path to the plugin file.
-	 * @param string $_api_data optional data to send with API calls.
+	 * @param array  $_api_data optional data to send with API calls.
 	 * @param string $_api_url the URL pointing to the custom API endpoint.
 	 */
 	public function __construct( $_plugin_file, $_api_data, $_api_url = 'https://greys.co/' ) {
@@ -133,8 +133,8 @@ class WC_Korea_Updater {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $_transient_data Update array build by WordPress.
-	 * @return array Modified update array with custom plugin data.
+	 * @param object $_transient_data Update object built by WordPress.
+	 * @return object Modified update object with custom plugin data.
 	 */
 	public function check_update( $_transient_data ) {
 		global $pagenow;
@@ -448,7 +448,7 @@ class WC_Korea_Updater {
 		 *
 		 * @since 1.1.0
 		 *
-		 * @param array the custom icons; should include $icon['svg'] or $icon['1x'] and $icon['2x']
+		 * @param array $array the custom icons; should include $icon['svg'] or $icon['1x'] and $icon['2x']
 		 * @param object $value the version info
 		 */
 		$custom_icons = apply_filters( "wc_korea_plugin_updater_{$this->name}_icon", array(), $request );
@@ -611,10 +611,10 @@ class WC_Korea_Updater {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $value
+	 * @param object $value
 	 * @param string $cache_key
 	 */
-	public function set_version_info_cache( $value = '', $cache_key = '' ) {
+	public function set_version_info_cache( $value, $cache_key = '' ) {
 
 		if ( empty( $cache_key ) ) {
 			$cache_key = $this->cache_key;
@@ -625,7 +625,7 @@ class WC_Korea_Updater {
 		 *
 		 * @since 1.1.0
 		 *
-		 * @param array the custom icons; should include $icon['svg'] or $icon['1x'] and $icon['2x']
+		 * @param array $array the custom icons; should include $icon['svg'] or $icon['1x'] and $icon['2x']
 		 * @param object $value the version info
 		 */
 		$custom_icons = apply_filters( "wc_korea_plugin_updater_{$this->name}_icon", array(), $value );
