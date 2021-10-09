@@ -13,9 +13,6 @@ npx wp-env run cli "wp core update-db --quiet"
 echo "Updating the permalink structure"
 npx wp-env run cli "wp option update permalink_structure '/%postname%/'"
 
-echo "Installing and activating WooCommerce..."
-npx wp-env run cli "wp plugin install woocommerce --activate"
-
 echo "Creating customer account"
 npx wp-env run cli "wp user create customer customer@woocommercecoree2etestsuite.com --user_pass=password --role=customer"
 
