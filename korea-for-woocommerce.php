@@ -33,4 +33,4 @@ define( __NAMESPACE__ . '\PluginPath', untrailingslashit( plugin_dir_path( __FIL
 require_once 'vendor/autoload.php';
 
 // Initialize the plugin.
-add_action( 'plugins_loaded', array( __NAMESPACE__ . '\Loader', 'instance' ) );
+add_action( 'plugins_loaded', array( __NAMESPACE__ . '\Loader', 'instance' ), 90 );
