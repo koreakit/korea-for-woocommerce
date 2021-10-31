@@ -23,11 +23,11 @@ namespace Greys\WooCommerce\Korea;
 defined( 'ABSPATH' ) || exit;
 
 // Define Constants.
-define( __NAMESPACE__ . '\VERSION', '1.1.6' );
-define( __NAMESPACE__ . '\MAIN_FILE', __FILE__ );
-define( __NAMESPACE__ . '\ABSPATH', dirname( __FILE__ ) );
-define( __NAMESPACE__ . '\PLUGIN_URL', untrailingslashit( plugins_url( basename( plugin_dir_path( __FILE__ ) ), basename( __FILE__ ) ) ) );
-define( __NAMESPACE__ . '\PLUGIN_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
+define( __NAMESPACE__ . '\Version', '1.1.6' );
+define( __NAMESPACE__ . '\MainFile', __FILE__ );
+define( __NAMESPACE__ . '\Basename', dirname( __FILE__ ) );
+define( __NAMESPACE__ . '\PluginUrl', untrailingslashit( plugins_url( basename( plugin_dir_path( __FILE__ ) ), basename( __FILE__ ) ) ) );
+define( __NAMESPACE__ . '\PluginPath', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
 
 // Load the autoloader.
 require_once 'vendor/autoload.php';
