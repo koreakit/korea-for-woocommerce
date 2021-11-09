@@ -29,6 +29,7 @@
     "build:zip": "./bin/build-zip.sh",
     "build:assets": "grunt assets",
     "cli:wp": "npx wp-env run cli wp",
+    "codespaces:setup": "bin/codespaces/setup.sh",
     "env:setup": "bin/setup.sh",
     "env:clean": "npx wp-env clean",
     "env:destroy": "npx wp-env destroy",
