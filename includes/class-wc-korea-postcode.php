@@ -35,18 +35,58 @@ class WC_Korea_Postcode {
 		$this->emphtxtcolor       = isset( $settings['postcode_emphtxtcolor'] ) && ! empty( $settings['postcode_emphtxtcolor'] ) ? $settings['postcode_emphtxtcolor'] : '#008bd3';
 		$this->outlinecolor       = isset( $settings['postcode_outlinecolor'] ) && ! empty( $settings['postcode_outlinecolor'] ) ? $settings['postcode_outlinecolor'] : '#e0e0e0';
 
-		add_action( 'wp_footer', array( $this, 'wp_footer' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
+		add_filter( 'woocommerce_form_field_text', array( $this, 'postcode_field' ), 10, 5 );
 		add_filter( 'woocommerce_get_country_locale', array( $this, 'wc_get_country_locale' ) );
 	}
 
 	/**
-	 * Add inline styling in the footer
+	 * Change priority & requirement for korean checkout fields
+	 *
+	 * @param array $fields Checkout fields.
 	 */
-	public function wp_footer() {
-		if ( ! is_account_page() && ! is_checkout() ) {
-			return;
+	public function wc_get_country_locale( $fields ) {
+		$fields['KR']['postcode']['priority'] = 40;
+		$fields['KR']['postcode']['required'] = true;
+		$fields['KR']['country']['priority']  = 30;
+
+		return $fields;
+	}
+
+	/**
+     * Postcode form field.
+     *
+     * @param string $field Field.
+     * @param string $key Key.
+     * @param mixed  $args Arguments.
+     * @param string $value (default: null).
+     * @return string
+     */
+	public function postcode_field( $field, $key, $args, $value ) {
+		if ( 'billing_postcode' !== $key ) {
+			return $field;
 		}
+
+		wp_enqueue_script( 'wc-korea-daum-postcode', '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js', array(), null, true );
+		wp_enqueue_script( 'wc-korea-postcode', plugins_url( 'assets/js/wc-korea-postcode.js', WC_KOREA_MAIN_FILE ), array( 'jquery' ), WC_KOREA_VERSION, true );
+		wp_localize_script(
+			'wc-korea-postcode',
+			'_postcode',
+			array(
+				'displaymode' => $this->displaymode,
+				'theme' => array(
+					'bgColor'           => $this->bgcolor,
+					'searchBgColor'     => $this->searchbgcolor,
+					'contentBgColor'    => $this->contentbgcolor,
+					'pageBgColor'       => $this->pagebgcolor,
+					'textColor'         => $this->textcolor,
+					'queryTextColor'    => $this->querytxtcolor,
+					'postcodeTextColor' => $this->postalcodetxtcolor,
+					'emphTextColor'     => $this->emphtxtcolor,
+					'outlineColor'      => $this->outlinecolor,
+				),
+			)
+		);
+
 		?>
 		<style type="text/css">
 			#billing-address-autocomplete,
@@ -73,51 +113,7 @@ class WC_Korea_Postcode {
 				z-index: 99998;
 			}
 		</style>
-		<?php
-	}
-
-	/**
-	 * Enqueue Daum Postcode + Korea for WooCommerce Postcode scripts
-	 */
-	public function wp_enqueue_scripts() {
-		// We do not enqueue the script if it's not required.
-		if ( ! is_account_page() && ! is_checkout() ) {
-			return;
-		}
-
-		wp_enqueue_script( 'wc-korea-daum-postcode', '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js', array(), null, true );
-		wp_enqueue_script( 'wc-korea-postcode', plugins_url( 'assets/js/wc-korea-postcode.js', WC_KOREA_MAIN_FILE ), array( 'jquery' ), WC_KOREA_VERSION, true );
-		wp_localize_script(
-			'wc-korea-postcode',
-			'_postcode',
-			array(
-				'displaymode' => $this->displaymode,
-				'theme' => array(
-					'bgColor'            => $this->bgcolor,
-					'searchBgColor'      => $this->searchbgcolor,
-					'contentBgColor'     => $this->contentbgcolor,
-					'pageBgColor'        => $this->pagebgcolor,
-					'textColor'          => $this->textcolor,
-					'queryTextColor'     => $this->querytxtcolor,
-					'postcodeTextColor'  => $this->postalcodetxtcolor,
-					'emphTextColor'      => $this->emphtxtcolor,
-					'outlineColor'       => $this->outlinecolor,
-				),
-			)
-		);
-	}
-
-	/**
-	 * Change priority & requirement for korean checkout fields
-	 *
-	 * @param array $fields Checkout fields.
-	 */
-	public function wc_get_country_locale( $fields ) {
-		$fields['KR']['postcode']['priority'] = 40;
-		$fields['KR']['postcode']['required'] = true;
-		$fields['KR']['country']['priority']  = 30;
-
-		return $fields;
+		<?php return $field;
 	}
 
 }
