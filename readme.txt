@@ -91,6 +91,10 @@ The manual installation method involves downloading our plugin and uploading it 
 
 == Changelog ==
 
+= 1.1.8 - 2022-08-20 =
+* Fix - Enqueue scripts & style when postcode field is displayed
+* Updated WordPress & WooCommerce requirements
+
 = 1.1.7 - 2022-02-25 =
 * Updated WordPress & WooCommerce requirements
 
