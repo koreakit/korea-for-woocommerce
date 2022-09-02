@@ -10,18 +10,18 @@
     "url": "git@github.com:jgreys/korea-for-woocommerce.git"
   },
   "devDependencies": {
-    "@wordpress/env": "^4.1.1",
-    "cypress": "^8.5.0",
+    "@wordpress/env": "^5.2.0",
+    "cypress": "^10.7.0",
     "cypress-woocommerce": "^0.1.1",
-    "grunt": "1.5.2",
+    "grunt": "1.5.3",
     "grunt-contrib-cssmin": "4.0.0",
-    "grunt-contrib-jshint": "3.1.1",
-    "grunt-contrib-uglify": "5.0.1",
+    "grunt-contrib-jshint": "3.2.0",
+    "grunt-contrib-uglify": "5.2.2",
     "grunt-contrib-watch": "1.1.0",
     "grunt-phpcs": "0.4.0",
     "grunt-sass": "^3.1.0",
-    "node-sass": "^7.0.0",
-    "wait-on": "^6.0.0"
+    "node-sass": "^7.0.1",
+    "wait-on": "^6.0.1"
   },
   "scripts": {
     "build": "grunt",
