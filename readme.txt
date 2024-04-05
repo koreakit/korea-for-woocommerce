@@ -1,5 +1,5 @@
 === Korea for WooCommerce ===
-Tags: woocommerce, korea, korean payment, woocommerce korean payment, inicis, kakaopay, kcp, lguplus, naverpay, nicepay, payco, tosspay, 우커머스 결제, 워드프레스 결제, 우커머스 이니시스, 워드프레스 이니시스, 우커머스 카카오페이, 워드프레스 카카오페이, 워드프레스 네이버페이, 워드프레스 네이버페이, 우커머스 나이스페이, 워드프레스 나이스페이, 우커머스 토스페이, 워드프레스 토스페이, 우커머스 페이코, 워드프레스 페이코
+Tags: woocommerce, korea, korean payment, 우커머스, 우커머스 결제
 Requires at least: 5.0.0
 Tested up to: 6.5
 Stable tag: 1.1.10
@@ -7,11 +7,11 @@ Requires PHP: 7.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-This plugin enhance the shopping experience for your Korean customers with WooCommerce. Korean Payments, Postcode Finder, Naver Analytics, Naver Shopping EP & more.
+This plugin enhance the shopping experience for your Korean customers. Korean Payments, Postcode Finder, Naver Analytics, Naver Shopping EP & more.
 
 == Description ==
 
-This plugin enhance the shopping experience for your Korean customers with WooCommerce. Korean Payments, Postcode Finder, Naver Analytics, Naver Shopping EP & more.
+This plugin enhance the shopping experience for your Korean customers. Korean Payments, Postcode Finder, Naver Analytics, Naver Shopping EP & more.
 
 = Key Features =
 
