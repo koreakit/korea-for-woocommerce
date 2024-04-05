@@ -1,8 +1,8 @@
 === Korea for WooCommerce ===
 Tags: woocommerce, korea, korean payment, woocommerce korean payment, inicis, kakaopay, kcp, lguplus, naverpay, nicepay, payco, tosspay, 우커머스 결제, 워드프레스 결제, 우커머스 이니시스, 워드프레스 이니시스, 우커머스 카카오페이, 워드프레스 카카오페이, 워드프레스 네이버페이, 워드프레스 네이버페이, 우커머스 나이스페이, 워드프레스 나이스페이, 우커머스 토스페이, 워드프레스 토스페이, 우커머스 페이코, 워드프레스 페이코
 Requires at least: 5.0.0
-Tested up to: 6.4.1
-Stable tag: 1.1.9
+Tested up to: 6.5
+Stable tag: 1.1.10
 Requires PHP: 7.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -90,6 +90,9 @@ In the search field type “Korea for WooCommerce” and click Search Plugins. O
 The manual installation method involves downloading our plugin and uploading it to your webserver via your favourite FTP application.
 
 == Changelog ==
+
+= 1.1.10 - 2024-04-05 =
+* Updated WordPress & WooCommerce requirements
 
 = 1.1.9 - 2023-12-03 =
 * Updated WordPress & WooCommerce requirements
