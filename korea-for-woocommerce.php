@@ -3,7 +3,7 @@
  * Plugin Name: Korea for WooCommerce
  * Plugin URI: https://wordpress.org/plugins/korea-for-woocommerce/
  * Description: WooCommerce Toolkit for Korean use.
- * Version: 1.1.10
+ * Version: 1.1.11
  * Author: GREYS
  * Author URI: https://greys.co/
  * Requires at least: 5.0.0

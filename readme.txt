@@ -1,8 +1,8 @@
 === Korea for WooCommerce ===
 Tags: woocommerce, korea, korean payment, 우커머스, 우커머스 결제
 Requires at least: 5.0.0
-Tested up to: 6.5
-Stable tag: 1.1.10
+Tested up to: 6.6
+Stable tag: 1.1.11
 Requires PHP: 7.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -90,6 +90,10 @@ In the search field type “Korea for WooCommerce” and click Search Plugins. O
 The manual installation method involves downloading our plugin and uploading it to your webserver via your favourite FTP application.
 
 == Changelog ==
+
+- 1.1.11 - 2024-09-24 =
+* Fix - Enable HPOS compatibility
+* Updated WordPress & WooCommerce requirements
 
 = 1.1.10 - 2024-04-05 =
 * Updated WordPress & WooCommerce requirements

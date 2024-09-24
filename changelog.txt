@@ -1,5 +1,9 @@
 == Changelog ==
 
+- 1.1.11 - 2024-09-24 =
+* Fix - Enable HPOS compatibility
+* Updated WordPress & WooCommerce requirements
+
 = 1.1.10 - 2024-04-05 =
 * Updated WordPress & WooCommerce requirements
 
