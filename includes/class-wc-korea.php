@@ -152,9 +152,21 @@ class WC_Korea {
 	 * Hooks
 	 */
 	public function hooks() {
+		add_action( 'before_woocommerce_init', array( $this, 'enable_hpos_compatibility' ) );
 		add_filter( 'woocommerce_integrations', array( $this, 'wc_integrations' ) );
 		add_filter( 'plugin_action_links_' . plugin_basename( WC_KOREA_MAIN_FILE ), array( $this, 'plugin_action_links' ) );
 		add_filter( 'query_vars', array( $this, 'wc_sep_query_var' ) );
+	}
+
+	/**
+	 * Enable HPOS compatibility.
+	 */
+	public function enable_hpos_compatibility() {
+		if ( ! class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+			return;
+		}
+
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', plugin_basename( WC_KOREA_MAIN_FILE ), true );
 	}
 
 	/**
