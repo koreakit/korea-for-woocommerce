@@ -42,7 +42,7 @@ See the [payment gateways category](https://greys.co/products/category/gateways/
 
 = Contribute to Korea for WooCommerce =
 
-Development for this plugin happens in a public GitHub repository to better facilitate contributions from an active community of users, developers and designers. If you have a suggestion, bug report, patch, or pull request, please feel free to [contribute here](https://github.com/jgreys/korea-for-woocommerce).
+Development for this plugin happens in a public GitHub repository to better facilitate contributions from an active community of users, developers and designers. If you have a suggestion, bug report, patch, or pull request, please feel free to [contribute here](https://github.com/koreakit/korea-for-woocommerce).
 
 = Looking for something else? =
 
@@ -143,4 +143,4 @@ The manual installation method involves downloading our plugin and uploading it 
 * Fix - Postcode finder is now working for shipping address fields
 * Fix - Minor bug fixes
 
-[See changelog for all versions.](https://raw.githubusercontent.com/jgreys/korea-for-woocommerce/master/changelog.txt)
+[See changelog for all versions.](https://raw.githubusercontent.com/koreakit/korea-for-woocommerce/master/changelog.txt)

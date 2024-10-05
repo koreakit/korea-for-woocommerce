@@ -7,7 +7,7 @@
   "homepage": "https://wordpress.org/plugins/korea-for-woocommerce/",
   "repository": {
     "type": "git",
-    "url": "git@github.com:jgreys/korea-for-woocommerce.git"
+    "url": "git@github.com:koreakit/korea-for-woocommerce.git"
   },
   "devDependencies": {
     "@wordpress/env": "^5.2.0",
