@@ -8,17 +8,18 @@
 
 namespace Greys\WooCommerce\Korea\Admin;
 
-defined( 'ABSPATH' ) || exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
-use const Greys\WooCommerce\Korea\VERSION as VERSION;
-use const Greys\WooCommerce\Korea\MAIN_FILE as MAIN_FILE;
+use const Greys\WooCommerce\Korea\MainFile as MAIN_FILE;
+use const Greys\WooCommerce\Korea\Basename as BASENAME;
+use const Greys\WooCommerce\Korea\Version as VERSION;
 
 /**
  * Integration class.
- *
- * @extends \WC_Integration
  */
-final class Integration extends \WC_Integration {
+class Integration extends \WC_Integration {
 
 	/**
 	 * Class constructor
@@ -34,10 +35,10 @@ final class Integration extends \WC_Integration {
 		$this->init_settings();
 
 		// JS Library.
-		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'admin_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 
 		// Actions.
-		add_action( 'woocommerce_update_options_integration_' . $this->id, array( __CLASS__, 'process_admin_options' ) );
+		add_action( 'woocommerce_update_options_integration_' . $this->id, array( $this, 'process_admin_options' ) );
 	}
 
 	/**

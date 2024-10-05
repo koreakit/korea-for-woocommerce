@@ -5,7 +5,10 @@
 
 namespace Greys\WooCommerce\Korea\ShoppingEnginePage;
 
-defined( 'ABSPATH' ) || exit;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Naver class.
@@ -13,31 +16,24 @@ defined( 'ABSPATH' ) || exit;
 class Naver {
 
 	/**
-	 * Yes or no based on whether the method is enabled.
-	 *
-	 * @var boolean
-	 */
-	private static $enabled;
-
-	/**
 	 * Initialize
 	 */
-	public static function init() {
+	public function __construct() {
 		$settings = get_option( 'woocommerce_korea_settings' );
 
-		self::$enabled = isset( $settings['naver_shopping_ep'] ) && ! empty( $settings['naver_shopping_ep'] ) ? 'yes' === $settings['naver_shopping_ep'] : false;
+		$this->enabled = isset( $settings['naver_shopping_ep'] ) && ! empty( $settings['naver_shopping_ep'] ) ? 'yes' === $settings['naver_shopping_ep'] : false;
 
-		if ( ! self::$enabled ) {
+		if ( ! $this->enabled ) {
 			return;
 		}
 
-		add_action( 'parse_request', array( __CLASS__, 'output' ) );
+		add_action( 'parse_request', array( $this, 'output' ) );
 	}
 
 	/**
 	 * Naver SEP output
 	 *
-	 * @return string
+	 * @return mixed
 	 */
 	public function output() {
 		$sep = isset( $_GET['wc-sep'] ) && ! empty( $_GET['wc-sep'] ) ? wc_clean( $_GET['wc-sep'] ) : '';
@@ -45,15 +41,14 @@ class Naver {
 			return;
 		}
 
-		$products = new WP_Query(
+		$products = wc_get_products(
 			array(
-				'post_type'      => 'product',
-				'post_status'    => array( 'publish' ),
-				'posts_per_page' => -1,
+				'status'         => 'publish',
+				'limit'          => -1,
 			)
 		);
 
-		if ( ! $products->have_posts() ) {
+		if ( empty( $products ) ) {
 			return;
 		}
 
@@ -74,18 +69,15 @@ class Naver {
 
 		echo implode( chr( 9 ), $headers ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
-		while ( $products->have_posts() ) {
-			$products->the_post();
-
-			global $product;
-
-			if ( empty( $product ) || ! $product->is_visible() ) {
+		foreach ( $products as $product ) {
+			if ( ! $product->is_visible() ) {
 				continue;
 			}
 
 			$category_name = '';
-			$categories = get_the_terms( get_the_ID(), 'product_cat' );
-			foreach ( $categories as $category ) {
+			$categories    = $product->get_category_ids();
+			foreach ( $categories as $category_id ) {
+				$category      = get_term_by( 'id', $category_id, 'product_cat' );
 				if ( 0 !== $category->parent ) {
 					continue;
 				}
@@ -94,20 +86,18 @@ class Naver {
 			}
 
 			$values   = array();
-			$values[] = absint( get_the_ID() );
-			$values[] = esc_html( get_the_title() );
-			$values[] = esc_html( get_post_meta( get_the_ID(), '_regular_price', true ) );
-			$values[] = esc_url( get_the_permalink() );
-			$values[] = esc_url( get_the_post_thumbnail_url( get_the_ID() ) );
+			$values[] = absint( $product->get_id() );
+			$values[] = esc_html( $product->get_name() );
+			$values[] = esc_html( $product->get_regular_price() );
+			$values[] = esc_url( $product->get_permalink() );
+			$values[] = esc_url( $product->get_image_url() );
 			$values[] = esc_html( $category_name );
 			$values[] = '0';
 			$values[] = 'u';
-			$values[] = esc_html( get_the_modified_date( 'Y-m-d' ) . ' ' . get_the_modified_date( 'H:i:s' ) );
+			$values[] = esc_html( $product->get_date_modified( 'Y-m-d H:i:s' ) );
 
 			echo PHP_EOL . implode( chr( 9 ), $values ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
-
-		wp_reset_postdata();
 
 		echo ob_get_clean();
 		exit;

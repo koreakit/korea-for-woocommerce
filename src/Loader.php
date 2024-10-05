@@ -8,10 +8,12 @@
 
 namespace Greys\WooCommerce\Korea;
 
-defined( 'ABSPATH' ) || exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
-use const Greys\WooCommerce\Korea\ABSPATH as ABSPATH;
-use const Greys\WooCommerce\Korea\MAIN_FILE as MAIN_FILE;
+use const Greys\WooCommerce\Korea\MainFile as MAIN_FILE;
+use const Greys\WooCommerce\Korea\Basename as BASENAME;
 
 /**
  * Loader class.
@@ -61,25 +63,7 @@ class Loader {
 	public function __construct() {
 		// WooCommerce
 		if ( ! class_exists( 'WooCommerce' ) ) {
-			add_action( 'admin_notices',
-				function() {
-					echo '<div class="error"><p>';
-					echo wp_kses(
-						sprintf(
-							/* translators: 1) woocommerce link */
-							__( 'Korea for WooCommerce requires WooCommerce to be installed and active. You can download <a href="%s" target="_blank">WooCommerce</a> here.', 'korea-for-woocommerce' ),
-							'https://woocommerce.com/'
-						),
-						array(
-							'a' => array(
-								'href'   => array(),
-								'target' => array(),
-							),
-						)
-					);
-					echo '</p></div>';
-				}
-			);
+			add_action( 'admin_notices', array( __CLASS__, 'missing_wc_notice' ) );
 			return;
 		}
 
@@ -92,6 +76,14 @@ class Loader {
 	}
 
 	/**
+	 * WooCommerce fallback notice.
+	 */
+	public static function missing_wc_notice() {
+		/* translators: 1. URL link. */
+		echo '<div class="error"><p><strong>' . sprintf( esc_html__( 'Korea for WooCommerce requires WooCommerce to be installed and active. You can download %s here.', 'korea-for-woocommerce' ), '<a href="https://woocommerce.com/" target="_blank">WooCommerce</a>' ) . '</strong></p></div>';
+	}
+
+	/**
 	* Initialize the plugin.
 	*/
 	public function admin_init() {
@@ -99,55 +91,43 @@ class Loader {
 			return;
 		}
 
-		Admin\Controller::init();
-		Admin\Licenses\FormHandler::init();
+		do_action( 'woocommerce_korea_admin_init' );
+
+		$load_admin_classes = array(
+			__NAMESPACE__ . '\Admin\Controller',
+			__NAMESPACE__ . '\Admin\Licenses\FormHandler'
+		);
+
+		$load_admin_classes = apply_filters( 'woocommerce_korea_admin_classes', $load_admin_classes );
+
+		foreach ( $load_admin_classes as $admin_class ) {
+			new $admin_class();
+		}
 	}
 
 	/**
 	* Initialize the plugin.
 	*/
 	public function init() {
-		Analytics\Naver::init();
-		Checkout\Address::init();
-		Checkout\Phone::init();
-		Checkout\Postcode::init();
-		ShoppingEnginePage\Daum::init();
-		ShoppingEnginePage\Naver::init();
-		Support\KakaoChannel::init();
-		Support\NaverTalkTalk::init();
-		BackwardCompatibility::init();
-	}
+		do_action( 'woocommerce_korea_init' );
 
-	/**
-	 * Verify if the requirements are met
-	 */
-	public static function requirements() {
-		// WooCommerce
-		if ( ! class_exists( 'WooCommerce' ) ) {
-			add_action(
-				'admin_notices',
-				function() {
-					echo '<div class="error"><p>';
-					echo wp_kses(
-						sprintf(
-							/* translators: 1) woocommerce link */
-							__( 'Korea for WooCommerce requires WooCommerce to be installed and active. You can download <a href="%s" target="_blank">WooCommerce</a> here.', 'korea-for-woocommerce' ),
-							'https://woocommerce.com/'
-						),
-						array(
-							'a' => array(
-								'href'   => array(),
-								'target' => array(),
-							),
-						)
-					);
-					echo '</p></div>';
-				}
-			);
-			return false;
+		$load_classes = array(
+			__NAMESPACE__ . '\Analytics\Naver',
+			__NAMESPACE__ . '\Checkout\Controller',
+			__NAMESPACE__ . '\Checkout\Postcode',
+			__NAMESPACE__ . '\ShoppingEnginePage\Daum',
+			__NAMESPACE__ . '\ShoppingEnginePage\Naver',
+			__NAMESPACE__ . '\Support\KakaoChannel',
+			__NAMESPACE__ . '\Support\NaverTalkTalk',
+			__NAMESPACE__ . '\BackwardCompatibility',
+		);
+
+		$load_classes = apply_filters( 'woocommerce_korea_classes', $load_classes );
+
+		// Load classes.
+		foreach ( $load_classes as $class ) {
+			new $class();
 		}
-
-		return true;
 	}
 
 	/**
@@ -163,26 +143,26 @@ class Loader {
 
 		unload_textdomain( 'korea-for-woocommerce' );
 		load_textdomain( 'korea-for-woocommerce', WP_LANG_DIR . '/korea-for-woocommerce/korea-for-woocommerce-' . $locale . '.mo' );
-		load_plugin_textdomain( 'korea-for-woocommerce', false, plugin_basename( dirname( ABSPATH ) ) . '/i18n' );
+		load_plugin_textdomain( 'korea-for-woocommerce', false, plugin_basename( BASENAME ) . '/i18n' );
 	}
 
 	/**
 	 * Hooks
 	 */
 	public static function hooks() {
-		add_filter( 'woocommerce_integrations', array( __CLASS__, 'add_korea_integration' ) );
+		add_action( 'before_woocommerce_init', [ __CLASS__, 'enable_hpos_compatibility' ] );
 		add_filter( 'plugin_action_links_' . plugin_basename( MAIN_FILE ), array( __CLASS__, 'plugin_action_links' ) );
 	}
 
 	/**
-	 * Add a Korean integration to WooCommerce.
-	 *
-	 * @param array $integrations Integrations.
-	 * @return array
+	 * Enable HPOS compatibility.
 	 */
-	public static function add_korea_integration( $integrations ) {
-		$integrations[] = '\Greys\WooCommerce\Korea\Admin\Integration';
-		return $integrations;
+	public static function enable_hpos_compatibility() {
+		if ( ! class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+			return;
+		}
+
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', plugin_basename( BASENAME ), true );
 	}
 
 	/**
@@ -195,8 +175,8 @@ class Loader {
 	public static function plugin_action_links( $links ) {
 		return array_merge(
 			array(
-				'<a href="admin.php?page=wc-settings&tab=integration&section=korea">' . esc_html__( 'Settings', 'korea-for-woocommerce' ) . '</a>',
-				'<a href="admin.php?page=wc-addons&section=wc-korea">' . esc_html__( 'Addons', 'korea-for-woocommerce' ) . '</a>',
+				'<a href="admin.php?page=wc-korea-settings">' . esc_html__( 'Settings', 'korea-for-woocommerce' ) . '</a>',
+				'<a href="admin.php?page=wc-korea-settings&tab=addons">' . esc_html__( 'Addons', 'korea-for-woocommerce' ) . '</a>',
 				'<a href="https://greys.co/contact/">' . esc_html__( 'Support', 'korea-for-woocommerce' ) . '</a>',
 			),
 			$links

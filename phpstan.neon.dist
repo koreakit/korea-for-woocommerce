@@ -1,0 +1,22 @@
+includes:
+    - vendor/szepeviktor/phpstan-wordpress/extension.neon
+parameters:
+    level: 5
+    #level: max
+    inferPrivatePropertyTypeFromConstructor: true
+    bootstrapFiles:
+        - tests/phpstan/constants.php
+        # TODO Install php-stubs/woocommerce-stubs
+        - vendor/php-stubs/woocommerce-stubs/woocommerce-stubs.php
+    paths:
+        - korea-for-woocommerce.php
+        - src/
+    ignoreErrors:
+        # Uses func_get_args()
+        - '#^Function apply_filters(_ref_array)? invoked with [34567] parameters, 2 required\.$#'
+        # TODO Define properties.
+        - '#^Access to an undefined property WC_Korea#'
+        # TODO Please consider using if statement: defined( 'ABSPATH' ) || exit;
+        - '#^Right side of \|\| is always false\.$#'
+        # TODO Please consider removing @extends tags
+        - '#^PHPDoc tag @extends has invalid value \(WC_Korea#'

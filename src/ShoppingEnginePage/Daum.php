@@ -5,7 +5,10 @@
 
 namespace Greys\WooCommerce\Korea\ShoppingEnginePage;
 
-defined( 'ABSPATH' ) || exit;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Daum class.
@@ -13,16 +16,14 @@ defined( 'ABSPATH' ) || exit;
 class Daum {
 
 	/**
-	 * Yes or no based on whether the method is enabled.
-	 *
-	 * @var boolean
+	 * Enabled.
 	 */
 	private static $enabled;
 
 	/**
 	 * Initialize
 	 */
-	public static function init() {
+	public function __construct() {
 		$settings = get_option( 'woocommerce_korea_settings' );
 
 		self::$enabled = isset( $settings['daum_shopping_ep'] ) && ! empty( $settings['daum_shopping_ep'] ) ? 'yes' === $settings['daum_shopping_ep'] : false;
@@ -31,29 +32,28 @@ class Daum {
 			return;
 		}
 
-		add_action( 'parse_request', array( __CLASS__, 'output' ) );
+		add_action( 'parse_request', [ __CLASS__, 'output' ] );
 	}
 
 	/**
 	 * Daum SEP output
 	 *
-	 * @return string
+	 * @return mixed
 	 */
-	public function output() {
+	public static function output() {
 		$sep = isset( $_GET['wc-sep'] ) && ! empty( $_GET['wc-sep'] ) ? wc_clean( $_GET['wc-sep'] ) : '';
 		if ( 'daum' !== $sep ) {
 			return;
 		}
 
-		$products = new WP_Query(
+		$products = wc_get_products(
 			array(
-				'post_type'      => 'product',
-				'post_status'    => array( 'publish' ),
-				'posts_per_page' => -1,
+				'status'         => 'publish',
+				'limit'          => -1,
 			)
 		);
 
-		if ( ! $products->have_posts() ) {
+		if ( empty( $products ) ) {
 			return;
 		}
 
@@ -61,17 +61,13 @@ class Daum {
 
 		ob_start();
 
-		while ( $products->have_posts() ) {
-			$products->the_post();
-
-			global $product;
-
-			if ( empty( $product ) || ! $product->is_visible() ) {
+		foreach ( $products as $product ) {
+			if ( ! $product->is_visible() ) {
 				continue;
 			}
 
-			$categories = get_the_terms( get_the_ID(), 'product_cat' );
-			$class = 'U';
+			$categories = $product->get_category_ids();
+			$class      = 'U';
 
 			/**
 			 * Verify with variations
@@ -82,17 +78,22 @@ class Daum {
 
 			$values   = array();
 			$values[] = '<<<begin>>>';
-			$values[] = '<<<mapid>>>' . absint( get_the_ID() );
-			$values[] = '<<<price>>>' . esc_html( get_post_meta( get_the_ID(), '_regular_price', true ) );
-			$values[] = '<<<class>>>U';
-			$values[] = '<<<utime>>>' . esc_html( get_the_modified_date( 'H:i:s' ) );
-			$values[] = '<<<pname>>>' . esc_html( get_the_title() );
-			$values[] = '<<<pgurl>>>' . esc_url( get_the_permalink() );
-			$values[] = '<<<igurl>>>' . esc_url( get_the_post_thumbnail_url( get_the_ID() ) );
+			$values[] = '<<<mapid>>>' . absint( $product->get_id() );
+			$values[] = '<<<price>>>' . esc_html( $product->get_regular_price() );
+			$values[] = '<<<class>>>' . esc_html( $class );
+			$values[] = '<<<utime>>>' . esc_html( $product->get_modified_date( 'H:i:s' ) );
+			$values[] = '<<<pname>>>' . esc_html( $product->get_name() );
+			$values[] = '<<<pgurl>>>' . esc_url( $product->get_permalink() );
+			$values[] = '<<<igurl>>>' . esc_url( $product->get_image_url() );
 
 			$i = 1;
-			foreach ( $categories as $category ) {
-				$values[] = '<<<cate' . $i . '>>>' . absint( $category->ID );
+			foreach ( $categories as $category_id ) {
+				$category = get_term( $category_id, 'product_cat' );
+				if ( ! $category || is_wp_error( $category ) ) {
+					continue;
+				}
+
+				$values[] = '<<<cate' . $i . '>>>' . absint( $category->term_id );
 				$values[] = '<<<caid' . $i . '>>>' . esc_html( $category->name );
 				++$i;
 			}

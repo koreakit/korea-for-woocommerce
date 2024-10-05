@@ -5,7 +5,9 @@
 
 namespace Greys\WooCommerce\Korea\Support;
 
-defined( 'ABSPATH' ) || exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * KakaoChannel class.
@@ -15,11 +17,11 @@ class KakaoChannel {
 	/**
 	 * Initialize
 	 */
-	public static function init() {
+	public function __construct() {
 		$settings = get_option( 'woocommerce_korea_settings' );
 
-		self::$enabled = isset( $settings['kakaochannel_yn'] ) && ! empty( $settings['kakaochannel_yn'] ) ? 'yes' === $settings['kakaochannel_yn'] : false;
-		if ( ! self::$enabled ) {
+		$this->enabled = isset( $settings['kakaochannel_yn'] ) && ! empty( $settings['kakaochannel_yn'] ) ? 'yes' === $settings['kakaochannel_yn'] : false;
+		if ( ! $this->enabled ) {
 			return;
 		}
 
@@ -30,13 +32,13 @@ class KakaoChannel {
 		$this->btncolor = isset( $settings['kakaochannel_btncolor'] ) && ! empty( $settings['kakaochannel_btncolor'] ) ? $settings['kakaochannel_btncolor'] : 'yellow';
 
 		// Enqueue styles.
-		add_action( 'wp_head', array( __CLASS__, 'add_styles' ) );
+		add_action( 'wp_head', array( $this, 'add_styles' ) );
 
 		// Shortcodes.
-		add_shortcode( 'kakaochannel', array( __CLASS__, 'shortcode_output' ) );
+		add_shortcode( 'kakaochannel', array( $this, 'shortcode_output' ) );
 
 		// Add Kakao Channel.
-		add_action( 'wp_footer', array( __CLASS__, 'output' ) );
+		add_action( 'wp_footer', array( $this, 'output' ) );
 	}
 
 	/**

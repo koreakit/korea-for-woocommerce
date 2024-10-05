@@ -5,7 +5,9 @@
 
 namespace Greys\WooCommerce\Korea\Support;
 
-defined( 'ABSPATH' ) || exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Naver_TalkTalk class.
@@ -18,8 +20,8 @@ class NaverTalkTalk {
 	public static function init() {
 		$settings = get_option( 'woocommerce_korea_settings' );
 
-		self::$enabled = isset( $settings['navertalktalk_yn'] ) && ! empty( $settings['navertalktalk_yn'] ) ? 'yes' === $settings['navertalktalk_yn'] : false;
-		if ( ! self::$enabled ) {
+		$this->enabled = isset( $settings['navertalktalk_yn'] ) && ! empty( $settings['navertalktalk_yn'] ) ? 'yes' === $settings['navertalktalk_yn'] : false;
+		if ( ! $this->enabled ) {
 			return;
 		}
 
@@ -29,14 +31,14 @@ class NaverTalkTalk {
 		}
 
 		// Enqueue scripts/styles.
-		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'add_scripts' ), -1 );
-		add_action( 'wp_head', array( __CLASS__, 'add_styles' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'add_scripts' ), -1 );
+		add_action( 'wp_head', array( $this, 'add_styles' ) );
 
 		// Shortcodes.
-		add_shortcode( 'navertalktalk', array( __CLASS__, 'shortcode_output' ) );
+		add_shortcode( 'navertalktalk', array( $this, 'shortcode_output' ) );
 
 		// Add Naver TalkTalk.
-		add_action( 'wp_footer', array( __CLASS__, 'output' ), 90 );
+		add_action( 'wp_footer', array( $this, 'output' ), 90 );
 	}
 
 	/**

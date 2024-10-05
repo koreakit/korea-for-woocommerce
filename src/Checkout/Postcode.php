@@ -5,10 +5,13 @@
 
 namespace Greys\WooCommerce\Korea\Checkout;
 
-defined( 'ABSPATH' ) || exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
-use const Greys\WooCommerce\Korea\VERSION as VERSION;
-use const Greys\WooCommerce\Korea\MAIN_FILE as MAIN_FILE;
+use const Greys\WooCommerce\Korea\MainFile as MAIN_FILE;
+use const Greys\WooCommerce\Korea\Basename as BASENAME;
+use const Greys\WooCommerce\Korea\Version as VERSION;
 
 /**
  * Postcode class.
@@ -18,11 +21,11 @@ class Postcode {
 	/**
 	 * Initialize
 	 */
-	public static function init() {
+	public function __construct() {
 		$settings      = get_option( 'woocommerce_korea_settings' );
-		self::$enabled = isset( $settings['postcode_yn'] ) && ! empty( $settings['postcode_yn'] ) ? 'yes' === $settings['postcode_yn'] : false;
+		$this->enabled = isset( $settings['postcode_yn'] ) && ! empty( $settings['postcode_yn'] ) ? 'yes' === $settings['postcode_yn'] : false;
 
-		if ( ! self::$enabled ) {
+		if ( ! $this->enabled ) {
 			return;
 		}
 
@@ -37,8 +40,8 @@ class Postcode {
 		$this->emphtxtcolor       = isset( $settings['postcode_emphtxtcolor'] ) && ! empty( $settings['postcode_emphtxtcolor'] ) ? $settings['postcode_emphtxtcolor'] : '#008bd3';
 		$this->outlinecolor       = isset( $settings['postcode_outlinecolor'] ) && ! empty( $settings['postcode_outlinecolor'] ) ? $settings['postcode_outlinecolor'] : '#e0e0e0';
 
-		add_action( 'wp_footer', array( __CLASS__, 'wp_footer' ) );
-		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'wp_enqueue_scripts' ) );
+		add_action( 'wp_footer', array( $this, 'wp_footer' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
 	}
 
 	/**
@@ -96,7 +99,7 @@ class Postcode {
 		}
 
 		wp_enqueue_script( 'wc-korea-daum-postcode', '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js', array(), null, true );
-		wp_enqueue_script( 'wc-korea-postcode', plugins_url( 'assets/js/wc-korea-postcode.js', MAIN_FILE ), array( 'jquery' ), VERSION, true );
+		wp_enqueue_script( 'wc-korea-postcode', plugins_url( 'assets/js/postcode.js', MAIN_FILE ), array( 'jquery' ), VERSION, true );
 		wp_localize_script(
 			'wc-korea-postcode',
 			'_postcode',

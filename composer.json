@@ -10,12 +10,17 @@
 		"phpunit/phpunit": "^7.0",
 		"squizlabs/php_codesniffer": "^3.5",
 		"woocommerce/woocommerce-sniffs": "^0.1.0",
-		"wp-phpunit/wp-phpunit": "^5.8"
+		"wp-phpunit/wp-phpunit": "^5.8",
+		"szepeviktor/phpstan-wordpress": "^0.7.7",
+		"php-stubs/woocommerce-stubs": "^5.7"
 	},
 	"config": {
-	  "platform": {
-			"php": "7.1"
-	  }
+		"platform": {
+			"php": "7.4"
+		},
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
 	},
 	"scripts": {
 		"test": [
@@ -31,7 +36,7 @@
 			"phpcbf -p"
 		],
 		"makepot-audit": [
-			"wp --allow-root i18n make-pot . --exclude=\".github,.wordpress-org,bin,sample-data,node_modules,tests,vendor\" --slug=korea-for-woocommerce"
+			"wp --allow-root i18n make-pot . --exclude=\".github,.vscode,.wordpress-org,bin,sample-data,node_modules,tests,vendor\" --slug=korea-for-woocommerce"
 		],
 		"makepot": [
 			"@makepot-audit --skip-audit"
@@ -49,6 +54,11 @@
 	"autoload": {
 		"psr-4": {
 			"Greys\\WooCommerce\\Korea\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Greys\\WooCommerce\\Korea\\Tests\\": "tests/php/src/"
 		}
 	}
 }

@@ -1,47 +1,47 @@
 {
-  "name": "korea-for-woocommerce",
-  "title": "WooCommerce Toolkit for Korean use.",
-  "version": "1.1.6",
-  "license": "GPL-3.0",
-  "main": "Gruntfile.js",
-  "homepage": "https://wordpress.org/plugins/korea-for-woocommerce/",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:jgreys/korea-for-woocommerce.git"
-  },
-  "devDependencies": {
-    "@wordpress/env": "^4.1.1",
-    "cypress": "^8.5.0",
-    "cypress-woocommerce": "^0.1.1",
-    "grunt": "1.4.1",
-    "grunt-contrib-cssmin": "4.0.0",
-    "grunt-contrib-jshint": "3.1.1",
-    "grunt-contrib-uglify": "5.0.1",
-    "grunt-contrib-watch": "1.1.0",
-    "grunt-phpcs": "0.4.0",
-    "grunt-sass": "^3.1.0",
-    "node-sass": "^6.0.1",
-    "wait-on": "^6.0.0"
-  },
-  "scripts": {
-    "build": "grunt",
-    "build:watch": "grunt watch",
-    "build:zip": "./bin/build-zip.sh",
-    "build:assets": "grunt assets",
-    "cli:wp": "npx wp-env run cli wp",
-    "env:setup": "bin/setup.sh",
-    "env:clean": "npx wp-env clean",
-    "env:destroy": "npx wp-env destroy",
-    "env:logs": "npx wp-env logs",
-    "env:start": "npx wp-env start",
-    "env:stop": "npx wp-env stop",
-    "test:setup": "bash ./tests/bin/setup.sh",
-    "test:run": "npx cypress run --config-file tests/e2e/config.json",
-    "test:open": "npx cypress open --config-file tests/e2e/config.json",
-    "test:php": "npx wp-env run phpunit 'phpunit -c ./html/wp-content/plugins/korea-for-woocommerce/phpunit.xml'",
-    "makepot": "composer run-script makepot"
-  },
-  "engines": {
-    "npm": ">=5.5.1"
-  }
+	"name": "korea-for-woocommerce",
+	"title": "Korea for WooCommerce",
+	"version": "1.2.0",
+	"description": "WooCommerce Toolkit for Korean use.",
+	"author": "Greys",
+	"license": "GPL-2.0-or-later",
+	"homepage": "https://wordpress.org/plugins/korea-for-woocommerce/",
+	"repository": {
+		"type": "git",
+		"url": "git@github.com:jgreys/korea-for-woocommerce.git"
+	},
+	"devDependencies": {
+		"@playwright/test": "^1.40.1",
+		"@wordpress/e2e-test-utils-playwright": "^0.15.0",
+		"@wordpress/e2e-tests": "^7.18.0",
+		"@wordpress/env": "^8.13.0",
+		"@wordpress/scripts": "^26.18.0"
+	},
+	"scripts": {
+		"build": "npx wp-scripts build",
+		"build:css": "npx wp-scripts build 'assets/src/scss/**/*.scss' --output-path 'assets/css'",
+		"build:js": "npx wp-scripts build 'assets/src/js/**/*.js' --output-path 'assets/js'",
+		"check-engines": "npx wp-scripts check-engines",
+		"check-licenses": "npx wp-scripts check-licenses",
+		"format": "npx wp-scripts format",
+		"lint:css": "npx wp-scripts lint-style 'assets/src/scss/**/*.scss'",
+		"lint:js": "npx wp-scripts lint-js 'assets/src/js/**/*.js'",
+		"lint:md:docs": "npx wp-scripts lint-md-docs",
+		"lint:pkg-json": "npx wp-scripts lint-pkg-json",
+		"packages-update": "npx wp-scripts packages-update",
+		"plugin-zip": "npx wp-scripts plugin-zip",
+		"env:setup": "bin/setup.sh",
+		"env:clean": "npx wp-env clean",
+		"env:destroy": "npx wp-env destroy",
+		"env:logs": "npx wp-env logs",
+		"env:start": "npx wp-env start",
+		"env:stop": "npx wp-env stop",
+		"test:e2e": "npx wp-scripts test-playwright --config ./tests/e2e/playwright.config.ts --reporter=list",
+		"test:e2e:debug": "npx wp-scripts test-playwright --config ./tests/e2e/playwright.config.ts --debug",
+		"test:e2e:watch": "npx wp-scripts test-playwright --config ./tests/e2e/playwright.config.ts --ui",
+		"test:e2e:tracing": "npx wp-scripts test-playwright --config ./tests/e2e/playwright.config.ts --trace on",
+		"test:unit:php": "npx wp-env run phpunit 'phpunit -c ./html/wp-content/plugins/korea-for-woocommerce/phpunit.xml'",
+		"test:unit:js": "npx wp-scripts test-unit",
+		"makepot": "composer run-script makepot"
+	}
 }

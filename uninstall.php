@@ -7,10 +7,14 @@
  * @package WC_Korea
  */
 
-defined( 'ABSPATH' ) || exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 // if uninstall not called from WordPress exit.
-defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
+if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
+	exit;
+}
 
 /*
  * Only remove ALL product and page data if WC_KOREA_REMOVE_ALL_DATA constant is set to true in user's

@@ -5,12 +5,12 @@
 
 namespace Greys\WooCommerce\Korea\Payment;
 
-defined( 'ABSPATH' ) || exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * PaymentGateway abstract class.
- *
- * @extends \WC_Payment_Gateway
  */
 class PaymentGateway extends \WC_Payment_Gateway {
 

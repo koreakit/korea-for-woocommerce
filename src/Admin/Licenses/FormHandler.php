@@ -27,13 +27,13 @@ class FormHandler {
 	 *
 	 * @since 1.0.3
 	 */
-	public function register_settings() {
+	public static function register_settings() {
 		// Licenses
 		$licenses = apply_filters( 'woocommerce_korea_plugin_license_settings', array() );
 
 		add_settings_section(
 			'wc_korea_plugin_license_settings_section',
-			__return_null(),
+			__return_empty_string(),
 			'__return_false',
 			'wc_korea_plugin_license_settings_section'
 		);
@@ -255,7 +255,7 @@ class FormHandler {
 	 * @param array $input the value inputted in the field.
 	 * @return string $input sanitized value
 	 */
-	public function settings_sanitize( $input = array() ) {
+	public static function settings_sanitize( $input = array() ) {
 		$setting_types = array( 'text' );
 
 		foreach ( $setting_types as $type ) {

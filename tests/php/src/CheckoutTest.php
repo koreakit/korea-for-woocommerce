@@ -2,16 +2,23 @@
 /**
  * These teste make assertions against class WC_Korea_Test.
  *
- * @package WC_Korea_Test/Tests/Checkout
+ * @package Greys\WooCommerce\Korea\Tests\Checkout
  */
+
+namespace Greys\WooCommerce\Korea\Tests;
 
 use Greys\WooCommerce\Korea\Checkout\Helper;
-use Greys\WooCommerce\Korea\Checkout\Phone;
 
 /**
- * WC_Korea_Checkout_Test class.
+ * CheckoutTest class.
  */
-class Checkout extends WP_UnitTestCase {
+class CheckoutTest extends \WP_UnitTestCase {
+
+	public function setUp() {
+        parent::setUp();
+
+		$this->CheckoutPhone = new \Greys\WooCommerce\Korea\Checkout\Phone();
+    }
 
 	public function test_format_phone() {
 		$this->assertEquals( '1588-0000', Helper::format_phone( '1588-0000' ) );
@@ -53,25 +60,23 @@ class Checkout extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test woocommerce_korea_checkout_phone_validation filter.
+	 * Test phone filters.
 	 */
-	public function test_phone_validation_filter() {
-		$this->assertEquals( 10, has_action( 'woocommerce_after_checkout_validation', array( 'Phone', 'validate_phone' ) ) );
+	public function test_phone_filters() {
+		// Validation.
+		$this->assertEquals( 10, has_action( 'woocommerce_after_checkout_validation', array( $this->CheckoutPhone, 'validate_phone' ) ) );
+
+		// Format.
+		$this->assertEquals( 10, has_action( 'woocommerce_checkout_create_order', array( $this->CheckoutPhone, 'format_phone' ) ) );
+   		$this->assertEquals( 10, has_action( 'woocommerce_checkout_update_customer', array( $this->CheckoutPhone, 'format_phone' ) ) );
 
 		add_filter( 'woocommerce_korea_checkout_phone_validation', '__return_false' );
-		$this->assertFalse( has_action( 'woocommerce_after_checkout_validation', array( 'Phone', 'validate_phone' ) ) );
-	}
-
-	/**
-	 * Test woocommerce_korea_checkout_phone_format filter.
-	 */
-	public function test_phone_format_filter() {
-		$this->assertEquals( 10, has_action( 'woocommerce_checkout_create_order', array( 'Phone', 'format_phone' ) ) );
-   		$this->assertEquals( 10, has_action( 'woocommerce_checkout_update_customer', array( 'Phone', 'format_phone' ) ) );
-
 		add_filter( 'woocommerce_korea_checkout_phone_format', '__return_false' );
-		$this->assertFalse( has_action( 'woocommerce_checkout_create_order', array( 'Phone', 'format_phone' ) ) );
-		$this->assertFalse( has_action( 'woocommerce_checkout_update_customer', array( 'Phone', 'format_phone' ) ) );
+
+		$this->CheckoutPhone = new \Greys\WooCommerce\Korea\Checkout\Phone();
+		$this->assertFalse( has_action( 'woocommerce_after_checkout_validation', array( $this->CheckoutPhone, 'validate_phone' ) ) );
+		$this->assertFalse( has_action( 'woocommerce_checkout_create_order', array( $this->CheckoutPhone, 'format_phone' ) ) );
+		$this->assertFalse( has_action( 'woocommerce_checkout_update_customer', array( $this->CheckoutPhone, 'format_phone' ) ) );
 	}
 
 	/**
@@ -80,7 +85,7 @@ class Checkout extends WP_UnitTestCase {
 	public function test_get_country_locale() {
 		get_option( 'woocommerce_default_country', 'KR' );
 
-		$countries = new WC_Countries();
+		$countries = new \WC_Countries();
 		$locales = $countries->get_country_locale();
 
 		$this->assertTrue( $locales['KR']['postcode']['required'] );

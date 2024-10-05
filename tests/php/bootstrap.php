@@ -41,6 +41,11 @@ class Bootstrap {
 
 		$this->wp_tests_dir = getenv( 'WP_TESTS_DIR' ) ? getenv( 'WP_TESTS_DIR' ) : sys_get_temp_dir() . '/wordpress-tests-lib';
 
+		if ( ! file_exists( $this->wp_tests_dir . '/includes/functions.php' ) ) {
+			echo "Could not find $this->wp_tests_dir/includes/functions.php, have you run `composer install` ?";
+			exit( 1 );
+		}
+
 		// load test function so tests_add_filter() is available.
 		require_once $this->wp_tests_dir . '/includes/functions.php';
 

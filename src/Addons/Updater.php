@@ -6,14 +6,16 @@
  * @author  @jgreys
  */
 
-namespace Greys\WooCommerce\Korea\Updater;
+namespace Greys\WooCommerce\Korea\Addons;
 
-defined( 'ABSPATH' ) || exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Adds the plugin updater API.
  */
-class Controller {
+class Updater {
 
 	/**
 	 * URL from which updates are retrieved
@@ -83,7 +85,7 @@ class Controller {
 	 * Class constructor.
 	 *
 	 * @param string $_plugin_file path to the plugin file.
-	 * @param string $_api_data optional data to send with API calls.
+	 * @param array $_api_data optional data to send with API calls.
 	 * @param string $_api_url the URL pointing to the custom API endpoint.
 	 */
 	public function __construct( $_plugin_file, $_api_data, $_api_url = 'https://greys.co/' ) {
@@ -134,7 +136,7 @@ class Controller {
 	 * @since 1.0.0
 	 *
 	 * @param array $_transient_data Update array build by WordPress.
-	 * @return array Modified update array with custom plugin data.
+	 * @return object Modified update array with custom plugin data.
 	 */
 	public function check_update( $_transient_data ) {
 		global $pagenow;

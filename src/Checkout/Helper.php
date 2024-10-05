@@ -8,7 +8,9 @@
 
 namespace Greys\WooCommerce\Korea\Checkout;
 
-defined( 'ABSPATH' ) || exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Helper class.
@@ -23,30 +25,12 @@ class Helper {
 	 * @param string $tel Phone number.
 	 * @return bool
 	 */
-	public static function is_valid_phone( $tel ) {
-		$tel = str_replace( '-', '', self::format_phone( $tel ) );
+	public static function is_valid_phone(string $tel): bool {
+		$tel = str_replace('-', '', self::format_phone($tel));
 
-		if ( preg_match( '/^1[0-9]{7}$/', $tel ) ) {
-			return true;
-		}
+		$pattern = '/^(1[0-9]{7}|02[2-9][0-9]{6,7}|0[13-8][0-9][2-9][0-9]{6,7}|0(?:303|505)[2-9][0-9]{6,7}|01[016789][2-9][0-9]{6,7})$/';
 
-		if ( preg_match( '/^02[2-9][0-9]{6,7}$/', $tel ) ) {
-			return true;
-		}
-
-		if ( preg_match( '/^0[13-8][0-9][2-9][0-9]{6,7}$/', $tel ) ) {
-			return true;
-		}
-
-		if ( preg_match( '/^0(?:303|505)[2-9][0-9]{6,7}$/', $tel ) ) {
-			return true;
-		}
-
-		if ( preg_match( '/^01[016789][2-9][0-9]{6,7}$/', $tel ) ) {
-			return true;
-		}
-
-		return false;
+		return preg_match($pattern, $tel) === 1;
 	}
 
 	/**
@@ -72,24 +56,24 @@ class Helper {
 		// Apply different format based on the number of digits.
 		switch ( strlen( $tel ) ) {
 			case 8:
-				return substr( $tel, 0, 4 ) . '-' . substr( $tel, 4 );
+				return substr_replace( $tel, '-', 4, 0 );
 			case 9:
-				return substr( $tel, 0, 2 ) . '-' . substr( $tel, 2, 3 ) . '-' . substr( $tel, 5 );
+				return substr_replace( substr_replace( $tel, '-', 2, 0 ), '-', 6, 0 );
 			case 10:
 				if ( substr( $tel, 0, 2 ) === '02' ) {
-					return substr( $tel, 0, 2 ) . '-' . substr( $tel, 2, 4 ) . '-' . substr( $tel, 6 );
+					return substr_replace( substr_replace( $tel, '-', 2, 0 ), '-', 7, 0 );
 				} else {
-					return substr( $tel, 0, 3 ) . '-' . substr( $tel, 3, 3 ) . '-' . substr( $tel, 6 );
+					return substr_replace( substr_replace( $tel, '-', 3, 0 ), '-', 7, 0 );
 				}
 			default:
 				if ( substr( $tel, 0, 4 ) === '0303' || substr( $tel, 0, 3 ) === '050' ) {
 					if ( strlen( $tel ) === 12 ) {
-						return substr( $tel, 0, 4 ) . '-' . substr( $tel, 4, 4 ) . '-' . substr( $tel, 8 );
+						return substr_replace( substr_replace( $tel, '-', 4, 0 ), '-', 9, 0 );
 					} else {
-						return substr( $tel, 0, 4 ) . '-' . substr( $tel, 4, 3 ) . '-' . substr( $tel, 7 );
+						return substr_replace( substr_replace( $tel, '-', 4, 0 ), '-', 8, 0 );
 					}
 				} else {
-					return substr( $tel, 0, 3 ) . '-' . substr( $tel, 3, 4 ) . '-' . substr( $tel, 7 );
+					return substr_replace( substr_replace( $tel, '-', 3, 0 ), '-', 8, 0 );
 				}
 		}
 	}

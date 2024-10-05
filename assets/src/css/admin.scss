@@ -1,3 +1,57 @@
+.wc_addons_wrap {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-gap: 10px;
+	margin: 10px 0;
+
+	.products {
+		overflow: hidden;
+		display: -webkit-box;
+		display: flex;
+		-webkit-box-orient: horizontal;
+		-webkit-box-direction: normal;
+		flex-flow: row;
+		flex-wrap: wrap;
+		margin: 0 -.5em;
+
+		li {
+			float: left;
+			border: 1px solid #ddd;
+			margin: 0 .5em 1em!important;
+			padding: 0;
+			vertical-align: top;
+			width: 25%;
+			min-width: 280px;
+			min-height: 220px;
+			-webkit-box-flex: 1;
+			flex: 1;
+			overflow: hidden;
+			background: #f5f5f5;
+			box-shadow: inset 0 1px 0 rgba(255,255,255,.2),inset 0 -1px 0 rgba(0,0,0,.1);
+
+			a {
+				text-decoration: none;
+				color: inherit;
+				display: block;
+				height: 100%;
+
+				h2, h3 {
+					margin: 0!important;
+					padding: 20px!important;
+					background: #fff;
+				}
+
+				p {
+					padding: 20px!important;
+					margin: 0!important;
+					border-top: 1px solid #f1f1f1;
+				}
+			}
+		}
+	}
+}
+
+
 .wrap-korea-licenses .form-table,
 .wrap-korea-licenses thead,
 .wrap-korea-licenses tbody,
@@ -84,12 +138,4 @@
 }
 .wrap-korea-licenses p.submit {
 	clear: both;
-}
-
-.wc_addons_wrap .products li {
-	max-height: 220px;
-}
-
-.wc_addons_wrap .storefront {
-	display:none !important;
 }
