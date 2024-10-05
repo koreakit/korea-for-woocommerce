@@ -8,6 +8,7 @@
  * Author URI: https://greys.co/
  * Requires at least: 5.0.0
  * Tested up to: 6.5
+ * Requires Plugins: woocommerce
  * WC requires at least: 3.4.0
  * WC tested up to: 8.7.0
  *
