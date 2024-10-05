@@ -11,11 +11,11 @@
 		"url": "git@github.com:jgreys/korea-for-woocommerce.git"
 	},
 	"devDependencies": {
-		"@playwright/test": "^1.40.1",
-		"@wordpress/e2e-test-utils-playwright": "^0.15.0",
-		"@wordpress/e2e-tests": "^7.18.0",
-		"@wordpress/env": "^8.13.0",
-		"@wordpress/scripts": "^26.18.0"
+		"@playwright/test": "^1.47.2",
+		"@wordpress/e2e-test-utils": "^11.9.0",
+		"@wordpress/e2e-test-utils-playwright": "^1.9.0",
+		"@wordpress/env": "^10.9.0",
+		"@wordpress/scripts": "^30.1.0"
 	},
 	"scripts": {
 		"build": "npx wp-scripts build",
