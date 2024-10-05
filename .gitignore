@@ -11,6 +11,7 @@ project.properties
 *.sublime-workspace
 .sublimelinterrc
 *.swp
+.phpunit.result.cache
 
 # Grunt
 node_modules/

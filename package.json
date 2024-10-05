@@ -40,7 +40,7 @@
 		"test:e2e:debug": "npx wp-scripts test-playwright --config ./tests/e2e/playwright.config.ts --debug",
 		"test:e2e:watch": "npx wp-scripts test-playwright --config ./tests/e2e/playwright.config.ts --ui",
 		"test:e2e:tracing": "npx wp-scripts test-playwright --config ./tests/e2e/playwright.config.ts --trace on",
-		"test:unit:php": "npx wp-env run phpunit 'phpunit -c ./html/wp-content/plugins/korea-for-woocommerce/phpunit.xml'",
+		"test:unit:php": "npx wp-env run tests-cli --env-cwd=wp-content/plugins/korea-for-woocommerce vendor/bin/phpunit",
 		"test:unit:js": "npx wp-scripts test-unit",
 		"makepot": "composer run-script makepot"
 	}

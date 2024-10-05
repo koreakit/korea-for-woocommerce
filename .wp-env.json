@@ -7,13 +7,6 @@
 		"WP_TESTS_EMAIL": "admin@korea4wce2etestsuite.com",
 		"FS_METHOD": "direct"
 	},
-	"env": {
-		"tests": {
-			"mappings": {
-				"../../../tmp/wordpress-tests-lib": "./vendor/wp-phpunit/wp-phpunit"
-			}
-		}
-	},
 	"plugins": [
 		"https://downloads.wordpress.org/plugin/woocommerce.latest-stable.zip",
 		"https://downloads.wordpress.org/plugin/wordpress-importer.latest-stable.zip",
