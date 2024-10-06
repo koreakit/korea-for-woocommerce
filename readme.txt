@@ -16,7 +16,7 @@ This plugin enhance the shopping experience for your Korean customers. Korean Pa
 = Key Features =
 
 * Change the order of the address fields for Korea.
-* Add the postcode finder feature for Korean adresses.
+* Add the postcode finder feature for Korean addresses.
 * Add Naver Analytics feature.
 * Add your products on Naver Shopping and/or Daum Shopping.
 * Add korean delivery companies to "WooCommerce Shipment Tracking"

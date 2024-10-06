@@ -134,7 +134,7 @@ class WC_Korea_Addons_Premium extends WC_Korea_Addons {
 				),
 				'woocommerce-kras'                    => array(
 					'title'       => __( 'Korean Authentication Services', 'korea-for-woocommerce' ),
-					'description' => __( 'Korean Authentification Services (i-PIN, mobile phone) for WooCommerce', 'korea-for-woocommerce' ),
+					'description' => __( 'Korean Authentication Services (i-PIN, mobile phone) for WooCommerce', 'korea-for-woocommerce' ),
 					'permalink'   => __( 'https://greys.co/plugin/woocommerce-kras/', 'korea-for-woocommerce' ),
 					'price'       => __( '$249.00', 'korea-for-woocommerce' ),
 				),
